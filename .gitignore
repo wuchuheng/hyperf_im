@@ -1,0 +1,14 @@
+.idea
+/hyperf/.buildpath
+/hyperf/.settings/
+/hyperf/.project
+/hyperf/*.patch
+/hyperf/.idea/
+/hyperf/.git/
+/hyperf/runtime/
+/hyperf/vendor/
+/hyperf/.phpintel/
+/hyperf/.env
+/hyperf/.DS_Store
+/hyperf/*.lock
+/hyperf/.phpunit*
