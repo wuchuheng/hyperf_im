@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  hyperf:
+    image: hyperf:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+#      args:
+#        - http_proxy=http://127.0.0.1:1087
+#        - https_proxy=http://127.0.0.1:1087
+#        - HTTP_PROXY=http://127.0.0.1:1087
+#        - HTTPS_PROXY=http://127.0.0.1:1087
+    restart: always
+    ports:
+      - "9501:9501"
+    volumes:
+      - ./hyperf/:/opt/www/
+    privileged: true
+    working_dir: /opt/www/
+    command:
+      - /bin/sh
+      - -c
+      - |
+          composer install
+          php bin/hyperf.php start
+#        php watch -c             # 热更新
+
+  admin:
+    image: node:12.18
+    restart: always
+    ports:
+      - "9502:9528"
+    volumes:
+      - ./admin/:/opt/www/
+    privileged: true
+    working_dir: /opt/www/
+    command:
+      - /bin/sh
+      - -c
+      - |
+        yarn
+        yarn run dev
