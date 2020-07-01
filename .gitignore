@@ -12,3 +12,21 @@
 /hyperf/.DS_Store
 /hyperf/*.lock
 /hyperf/.phpunit*
+
+admin/.DS_Store
+admin/node_modules/
+admin/dist/
+admin/npm-debug.log*
+admin/yarn-debug.log*
+admin/yarn-error.log*
+admin/package-lock.json
+admin/tests/**/coverage/
+
+# Editor directories and files
+admin/.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
