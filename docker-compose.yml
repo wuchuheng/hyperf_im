@@ -5,7 +5,7 @@ services:
     image: hyperf:latest
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./hyperf/Dockerfile
 #      args:
 #        - http_proxy=http://127.0.0.1:1087
 #        - https_proxy=http://127.0.0.1:1087
