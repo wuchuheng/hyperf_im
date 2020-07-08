@@ -18,6 +18,7 @@ services:
       - ./hyperf/:/opt/www/
     privileged: true
     working_dir: /opt/www/
+    container_name: hyperf
     command:
       - /bin/sh
       - -c
@@ -35,6 +36,7 @@ services:
       - ./admin/:/opt/www/
     privileged: true
     working_dir: /opt/www/
+    container_name: admin
     command:
       - /bin/sh
       - -c
