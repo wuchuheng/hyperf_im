@@ -21,13 +21,15 @@ services:
     container_name: hyperf
     depends_on:
       - "mysql"
+    networks:
+      - default
     command:
       - /bin/sh
       - -c
       - |
           composer install
-          php bin/hyperf.php start
-#        php watch -c             # 热更新
+          #php bin/hyperf.php start
+          php watch -c             # 热更新
 
   admin:
     image: node:12.18
@@ -58,5 +60,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
     container_name: mysql
+    networks:
+      - default
 
-
+networks:
+  default:
