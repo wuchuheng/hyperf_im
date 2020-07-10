@@ -29,6 +29,7 @@ services:
       - |
           composer install
           #php bin/hyperf.php start
+          php bin/hyperf.php TryCreateDatabase:true
           php watch -c             # 热更新
 
   admin:
