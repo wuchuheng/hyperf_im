@@ -30,3 +30,6 @@ admin/.idea
 *.njsproj
 *.sln
 
+#mysql service
+/mysql/data
+
