@@ -12,7 +12,14 @@ declare(strict_types=1);
 namespace App\Model;
 
 use Hyperf\DbConnection\Model\Model as BaseModel;
+use Hyperf\HttpServer\Contract\RequestInterface;
+use Hyperf\Di\Annotation\Inject;
 
 abstract class Model extends BaseModel
 {
+    /**
+     * @Inject
+     * @var RequestInterface
+     */
+    protected $request;
 }
