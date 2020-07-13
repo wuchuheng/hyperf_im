@@ -14,7 +14,6 @@ class Database extends Seeder
      */
     public function run()
     {
-        Db::insert('INSERT INTO `users`(`id`, `username`, `nickname`, `password`, `avatar_id`, `created_at`, `updated_at`) VALUES (1, \'1\', \'2\', \'3\', 4, NULL, NULL);');
         Db::insert('INSERT INTO `hyperf`.`configures`(`id`, `key`, `value`, `note`, `created_at`, `updated_at`) VALUES (1, \'DEFAULT_DISK\', \'public\', \'默认存储硬盘\', NULL, NULL);');
         DB::insert('INSERT INTO `hyperf`.`configures`(`id`, `key`, `value`, `note`, `created_at`, `updated_at`) VALUES (2, \'APP_URL\', \'\', \'应用访问链接\', NULL, NULL);');
 
