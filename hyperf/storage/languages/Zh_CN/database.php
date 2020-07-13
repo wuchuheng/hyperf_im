@@ -5,7 +5,7 @@ return [
     'username' => '用户名',
     'nickname' => '昵称',
     'password' => '密码',
-    'avator_id' => '头像id',
+    'avatar_id' => '头像id',
     'albumstable' => '相册表',
     'disk' => '硬盘',
     'filepath' => '文件路径',
