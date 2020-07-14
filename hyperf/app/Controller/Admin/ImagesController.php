@@ -36,7 +36,7 @@ class ImagesController extends  AbstractController
         $AlbumsModel->path = $relative_file_name;
         $AlbumsModel->disk = $disk_name;
         if ($AlbumsModel->save()) {
-            return $this->successResponse($AlbumsModel->only('id', 'url'), 'success', 201);
+            return $this->successResponse($AlbumsModel->only('id', 'url'), 201);
         } else {
             return $this->failResponse(['errorCode' => 50000], 500);
         }

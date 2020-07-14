@@ -16,9 +16,16 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerInterface;
+use Qbhy\HyperfAuth\AuthManager;
 
 abstract class AbstractController
 {
+    /**
+     * @Inject
+     * @var AuthManager
+     */
+    protected $auth;
+
     /**
      * @Inject
      * @var ContainerInterface
@@ -37,13 +44,10 @@ abstract class AbstractController
      */
     protected $response;
 
-    public function successResponse(Array $data = [], string $message = 'success', int $status_code = 200)
+    public function successResponse(Array $data = [], int $status_code = 200)
     {
-        $return_data['message'] = $message;
-        if(count($data)) {
-           $return_data['data'] = $data;
-        }
-        return $this->response->json($return_data)->withStatus($status_code); }
+        return $this->response->json($data)->withStatus($status_code);
+    }
 
     public function failResponse(Array $data = [], int $status_code = 400)
     {

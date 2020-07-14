@@ -12,8 +12,10 @@ use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Qbhy\HyperfAuth\AuthManager;
+use Qbhy\HyperfAuth\Guard\JwtGuard;
 use Qbhy\SimpleJwt\EncryptAdapters\PasswordHashEncrypter;
 use Hyperf\Contract\ConfigInterface;
+use Qbhy\SimpleJwt\JWTManager;
 
 /**
  * @Controller()
@@ -27,11 +29,10 @@ class AuthorizationsController extends  AbstractController
     private $passwordHashEncrypter;
 
     /**
-     * @Inject
-     * @var AuthManager
+     * @Inject()
+     * @var ConfigInterface
      */
-    protected $auth;
-
+    protected $config;
 
     public function __construct(UsersModel $UsersModel)
     {
@@ -48,14 +49,32 @@ class AuthorizationsController extends  AbstractController
         $User = $this->userModel->where('username', $username)->first();
         if ($User && $this->passwordHashEncrypter->check($password, $User->password)) {
             $token = $this->auth->login($User);
-            return $this->successResponse([
-                    'access_token' => $token
-            ]);
+            return $this->successResponse($this->formaToken($token), 201);
         } else {
             return $this->failResponse([
                 'errorCode' => 50001,
                 'message' => __('api.username_invald_or_password_invalid')
             ]);
         }
+    }
+
+    /**
+     * @RequestMapping(path="current", methods={"put"})
+     */
+    public function update()
+    {
+        $token = $this->auth->guard('jwt')->refresh();
+        return $this->successResponse($this->formaToken($token), 201);
+    }
+
+    private function formaToken($token)
+    {
+        $payload = $this->auth->guard('jwt')->getJwtManager()->parse($token)->getPayload();
+        return [
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expired_at' => date('Y-m-d H:i:s', $payload['exp']),
+            'refreshed_at' => date('Y-m-d H:i:s', $this->config->get('auth.guards.jwt.refresh_ttl') + $payload['iat'])
+        ];
     }
 }

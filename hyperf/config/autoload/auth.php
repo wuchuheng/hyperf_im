@@ -27,7 +27,7 @@ return [
     ],
     'guards' => [
         'jwt' => [
-            'driver' => Qbhy\HyperfAuth\Guard\JwtGuard::class,
+            'driver' => \App\Service\JwtGuardService::class,
             'provider' => 'users',
 
             /*
@@ -41,7 +41,7 @@ return [
              * 可选配置
              * jwt 生命周期，单位分钟
              */
-            'ttl' => env('SIMPLE_JWT_TTL', 60 * 60),
+            'ttl' => env('SIMPLE_JWT_TTL', 60 * 24),
 
             /*
              * 可选配置
@@ -70,8 +70,8 @@ return [
              * 可选配置
              * 编码类
              */
-            'encoder' => new Encoders\Base64UrlSafeEncoder(),
-            //            'encoder' => new Encoders\Base64Encoder(),
+//            'encoder' => new Encoders\Base64UrlSafeEncoder(),
+            'encoder' => new Encoders\Base64Encoder(),
 
             /*
              * 可选配置

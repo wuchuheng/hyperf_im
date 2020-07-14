@@ -15,7 +15,9 @@ use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Psr\Http\Message\ResponseInterface;
+use Qbhy\SimpleJwt\Exceptions\TokenBlacklistException;
 use Throwable;
+use function Symfony\Component\String\u;
 
 class AppExceptionHandler extends ExceptionHandler
 {
@@ -33,11 +35,22 @@ class AppExceptionHandler extends ExceptionHandler
     {
         $this->logger->error(sprintf('%s[%s] in %s', $throwable->getMessage(), $throwable->getLine(), $throwable->getFile()));
         $this->logger->error($throwable->getTraceAsString());
-        return $response->withHeader('Server', 'Hyperf')->withStatus(500)->withBody(new SwooleStream('Internal Server Error.'));
+        $data = [
+               'errorCode' => 40000,
+               'message' => __('api.Internal Server Error.'),
+        ];
+        // jwt token be existsed blacklist exception
+       if ($throwable instanceof TokenBlacklistException) {
+           $data = [
+               'errorCode' => 51100,
+               'message' => __('api.The token is already on the blacklist'),
+           ];
+       }
+        return $response->withStatus(400)->withBody(new SwooleStream(json_encode($data)));
     }
 
     public function isValid(Throwable $throwable): bool
     {
         return true;
-    }
+}
 }
