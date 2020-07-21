@@ -51,7 +51,7 @@ services:
       - /bin/sh
       - -c
       - |
-        yarn
+        [ ! -d `pwd`/node_modules ] && yarn
         ng serve --port 4200 --host 0.0.0.0
   mysql:
     image: mysql:8.0
