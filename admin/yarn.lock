@@ -1367,6 +1367,11 @@
   dependencies:
     tslib "^1.9.0"
 
+"@ngrx/store-devtools@^9.2.0":
+  version "9.2.0"
+  resolved "https://registry.npm.taobao.org/@ngrx/store-devtools/download/@ngrx/store-devtools-9.2.0.tgz#298b86b0c4ea483313b67d64a68b2d3376a5a04f"
+  integrity sha1-KYuGsMTqSDMTtn1kpostM3aloE8=
+
 "@ngrx/store@9.0.0":
   version "9.0.0"
   resolved "https://registry.npm.taobao.org/@ngrx/store/download/@ngrx/store-9.0.0.tgz#ef45e241ba9cf401d5280fa99b09f2fb3fc3278d"
@@ -7719,6 +7724,11 @@ ngx-chips@2.1.0:
   dependencies:
     ng2-material-dropdown "0.11.0"
     tslib "^1.9.0"
+
+ngx-cookie-service@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npm.taobao.org/ngx-cookie-service/download/ngx-cookie-service-3.0.4.tgz#603600bf575322aa0bd3f83cab42494e9aebb00a"
+  integrity sha1-YDYAv1dTIqoL0/g8q0JJTprrsAo=
 
 ngx-custom-validators@9.1.0:
   version "9.1.0"

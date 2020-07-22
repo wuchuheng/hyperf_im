@@ -1,4 +1,6 @@
 .idea
+.DS_Store
+
 hyperf/.buildpath
 hyperf/.settings/
 hyperf/.project
