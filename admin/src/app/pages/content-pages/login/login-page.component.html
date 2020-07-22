@@ -39,14 +39,22 @@
                         <label for="rememberMe"><span class="font-small-2 mb-3 font-weight-normal">Remember Me</span></label>
                       </div>
                     </div>
-                    <a href="javascript:;">Forgot Password?</a>
+                    <a [routerLink]="['/pages/forgotpassword']">Forgot Password?</a>
                   </div>
                   <div class="d-flex justify-content-between flex-sm-row flex-column">
-                    <a href="javascript:;" class="btn bg-light-primary mb-2 mb-sm-0">Register</a>
+                    <a [routerLink]="['/pages/register']" class="btn bg-light-primary mb-2 mb-sm-0">Register</a>
                     <a  class="btn btn-primary" (click)="onSubmit()">Login</a>
                   </div>
                 </form>
                 <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="text-primary m-0">Or Login With</h6>
+                  <ngx-spinner></ngx-spinner>
+                  <div class="login-options">
+                    <a class="btn btn-sm btn-social-icon btn-facebook mr-1"><span class="fa fa-facebook"></span></a>
+                    <a class="btn btn-sm btn-social-icon btn-twitter mr-1"><span class="fa fa-twitter"></span></a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

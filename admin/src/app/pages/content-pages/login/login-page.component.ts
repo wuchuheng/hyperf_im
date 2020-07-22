@@ -39,19 +39,13 @@ export class LoginPageComponent {
       return;
     }
 
-    this.spinner.show(undefined,
-      {
-        type: 'ball-triangle-path',
-        size: 'medium',
-        bdColor: 'rgba(0, 0, 0, 0.8)',
-        color: '#fff',
-        fullScreen: true
-      });
+
+    this.spinner.show();
 
     this.authService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
       .then((res) => {
         this.spinner.hide();
-        this.router.navigate(['/page']);
+        this.router.navigate(['/dashboard/dashboard1']);
       })
       .catch((err) => {
         this.isLoginFailed = true;
