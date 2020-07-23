@@ -84,7 +84,8 @@ export function createTranslateLoader(http: HttpClient) {
     PerfectScrollbarModule,
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: environment.production
+      logOnly: environment.production,
+      name: environment.appName
     })
   ],
   providers: [

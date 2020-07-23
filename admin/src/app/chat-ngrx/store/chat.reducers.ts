@@ -6,8 +6,6 @@ export interface State {
 }
 
 const initialState: State = {
-
-
   usersChat: [
     {
       userId: "1",

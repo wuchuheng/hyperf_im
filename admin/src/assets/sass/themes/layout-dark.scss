@@ -390,6 +390,10 @@ h6,
   }
 }
 
+.d-logo-text {
+  font-size: 1.3rem !important;
+}
+
 // Border colors
 .border {
   @include transparent-style() {

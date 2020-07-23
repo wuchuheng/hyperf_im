@@ -1,11 +1,11 @@
 <!-- Sidebar Header starts -->
 <div class="sidebar-header" *ngIf="config?.layout.menuPosition === 'Side'">
   <div class="logo clearfix">
-    <a [routerLink]="['/']" class="logo-text float-left">
+    <a [routerLink]="['/']" class="logo-text float-left d-logo-text">
       <div class="logo-img">
         <img [src]="logoUrl" alt="Apex logo"/>
       </div>
-      <span class="text align-middle">APEX</span>
+      <span class="text align-middle">{{environment.appName}}</span>
     </a>
     <a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;"
       (click)="toggleSidebar()">

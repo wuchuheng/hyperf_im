@@ -12,6 +12,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { ConfigService } from '../services/config.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '../services/layout.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: "app-sidebar",
@@ -31,6 +32,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   perfectScrollbarEnable = true;
   collapseSidebar = false;
   resizeTimeout;
+  public environment;
 
   constructor(
     private router: Router,
@@ -40,6 +42,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private deviceService: DeviceDetectorService
   ) {
+    this.environment = environment;
     this.config = this.configService.templateConf;
     this.innerWidth = window.innerWidth;
     this.isTouchDevice();
