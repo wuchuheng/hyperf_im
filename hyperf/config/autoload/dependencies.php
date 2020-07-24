@@ -10,5 +10,6 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-   \Qbhy\SimpleJwt\EncryptAdapters\PasswordHashEncrypter::class => \App\Service\PasswordHashEncrypterService::class
+   \Qbhy\SimpleJwt\EncryptAdapters\PasswordHashEncrypter::class => \App\Service\PasswordHashEncrypterService::class,
+    \App\Middleware\CORSMiddleware::class => \App\Middleware\CORSMiddleware::class
 ];
