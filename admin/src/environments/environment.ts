@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  appName: 'Hyperf_IM'
+  appName: 'Hyperf_IM',
+  baseUrl: 'http://jd.wuchuheng.com:9501/admin'
 };

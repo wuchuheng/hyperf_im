@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
-import { AuthService } from 'app/shared/auth/auth.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
 
@@ -39,20 +39,19 @@ export class LoginPageComponent {
       return;
     }
 
-
     this.spinner.show();
 
-    this.authService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
-      .then((res) => {
-        this.spinner.hide();
-        this.router.navigate(['/dashboard/dashboard1']);
-      })
-      .catch((err) => {
-        this.isLoginFailed = true;
-        this.spinner.hide();
-        console.log('error: ' + err)
-      }
-      );
+    // this.authService.signinUser(this.loginForm.value.username, this.loginForm.value.password, this.loginForm.value.rememberMe)
+    //   .then((res) => {
+    //     this.spinner.hide();
+    //     this.router.navigate(['/dashboard/dashboard1']);
+    //   })
+    //   .catch((err) => {
+    //     this.isLoginFailed = true;
+    //     this.spinner.hide();
+    //     console.log('error: ' + err)
+    //   }
+    //   );
   }
 
 }
