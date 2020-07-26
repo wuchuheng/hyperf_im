@@ -19,12 +19,13 @@ const appRoutes: Routes = [
   {
     path: '',
     component: ContentLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'login', component: LoginComponent }
     ]
   },
   { path: '', component: FullLayoutComponent, data: { title: 'full Views' }, children: Full_ROUTES, canActivate: [AuthGuard] },
-  { path: '', component: ContentLayoutComponent, data: { title: 'content Views' }, children: CONTENT_ROUTES },
+  // { path: '', component: ContentLayoutComponent, data: { title: 'content Views' }, children: CONTENT_ROUTES },
   {
     path: '**',
     redirectTo: 'pages/error'

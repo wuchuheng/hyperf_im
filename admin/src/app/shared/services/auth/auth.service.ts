@@ -69,9 +69,9 @@ export class AuthService {
     this.cookieService.set(this._refreshTokenExpiredKey, val, new Date(expiredAt))
   }
 
-  public getToken()
+  public getToken(): string
   {
-    this.cookieService.get(this._accessTokenKey);
+    return this.cookieService.get(this._accessTokenKey);
   }
 
   public getTokenRefreshExpired()
@@ -84,7 +84,8 @@ export class AuthService {
     this.router.navigate(['YOUR_LOGOUT_URL']);
   }
 
-  isAuthenticated() {
-    return true;
+  public isAuthenticated(): boolean
+  {
+    return this.getToken() ? true : false;
   }
 }
