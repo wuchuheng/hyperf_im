@@ -1,6 +1,6 @@
 .idea
 .DS_Store
-
+# //// hyperf ////
 hyperf/.buildpath
 hyperf/.settings/
 hyperf/.project
@@ -17,17 +17,6 @@ hyperf/.phpunit*
 !hyperf/public/uploads/2020-07-12/5f0ae653f1083.png
 hyperf/public/uploads
 
-admin/.DS_Store
-admin/node_modules/
-admin/dist/
-admin/npm-debug.log*
-admin/yarn-debug.log*
-admin/yarn-error.log*
-admin/package-lock.json
-admin/tests/**/coverage/
-
-# Editor directories and files
-admin/.idea
 .vscode
 *.suo
 *.ntvs*
@@ -38,37 +27,19 @@ admin/.idea
 /mysql/data
 
 # ///// admin //////
-# compiled output
-admin/dist
-admin/tmp
-admin/out-tsc
-# dependencies
-admini/node_modules
-# IDEs and editors
 admin/.idea
-admin/.project
-admin/.classpath
-admin/.c9/
-admin/*.launch
-admin/.settings/
-admin/*.sublime-workspace
-# IDE - VSCode
-admin/.vscode/*
-!admin/.vscode/settings.json
-!admin/.vscode/tasks.json
-!admin/.vscode/launch.json
-!admin/.vscode/extensions.json
-admin/.sass-cache
-admin/connect.lock
-admin/coverage
-admin/libpeerconnection.log
-admin/npm-debug.log
-admin/testem.log
-admin/typings
-# e2e
-admin/e2e/*.js
-admin/e2e/*.map
-# System Files
+admin/node_modules
+admin/npm-debug.log*
+admin/yarn-error.log
+admin/yarn.lock
+admin/package-lock.json
+# production
+admin/dist
+# misc
 admin/.DS_Store
-admin/Thumbs.db
+# umi
+admin/src/.umi
+admin/src/.umi-production
+admin/src/.umi-test
+admin/.env.local
 
