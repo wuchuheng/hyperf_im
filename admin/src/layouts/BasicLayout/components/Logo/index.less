@@ -1,0 +1,52 @@
+.logo {
+  height: 38px;
+  margin: 15px 11px 15px 11px;
+  img {
+    height: 38px;
+    border-radius: 50%;
+  }
+  :global{
+    .ant-badge-dot{
+      box-shadow: 0 0 0 0px #fff;
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+
+.menuWraper{
+  position: relative;
+  left: 50px;
+  top: -40px;
+  width: 240px;
+  .menuItem{
+    padding: 6px 24px;
+    &:hover{
+      background: rgb(230, 245, 255, 1);
+    }
+  }
+  .onlineStatus{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .onlineStatusItem{
+      width: 90px;
+    }
+    .onlineStatusWrapper{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 12px;
+      :global{
+        .ant-badge-dot{
+          box-shadow: 0 0 0 0px #fff;
+          width: 8px;
+          height: 8px;
+        }
+      }
+    }
+  }
+
+}
+
+

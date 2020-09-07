@@ -9,10 +9,8 @@ import {
   TicketsIcon
 } from "../../../../components/Icons";
 
-// @ts-ignore
-import logo from '../../../../assets/images/default-avatar.jpg'
-// @ts-ignore
 import style from './index.less';
+import Logo from "@/layouts/BasicLayout/components/Logo";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -32,10 +30,7 @@ export default class Index extends React.Component<any, any>
           defaultCollapsed={true}
           collapsedWidth={60}
         >
-          <div className={style.logo}>
-            <img src={logo} />
-          </div>
-
+          <Logo />
           <Menu theme="dark"  defaultSelectedKeys={['1']} mode="inline" className={style.menuRender} >
             <Menu.Item key="1" icon={<DashboardIcon className={style.iconRender} /> } >
               首页
