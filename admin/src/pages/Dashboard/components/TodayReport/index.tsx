@@ -2,6 +2,7 @@ import React from "react";
 import {Button, Card, Tooltip} from "antd";
 import styles from "./index.less";
 import {QuestionCircleIcon} from "@/components/Icons";
+import ListModal from "@/pages/Dashboard/components/TodayReport/components/ListModal";
 
 const TodayReport = class TodayReport extends React.Component<any, any>
 {
@@ -18,7 +19,7 @@ const TodayReport = class TodayReport extends React.Component<any, any>
   );
   render() {
     return (
-      <Card title={this.title} Meta={1231313}>
+      <Card title={this.title} extra={<ListModal />}>
       </Card>
     );
   }
