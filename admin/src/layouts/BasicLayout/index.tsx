@@ -20,16 +20,14 @@ export default class BasicLayout extends React.Component<any, any>
 
   render(): React.ReactNode {
     return (
-      <Layout style={{ minHeight: '100vh' }} className={style.layoutRender}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Sidebar />
-        <Layout className={style.siteLayout}>
+        <Layout>
           {/*<Header className={style.siteLayoutBackground} style={{ padding: 0 }} />*/}
-          <Content style={{ margin: '0 16px' }}>
-            <div className={style.siteLayoutBackground} style={{ padding: 24, minHeight: 360 }}>
+          <Content className={style.contentWrapper}>
               {this.props.children}
-            </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          {/*<Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>*/}
         </Layout>
       </Layout>
     );

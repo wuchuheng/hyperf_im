@@ -8,7 +8,7 @@ import {
   ReportIcon, RobotIcon, ServiceIcon, SettingIcon,
   TicketsIcon
 } from "../../../../components/Icons";
-
+import { Link } from 'umi';
 import style from './index.less';
 import Logo from "@/layouts/BasicLayout/components/Logo";
 
@@ -33,7 +33,7 @@ export default class Index extends React.Component<any, any>
           <Logo />
           <Menu theme="dark"  defaultSelectedKeys={['1']} mode="inline" className={style.menuRender} >
             <Menu.Item key="1" icon={<DashboardIcon className={style.iconRender} /> } >
-              首页
+              <Link to={"/dashboard"}>首页</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<CommentIcon className={style.iconRender} />}>
               对话

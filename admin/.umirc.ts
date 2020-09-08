@@ -12,6 +12,11 @@ export default defineConfig({
         {
           path: '/',
           component: '@/pages/index'
+        },
+        {
+          path: 'dashboard',
+          component: '@/pages/Dashboard',
+          exact: true
         }
       ]
     },
