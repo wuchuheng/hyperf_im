@@ -1,0 +1,40 @@
+@import "../../index";
+
+
+.main {
+  border-left: 1px solid rgba(241, 242, 246, 1);
+  box-sizing: border-box;
+}
+
+.header {
+  height: @colHeaderHeight;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items:  flex-end !important;
+  padding-bottom: 5px;
+  font-size: 12px;
+}
+
+.itemRender{
+  height: 34px;
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  &:hover {
+    background-color: #e7f4ff;
+  }
+}
+
+.itemOver{
+  border-bottom: 1px solid red;
+  box-sizing: border-box;
+}
+:global{
+  .highlighted {
+    background-color: #9AB6F1;
+  }
+}

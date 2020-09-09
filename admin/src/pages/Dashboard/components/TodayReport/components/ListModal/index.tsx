@@ -2,7 +2,8 @@ import React from "react";
 import {BarIcon} from "@/components/Icons";
 import { Button, Modal, Row, Col } from 'antd';
 import styles from './index.less'
-import Leftbar from "@/pages/Dashboard/components/TodayReport/components/ListModal/components/Leftbar";
+import Leftbar from "./components/Leftbar";
+import Rightbar from "./components/Rightbar";
 
 const ListModal = class ListModal extends React.Component<any, any>
 {
@@ -45,7 +46,7 @@ const ListModal = class ListModal extends React.Component<any, any>
         >
           <Row className={styles.main}>
             <Col span={12}><Leftbar /></Col>
-            <Col span={12}>2</Col>
+            <Col span={12}><Rightbar /></Col>
           </Row>
         </Modal>
       </>

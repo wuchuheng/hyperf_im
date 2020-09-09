@@ -18,7 +18,7 @@ const Leftbar = class Leftbar extends React.Component<any, any>
     return (
       <>
         <Row>
-          <Col span={20} className={styles.col} offset={2}>
+          <Col span={22} className={styles.col} offset={1}>
             <Input
               placeholder="请输入搜索字段"
               className={styles.input}
