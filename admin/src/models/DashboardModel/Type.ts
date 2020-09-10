@@ -1,17 +1,21 @@
-import {ReactNode} from "react";
 import {Effect, Reducer, Subscription} from "@@/plugin-dva/connect";
+import * as Icons from "@/components/Icons";
 
 export interface TodayReportItemState {
-  icon: ReactNode;
+  icon: keyof typeof Icons;
   title: string;
   value: string;
 }
+export interface GroupItemsState {
+  title: string;
+  items: TodayReportItemState[];
+}
 export interface TodayReportState {
-  selectedItems: TodayReportItemState []
-  preSelectedItems: TodayReportItemState []
+  groupItems: GroupItemsState[];
+  selectedItems: TodayReportItemState [];
+  preSelectedItems: TodayReportItemState [];
 }
 export interface DashboardModelState {
-  name: string;
   todayReport: TodayReportState
 }
 export interface DashboardModelType {
@@ -20,10 +24,12 @@ export interface DashboardModelType {
   effects: {
     query: Effect;
     preSelectItems: Effect;
+    initTodayGroupItems: Effect;
+    initTodaySelectItems: Effect;
+    initTodayPreSelectItems: Effect;
   };
   reducers: {
     save: Reducer<DashboardModelState>;
-    saveTodayReportInitItems: Reducer<DashboardModelState>;
   };
   subscriptions: { setup: Subscription, keyEvent: Subscription };
 }

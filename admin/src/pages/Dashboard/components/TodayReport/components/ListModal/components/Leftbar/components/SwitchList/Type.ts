@@ -2,20 +2,19 @@ import {DashboardModelState, TodayReportItemState  } from "@/models/DashboardMod
 import {ReactNode} from 'react';
 import {ConnectProps, Loading} from "umi";
 
-export type itemType = {
+export type ItemType = {
   value: string;
   title: string;
   isDisable: boolean;
   isCheck: boolean;
-  icon: ReactNode;
 }
-export type switchGroupType= {
+export type SwitchGroupType= {
   title: string,
-  items: itemType[]
+  items: ItemType[]
 }
 
 export type statusType = {
-  defaultData: switchGroupType[]
+  defaultData: SwitchGroupType[]
 }
 
 export type componentProps = {

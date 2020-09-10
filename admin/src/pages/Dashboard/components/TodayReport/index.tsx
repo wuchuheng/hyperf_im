@@ -1,11 +1,12 @@
-import React from "react";
+import React, {ReactNode} from "react";
 import {Button, Card, Tooltip, Row, Col } from "antd";
 import styles from "./index.less";
 import {QuestionCircleIcon} from "@/components/Icons";
 import ListModal from "@/pages/Dashboard/components/TodayReport/components/ListModal";
-import {Loading} from "@@/plugin-dva/connect";
+import {DashboardModelState, Loading} from "@@/plugin-dva/connect";
 import {IndexModelState, connect} from "umi";
 import { TodayReportItemState} from "@/models/DashboardModel";
+import * as Icons from "@/components/Icons";
 
 const TodayReport = class TodayReport extends React.Component<any, any>
 {
@@ -24,22 +25,24 @@ const TodayReport = class TodayReport extends React.Component<any, any>
     </>
   );
   render() {
-    const el = this.props.preSelectedItems.map((v: TodayReportItemState , i: number) =>
-      (
-        <Col span={6} key={i}>
-          <div className={styles.item}>
-            <div className={styles.iconWrapper}>
-              <div className={styles.iconRender} >
-                {v.icon}
+    const el = this.props.preSelectedItems.map((v: TodayReportItemState , i: number) => {
+        const Icon =  Icons[v.icon];
+        return(
+          <Col span={6} key={i}>
+            <div className={styles.item}>
+              <div className={styles.iconWrapper}>
+                <div className={styles.iconRender} >
+                  <Icon />
+                </div>
+              </div>
+              <div className={styles.itemContentRender}>
+                <div>{v.title}</div>
+                <div>-</div>
               </div>
             </div>
-            <div className={styles.itemContentRender}>
-              <div>{v.title}</div>
-              <div>-</div>
-            </div>
-          </div>
-        </Col>
-      )
+          </Col>
+        )
+      }
     );
     return (
       <Card title={this.title} extra={<ListModal />}>
@@ -51,10 +54,9 @@ const TodayReport = class TodayReport extends React.Component<any, any>
   }
 }
 
-const mapStateToProps = ({index, loading }: {index: IndexModelState; loading: Loading}) =>{
-  console.log(index)
+const mapStateToProps = ({dashboard, loading }: {dashboard: DashboardModelState; loading: Loading}) =>{
  return  {
-   preSelectedItems: [],
+   preSelectedItems: dashboard.todayReport.selectedItems,
    loading: loading.models.index
   }
 };

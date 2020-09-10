@@ -4,7 +4,8 @@ import {
   TodayReportState,
   DashboardModelState,
   DashboardModelType
-} from "@/models/DashboardModel/Type";
+} from "./Type";
+import Service from "./Service";
 
 export {
   TodayReportItemState,
@@ -16,8 +17,8 @@ export {
 const Index: DashboardModelType = {
   namespace: 'dashboard',
   state: {
-    name: '',
     todayReport: {
+      groupItems: [], // 所有项
       selectedItems: [], //已经选中
       preSelectedItems: [] //预选中
     }
@@ -32,19 +33,46 @@ const Index: DashboardModelType = {
       const dashboardState = yield select((state: ConnectStatusState) => (state.dashboard));
       dashboardState.todayReport.preSelectedItems = payload;
       yield put({
-        type: 'action',
+        type: 'save',
         payload: dashboardState
       })
     },
+    /**
+     *  初始化选项组
+     */
+    * initTodayGroupItems({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
+      if (dashboardState.todayReport.groupItems.length === 0) {
+        const newDashboardState = yield call(Service.statuInculdeGroupItems, dashboardState);
+        yield put({ type: 'save', payload: newDashboardState })
+      }
+    },
+    /**
+     * 初始化默认选中项
+     */
+    * initTodaySelectItems({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
+      if (dashboardState.todayReport.selectedItems.length === 0) {
+        const newDashboardState = yield call(Service.initTodaySelectItems, dashboardState);
+        yield put({ type: 'save', payload: newDashboardState })
+      }
+    },
+    /**
+     * 初始化预选中项
+     */
+    * initTodayPreSelectItems({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
+      const newDashboradState: DashboardModelState = {
+        todayReport:{
+          ...dashboardState,
+          preSelectedItems: dashboardState.TodayReport.selectedItems
+        }
+      };
+      yield put({ type: 'save', payload: newDashboradState })
+    }
   },
   reducers: {
     save(state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    },
-    saveTodayReportInitItems(state, action) {
       return {
         ...state,
         ...action.payload,
@@ -54,6 +82,14 @@ const Index: DashboardModelType = {
   subscriptions: {
     setup({dispatch, history}) {
       return history.listen(({pathname}) => {
+        if (pathname === '/dashboard') {
+          dispatch({
+            type: 'initTodayGroupItems'
+          })
+          dispatch({
+            type: 'initTodaySelectItems'
+          })
+        }
       });
     },
     keyEvent({dispatch}) {

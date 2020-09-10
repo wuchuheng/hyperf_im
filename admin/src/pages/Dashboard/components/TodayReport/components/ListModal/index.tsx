@@ -4,6 +4,7 @@ import { Button, Modal, Row, Col } from 'antd';
 import styles from './index.less'
 import Leftbar from "./components/Leftbar";
 import Rightbar from "./components/Rightbar";
+import {connect, DashboardModelState } from 'umi';
 
 const ListModal = class ListModal extends React.Component<any, any>
 {
