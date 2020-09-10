@@ -10,8 +10,9 @@ import {
   UserClicsIcon,
   UsersIcon
 } from "@/components/Icons";
-import { DashboardModelState, Loading, connect, useDispatch } from 'umi';
-import {itemType, statusType, ComponentProps } from './Type'
+import { Loading, connect } from 'umi';
+import {DashboardModelState} from "@/models/DashboardModel";
+import {itemType, statusType} from './Type'
 
 
 const SwitchList = class SwitchList extends React.Component<any, any>

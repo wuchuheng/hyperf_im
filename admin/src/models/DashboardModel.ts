@@ -1,7 +1,6 @@
-import { Effect, ImmerReducer, Reducer, Subscription, Action } from 'umi';
+import { Effect, Reducer, Subscription } from 'umi';
 import {ReactNode} from "react";
 import {ConnectStatusState} from "@/models/Connect";
-import {mergeTodayReportItems} from "@/services/ForDashboardModel";
 
 export interface TodayReportItemState {
   icon: ReactNode;
@@ -26,11 +25,12 @@ export interface DashboardModelType {
   };
   reducers: {
     save: Reducer<DashboardModelState>;
+    saveTodayReportInitItems: Reducer<DashboardModelState>;
   };
   subscriptions: { setup: Subscription, keyEvent: Subscription };
 }
 
-const DashboardModel: DashboardModelType= {
+const DashboardModel: DashboardModelType = {
   namespace: 'dashboard',
   state: {
     name: '',
@@ -40,13 +40,13 @@ const DashboardModel: DashboardModelType= {
     }
   },
   effects: {
-    *query({ payload }, { call, put }) {
+    * query({payload}, {call, put}) {
     },
     /**
      *  预选中
      */
-    *preSelectItems({ payload }, { call, put, select }) {
-      const dashboardState = yield select((state: ConnectStatusState)=> (state.dashboard));
+    * preSelectItems({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => (state.dashboard));
       dashboardState.todayReport.preSelectedItems = payload;
       yield put({
         type: 'action',
@@ -60,21 +60,22 @@ const DashboardModel: DashboardModelType= {
         ...state,
         ...action.payload,
       };
+    },
+    saveTodayReportInitItems(state, action) {
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
   },
   subscriptions: {
-    setup({ dispatch, history }) {
-      return history.listen(({ pathname }) => {
-        if (pathname === '/') {
-          dispatch({
-            type: 'query',
-          })
-        }
+    setup({dispatch, history}) {
+      return history.listen(({pathname}) => {
       });
     },
     keyEvent({dispatch}) {
-      // key('⌘+up, ctrl+up', () => { dispatch({type:'add'}) });
     },
   }
 };
+
 export default DashboardModel;
