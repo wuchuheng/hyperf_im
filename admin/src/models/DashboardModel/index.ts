@@ -1,36 +1,19 @@
-import { Effect, Reducer, Subscription } from 'umi';
-import {ReactNode} from "react";
 import {ConnectStatusState} from "@/models/Connect";
+import {
+  TodayReportItemState,
+  TodayReportState,
+  DashboardModelState,
+  DashboardModelType
+} from "@/models/DashboardModel/Type";
 
-export interface TodayReportItemState {
-  icon: ReactNode;
-  title: string;
-  value: string;
-}
-export interface TodayReportState {
-  selectedItems: TodayReportItemState []
-  preSelectedItems: TodayReportItemState []
-}
-
-export interface DashboardModelState {
-  name: string;
-  todayReport: TodayReportState
-}
-export interface DashboardModelType {
-  namespace: 'dashboard';
-  state: DashboardModelState
-  effects: {
-    query: Effect;
-    preSelectItems: Effect;
-  };
-  reducers: {
-    save: Reducer<DashboardModelState>;
-    saveTodayReportInitItems: Reducer<DashboardModelState>;
-  };
-  subscriptions: { setup: Subscription, keyEvent: Subscription };
+export {
+  TodayReportItemState,
+  TodayReportState,
+  DashboardModelState,
+  DashboardModelType
 }
 
-const DashboardModel: DashboardModelType = {
+const Index: DashboardModelType = {
   namespace: 'dashboard',
   state: {
     name: '',
@@ -78,4 +61,4 @@ const DashboardModel: DashboardModelType = {
   }
 };
 
-export default DashboardModel;
+export default Index;
