@@ -5,13 +5,12 @@ import { Loading, connect } from 'umi';
 import {DashboardModelState, TodayReportItemState} from "@/models/DashboardModel";
 import {ItemType, statusType} from './Type'
 import {GroupItemsState} from "@/models/DashboardModel/Type";
-import { SwitchGroupType } from "./Type";
-
 
 const SwitchList = class SwitchList extends React.Component<any, any>
 {
   state: statusType = {
     defaultData: [],
+    defaultValues: []
   };
   selectLimit = 8;
   constructor(props:any)
@@ -25,9 +24,18 @@ const SwitchList = class SwitchList extends React.Component<any, any>
    */
   private _initDefaultData(): void
   {
+    // 初始化默认选中的
+    const alllSelectedValues: string[] = [];
+    this.props.selectedItems.map((v: TodayReportItemState) => {
+      const {name} = v;
+      alllSelectedValues.push(name);
+    });
+    this.state.defaultValues = alllSelectedValues;
+    // 初始化项
     this.state.defaultData = this.state.defaultData = this.props.groupItems.map((v: GroupItemsState) => {
       const items = v.items.map((item) => {
-          return {value: item.title, title: item.title, isDisable: false, checked:  false};
+          const isDisable = this.state.defaultValues.length === 8 && this.state.defaultValues.indexOf(item.name) === -1 ? true: false;
+          return {value: item.name, title: item.title, isDisable: isDisable};
       });
       return {title: v.title, items: items};
     });
@@ -43,10 +51,9 @@ const SwitchList = class SwitchList extends React.Component<any, any>
     let checkedItems = allItems.filter((item: ItemType) => (checkedValues.indexOf(item.value) !== -1));
     checkedItems.length === this.selectLimit ? this._disableSelecteAnother(checkedItems) : this._ableSelecteAnother();
     checkedItems  = checkedItems.map((v, i) => {
-      const {icon, title } = v;
-      return {icon, value: "", title}
+      const {icon, title, name } = v;
+      return {icon, value: "", title, name}
     })
-
     this.props.dispatch({
       type: 'dashboard/preSelectItems',
       payload: checkedItems
@@ -87,11 +94,14 @@ const SwitchList = class SwitchList extends React.Component<any, any>
 
   render() {
     const switchRender =this.state.defaultData.map((v, i) => {
-      const switchRender = v.items.map((itemV, itemI) => (
-        <Col span={24} key={itemI}>
-          <Checkbox value={itemV.value} disabled={itemV.isDisable}>{itemV.title}</Checkbox>
-        </Col>
-      ));
+      const switchRender = v.items.map((itemV, itemI) => {
+          return (
+            <Col span={24} key={itemI}>
+              <Checkbox value={itemV.value} disabled={itemV.isDisable}>{itemV.title}</Checkbox>
+            </Col>
+          );
+      }
+      );
       let el = (
         <Row key={i} gutter={[0, 16]}>
           <Col span={24}>
@@ -106,7 +116,7 @@ const SwitchList = class SwitchList extends React.Component<any, any>
     });
     return (
       <div className={styles.main}>
-        <Checkbox.Group style={{ width: '100%' }} onChange={(checkedValuel) => this.onChange(checkedValuel)}>
+        <Checkbox.Group onChange={(checkedValuel) => this.onChange(checkedValuel)} defaultValue={this.state.defaultValues} >
           {switchRender}
         </Checkbox.Group>
       </div>

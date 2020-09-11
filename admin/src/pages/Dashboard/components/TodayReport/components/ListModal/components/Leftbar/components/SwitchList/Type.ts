@@ -15,6 +15,8 @@ export type SwitchGroupType= {
 
 export type statusType = {
   defaultData: SwitchGroupType[]
+  defaultValues: string[]
+
 }
 
 export type componentProps = {

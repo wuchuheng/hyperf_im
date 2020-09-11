@@ -5,6 +5,7 @@ export interface TodayReportItemState {
   icon: keyof typeof Icons;
   title: string;
   value: string;
+  name: string;
 }
 export interface GroupItemsState {
   title: string;
