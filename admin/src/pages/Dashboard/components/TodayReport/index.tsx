@@ -46,7 +46,7 @@ const TodayReport = class TodayReport extends React.Component<any, any>
     );
     return (
       <Card title={this.title} extra={<ListModal />}>
-        <Row>
+        <Row className={styles.main}>
           {el}
         </Row>
       </Card>
