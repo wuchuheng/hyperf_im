@@ -1,0 +1,34 @@
+@centerOrderLength: 60%;
+.nociceMainWrapper {
+  height: 130px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  .centerWrapper {
+    height: @centerOrderLength;
+    width: @centerOrderLength;
+    display: flex;
+    align-items: center;
+    flex-direction:  column;
+    justify-content: center;
+    .centerItem {
+      height: @centerOrderLength;
+      width: @centerOrderLength;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:first-child{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .noticeIcon{
+          font-size: 4rem;
+        }
+      }
+      &:last-child{
+      }
+    }
+
+  }
+}

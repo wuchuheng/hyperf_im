@@ -4,6 +4,7 @@ import { Layout, Row, Col } from 'antd';
 import TodayTrend from "@/pages/Dashboard/components/TodayTrend";
 const { Content} = Layout;
 import TodayReport from "@/pages/Dashboard/components/TodayReport";
+import Notice from "@/pages/Dashboard/components/Notice";
 
 const Dashboard = class Dashboard extends React.Component<any, any>
 {
@@ -27,7 +28,7 @@ const Dashboard = class Dashboard extends React.Component<any, any>
             </Col>
             <Col span={6}>
               <div className={styles.row1RightCol}>
-                col-12
+                <Notice />
               </div>
             </Col>
           </Row>

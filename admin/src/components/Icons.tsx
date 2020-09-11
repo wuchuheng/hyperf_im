@@ -414,3 +414,16 @@ export const beOrdersIcon = (props: IconProps)  => {
   );
   return svg;
 }
+
+// 公告
+export const NoticeIcon = (props: IconProps)  => {
+  const svg = (
+    <InitIcon {...props}>
+      <path d="M199.804878 218.536585h561.95122v661.853659H199.804878v-104.666537z" fill="#1880FF" opacity=".3"></path>
+      <path d="M324.682927 143.609756h512v599.414634H324.682927z" fill="#1880FF" opacity=".1"></path>
+      <path d="M299.707317 181.073171h362.146342v74.926829H299.707317z" fill="#1880FF" opacity=".3"></path>
+      <path d="M349.658537 355.902439h312.195122v24.97561H349.658537zM349.658537 455.804878h312.195122v24.97561H349.658537zM349.658537 555.707317h206.04878v24.97561H349.658537zM324.682927 355.902439h-24.97561v24.97561h24.97561zM324.682927 455.804878h-24.97561v24.97561h24.97561zM324.682927 555.707317h-24.97561v24.97561h24.97561z" fill="#FFFFFF"></path>
+    </InitIcon>
+  );
+  return svg;
+}
