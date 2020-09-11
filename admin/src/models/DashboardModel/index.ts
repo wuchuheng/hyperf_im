@@ -62,13 +62,27 @@ const Index: DashboardModelType = {
      */
     * initTodayPreSelectItems({payload}, {call, put, select}) {
       const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
-      const newDashboradState: DashboardModelState = {
+      const newDashboardState: DashboardModelState = {
         todayReport:{
           ...dashboardState,
           preSelectedItems: dashboardState.TodayReport.selectedItems
         }
       };
-      yield put({ type: 'save', payload: newDashboradState })
+      yield put({ type: 'save', payload: newDashboardState })
+    },
+    /**
+     * 搜索选项
+     */
+   * searchTodaySelectItems ({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
+      const newDashboardState = {
+        ...dashboardState,
+        todayReport:{
+          ...dashboardState.todayReport,
+          groupItems: payload
+        }
+      }
+      yield put({ type: 'save', payload: newDashboardState })
     }
   },
   reducers: {
@@ -83,9 +97,6 @@ const Index: DashboardModelType = {
     setup({dispatch, history}) {
       return history.listen(({pathname}) => {
         if (pathname === '/dashboard') {
-          dispatch({
-            type: 'initTodayGroupItems'
-          })
           dispatch({
             type: 'initTodaySelectItems'
           })

@@ -28,6 +28,7 @@ export interface DashboardModelType {
     initTodayGroupItems: Effect;
     initTodaySelectItems: Effect;
     initTodayPreSelectItems: Effect;
+    searchTodaySelectItems: Effect;
   };
   reducers: {
     save: Reducer<DashboardModelState>;

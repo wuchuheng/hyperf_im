@@ -12,33 +12,32 @@ const SwitchList = class SwitchList extends React.Component<any, any>
     defaultData: [],
     defaultValues: []
   };
-  selectLimit = 8;
+
   constructor(props:any)
   {
     super(props);
-    this._initDefaultData();
   }
 
   /**
-   *  初始化默认选项
+   *  更新state和props
    */
-  private _initDefaultData(): void
+  static getDerivedStateFromProps(props: any, state: any)
   {
-    // 初始化默认选中的
-    const alllSelectedValues: string[] = [];
-    this.props.selectedItems.map((v: TodayReportItemState) => {
-      const {name} = v;
-      alllSelectedValues.push(name);
-    });
-    this.state.defaultValues = alllSelectedValues;
+    // 初始化默认选中状态
+    const alllSelectedValues=  state.defaultValues.length === 0 ?
+      props.selectedItems.map((v: TodayReportItemState)  =>  v.name )
+      :  state.defaultValues;
+
     // 初始化项
-    this.state.defaultData = this.state.defaultData = this.props.groupItems.map((v: GroupItemsState) => {
+    state.defaultData = props.groupItems.map((v: GroupItemsState) => {
       const items = v.items.map((item) => {
-          const isDisable = this.state.defaultValues.length === 8 && this.state.defaultValues.indexOf(item.name) === -1 ? true: false;
-          return {value: item.name, title: item.title, isDisable: isDisable};
+        const isDisable = alllSelectedValues.length === 8 && alllSelectedValues.indexOf(item.name) === -1 ? true: false;
+        return {value: item.name, title: item.title, isDisable: isDisable};
       });
       return {title: v.title, items: items};
     });
+
+    return {defaultValues: alllSelectedValues, defaultData: state.defaultData};
   }
 
   onChange(checkedValues: any[]): void
@@ -49,7 +48,10 @@ const SwitchList = class SwitchList extends React.Component<any, any>
       allItems.push(...items)
     });
     let checkedItems = allItems.filter((item: ItemType) => (checkedValues.indexOf(item.value) !== -1));
-    checkedItems.length === this.selectLimit ? this._disableSelecteAnother(checkedItems) : this._ableSelecteAnother();
+    const defaultValues = checkedItems.map((v) => v.value);
+    this.setState({
+      defaultValues: defaultValues
+    })
     checkedItems  = checkedItems.map((v, i) => {
       const {icon, title, name } = v;
       return {icon, value: "", title, name}
@@ -57,38 +59,6 @@ const SwitchList = class SwitchList extends React.Component<any, any>
     this.props.dispatch({
       type: 'dashboard/preSelectItems',
       payload: checkedItems
-    })
-  }
-
-  /**
-   *  禁止选择其它
-   * @private
-   */
-  private _disableSelecteAnother(checkedItems: ItemType[]): void
-  {
-    const defaultData = this.state.defaultData;
-    defaultData.forEach((groupItem, groupIndex) => {
-      groupItem.items.forEach((v, i) => {
-        if (checkedItems.indexOf(v) === -1) {
-          defaultData[groupIndex].items[i].isDisable = true;
-        }
-      })
-    })
-    this.setState({
-      defaultData: defaultData
-    })
-  }
-
-  private _ableSelecteAnother(): void
-  {
-    const defaultData = this.state.defaultData;
-    defaultData.forEach((groupItem, groupIndex) => {
-      groupItem.items.forEach((v, i) => {
-          defaultData[groupIndex].items[i].isDisable = false
-      })
-    })
-    this.setState({
-      defaultData: defaultData
     })
   }
 

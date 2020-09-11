@@ -9,7 +9,7 @@ import {connect, DashboardModelState } from 'umi';
 const ListModal = class ListModal extends React.Component<any, any>
 {
   state = {
-    visible: false,
+    visible: true,
     title: (<span className={styles.title}>列表显示</span>)
   };
 
