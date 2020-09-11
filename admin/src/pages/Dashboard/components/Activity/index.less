@@ -1,0 +1,36 @@
+@import "../../../../global";
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.itemRender {
+  width: 100%;
+  padding: 0.3rem;
+  height: 3.8rem;
+  box-sizing: border-box;
+  border: 1px solid @borderColor;
+  display: flex;
+  flex-direction: column;
+  .itemTitle {
+    flex-grow: 1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    width: 100%;
+  }
+  .itemBottomWrapper {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .itemDate {
+      color: @fontColor;
+    }
+    .detailLink{
+
+    }
+  }
+}
