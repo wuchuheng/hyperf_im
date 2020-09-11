@@ -24,15 +24,13 @@ const SwitchList = class SwitchList extends React.Component<any, any>
   static getDerivedStateFromProps(props: any, state: any)
   {
     // 初始化默认选中状态
-    const alllSelectedValues=  state.defaultValues.length === 0 ?
-      props.selectedItems.map((v: TodayReportItemState)  =>  v.name )
-      :  state.defaultValues;
+    const alllSelectedValues=  props.preSelectedItems.map((v: TodayReportItemState)  =>  v.name );
 
     // 初始化项
     state.defaultData = props.groupItems.map((v: GroupItemsState) => {
       const items = v.items.map((item) => {
         const isDisable = alllSelectedValues.length === 8 && alllSelectedValues.indexOf(item.name) === -1 ? true: false;
-        return {value: item.name, title: item.title, isDisable: isDisable};
+        return {value: item.name, title: item.title, isDisable: isDisable, name: item.name, icon: item.icon};
       });
       return {title: v.title, items: items};
     });
@@ -98,6 +96,7 @@ const mapStateToProps = ({dashboard, loading }: {dashboard: DashboardModelState;
   return {
     groupItems: dashboard.todayReport.groupItems,
     selectedItems: dashboard.todayReport.selectedItems,
+    preSelectedItems: dashboard.todayReport.preSelectedItems,
     loading: loading.models.index,
     }
 };

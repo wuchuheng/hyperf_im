@@ -5,33 +5,55 @@ import styles from './index.less'
 import Leftbar from "./components/Leftbar";
 import Rightbar from "./components/Rightbar";
 import {connect, DashboardModelState } from 'umi';
+import {TodayReportItemState} from "@/models/DashboardModel";
 
-const ListModal = class ListModal extends React.Component<any, any>
+class ListModal extends React.Component<any, any>
 {
   state = {
-    visible: true,
+    preSelectedItems: [],
+    visible: false,
     title: (<span className={styles.title}>列表显示</span>)
-  };
+  }
+
+  constructor(props: any) {
+    super(props);
+  }
 
   showModal = () => {
     this.setState({
       visible: true,
     });
+    // 初始化预选项
+    this.props.dispatch({
+      type: 'dashboard/initTodayPreSelectItems'
+    });
   };
 
   handleOk = (e:{}) => {
-    console.log(e);
+    this.setState({
+      visible: false,
+    });
+    this.props.dispatch({
+      type: 'dashboard/setSelectItems',
+    })
+  };
+
+  handleCancel = (e:{}) => {
     this.setState({
       visible: false,
     });
   };
 
-  handleCancel = (e:{}) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  };
+  /**
+   *  修正排序
+   */
+  handleModulation(items: TodayReportItemState[])
+  {
+    this.props.dispatch({
+      type: 'dashboard/preSelectItems',
+      payload: items
+    })
+  }
 
   render() {
     return (
@@ -47,7 +69,7 @@ const ListModal = class ListModal extends React.Component<any, any>
         >
           <Row className={styles.main}>
             <Col span={12}><Leftbar /></Col>
-            <Col span={12}><Rightbar /></Col>
+            <Col span={12}><Rightbar handleTest={(items: TodayReportItemState[]) => this.handleModulation(items) } /></Col>
           </Row>
         </Modal>
       </>
@@ -55,4 +77,10 @@ const ListModal = class ListModal extends React.Component<any, any>
   }
 }
 
-export default ListModal;
+const mapPropsToStatus = ({dashboard}: {dashboard: DashboardModelState}) => {
+  return {
+    preSelectedItems: dashboard.todayReport.preSelectedItems
+  };
+};
+
+export default connect(mapPropsToStatus)(ListModal);

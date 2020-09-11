@@ -38,6 +38,18 @@ const Index: DashboardModelType = {
       })
     },
     /**
+     *  设置选中项
+     */
+    * setSelectItems({payload}, {call, put, select}) {
+      const dashboardState = yield select((state: ConnectStatusState) => (state.dashboard));
+      dashboardState.todayReport.selectedItems = dashboardState.todayReport.preSelectedItems;
+      console.log(1)
+      yield put({
+        type: 'save',
+        payload: dashboardState
+      })
+    },
+    /**
      *  初始化选项组
      */
     * initTodayGroupItems({payload}, {call, put, select}) {
@@ -64,12 +76,13 @@ const Index: DashboardModelType = {
       const dashboardState = yield select((state: ConnectStatusState) => state.dashboard);
       const newDashboardState: DashboardModelState = {
         todayReport:{
-          ...dashboardState,
-          preSelectedItems: dashboardState.TodayReport.selectedItems
+          ...dashboardState.todayReport,
+          preSelectedItems: dashboardState.todayReport.selectedItems
         }
       };
       yield put({ type: 'save', payload: newDashboardState })
     },
+
     /**
      * 搜索选项
      */

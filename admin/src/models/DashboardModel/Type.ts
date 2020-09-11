@@ -25,6 +25,7 @@ export interface DashboardModelType {
   effects: {
     query: Effect;
     preSelectItems: Effect;
+    setSelectItems: Effect;
     initTodayGroupItems: Effect;
     initTodaySelectItems: Effect;
     initTodayPreSelectItems: Effect;
