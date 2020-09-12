@@ -14,42 +14,25 @@ const Dashboard = class Dashboard extends React.Component<any, any>
   {
     return (
         <Content className={styles.contentWrapper}>
-          <Row className={styles.row1} gutter={[16, 16]} >
+          <Row className={styles.row1} gutter={[8, 8]} >
             <Col span={18} >
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <TodayTrend />
-                </Col>
+              <Row gutter={[8, 12]}>
+                <Col span={24}><TodayTrend /></Col>
               </Row>
               <Row>
-                <Col span={24}>
-                  <TodayReport />
-                </Col>
+                <Col span={24}><TodayReport /></Col>
               </Row>
             </Col>
             <Col span={6}>
-              <Row gutter={[16, 16]}>
-                <Col span={24}>
-                  <Notice />
-                </Col>
-                <Col span={24}>
-                  <Activity />
-                </Col>
-                <Col span={24}>
-                  <Service />
-                </Col>
+              <Row gutter={[0, 12]}>
+                <Col span={24}><Notice /></Col>
+                <Col span={24}><Activity /></Col>
+                <Col span={24}><Service /></Col>
               </Row>
             </Col>
-          </Row>
-          <Row className={styles.row1} gutter={[16, 16]}>
-            <Col span={12} >
+            <Col span={24} >
               <div className={styles.row1LeftCol}>
-                col-12
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className={styles.row1RightCol}>
-                col-12
+                col24-
               </div>
             </Col>
           </Row>
