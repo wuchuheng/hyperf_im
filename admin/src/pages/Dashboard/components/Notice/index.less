@@ -1,3 +1,29 @@
+@import "../../../../global";
+@borderLength: 60%;
 .main {
-  height: 120px;
+  height: 108px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ .centerRender {
+   width: @borderLength;
+   height: @borderLength;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   .item{
+     .iconRender{
+       font-size: 4.5rem;
+     }
+     &:last-child{
+       color: @fontColor;
+     }
+   }
+ }
+}
+:global{
+  .ant-card-body{
+    margin: 0;
+  }
 }

@@ -6,6 +6,7 @@ const { Content} = Layout;
 import TodayReport from "@/pages/Dashboard/components/TodayReport";
 import Notice from "@/pages/Dashboard/components/Notice";
 import Activity from "@/pages/Dashboard/components/Activity";
+import Service from './components/Service';
 
 const Dashboard = class Dashboard extends React.Component<any, any>
 {
@@ -33,6 +34,9 @@ const Dashboard = class Dashboard extends React.Component<any, any>
                 </Col>
                 <Col span={24}>
                   <Activity />
+                </Col>
+                <Col span={24}>
+                  <Service />
                 </Col>
               </Row>
             </Col>

@@ -537,7 +537,7 @@ const TodayTrend = class TodayTrend extends React.Component<any, any>
   render() {
     return(
       <Card title={this.title}>
-        <Chart scale={{temperature: {min: 0}}} padding={[30,20,50,40]} autoFit height={320} data={this.state.data} >
+        <Chart scale={{temperature: {min: 0}}} padding={[30,20,50,40]} autoFit height={325} data={this.state.data} >
           <Line shape="smooth" position="hour*temperature" color="type" label="temperature"/>
           <Point position="hour*temperature" color="type" />
         </Chart>

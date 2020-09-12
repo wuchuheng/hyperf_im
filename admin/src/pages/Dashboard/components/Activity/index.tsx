@@ -27,7 +27,7 @@ class Activity extends React.Component<any, any>
     })
     return (
     <Card title={'千里动态'} className={styles.main}>
-          <Row gutter={[16, 16]}>
+          <Row gutter={[0, 7]}>
             {items}
           </Row>
         </Card>
