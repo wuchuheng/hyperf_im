@@ -1,18 +1,22 @@
 import React from "react";
-import { Card, Space, Row, Col } from 'antd';
+import { Card, Tooltip, Row, Col } from 'antd';
+
 import styles from './index.less';
 
 
 class Activity extends React.Component<any, any>
 {
   render() {
+    const text  = '本期更新8个功能点：对话页新增历史模块、消息通知优化、聊天窗口支持嵌入iframe13 1431312312312321';
     const items = [0, 1, 2, 3].map((v, i) => {
       return (
         <Col span={24} key={i}>
           <div className={styles.itemRender}>
-            <div className={styles.itemTitle}>
-              本期更新8个功能点：对话页新增历史模块、消息通知优化、聊天窗口支持嵌入iframe…
-            </div>
+            <Tooltip placement="top" title={text} color={'light'}>
+              <div className={styles.itemTitle}>
+                {text}
+              </div>
+            </Tooltip>
             <div className={styles.itemBottomWrapper}>
               <div className={styles.itemDate}>
                 2020-08-18
