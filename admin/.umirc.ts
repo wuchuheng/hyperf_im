@@ -9,19 +9,13 @@ export default defineConfig({
     type: 'none',
   },
   routes: [
+    { path: '/login', component: '@/pages/Login', exact: true },
     {
       path: '/',
       component: '@/layouts/BasicLayout',
       routes: [
-        {
-          path: '/',
-          component: '@/pages/index'
-        },
-        {
-          path: 'dashboard',
-          component: '@/pages/Dashboard',
-          exact: true
-        }
+        { path: '/', redirect: '/dashboard' },
+        { path: '/dashboard', component: '@/pages/Dashboard' }
       ]
     },
   ],
