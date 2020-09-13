@@ -8,8 +8,8 @@ class LoginForm extends React.Component<any, any>
 {
   render() {
     const layout = {
-      labelCol: { span: 0 },
-      wrapperCol: { span: 24 },
+      labelCol: { span: 4 },
+      wrapperCol: { span: 20 },
     };
     const tailLayout = {
       wrapperCol: { offset: 0, span: 24 },
