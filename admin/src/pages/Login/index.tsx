@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './index.less';
 import { LogoIcon } from "@/components/Icons";
 import LoginForm from "@/pages/Login/components/LoginForm";
+import styles from './index.less';
 
 class Login extends React.Component<any, any>
 {
