@@ -1,6 +1,9 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
+  request: {
+    dataField: 'data',
+  },
   dva: {
     immer: true,
     hmr: false,
