@@ -1,7 +1,7 @@
 
 .menuRender {
   width: 60px !important;
-  li {
+  li:not(.footerMenuRender) {
     max-width: 40px ;
     border-radius: 2px;
     padding: 0 9.5px 0 6px !important;
@@ -20,9 +20,8 @@
 }
 
 .footerMenuRender {
-  composes: menuRender;
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
 }
 
 

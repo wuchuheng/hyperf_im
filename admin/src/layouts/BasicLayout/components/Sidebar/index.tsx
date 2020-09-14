@@ -53,16 +53,16 @@ export default class Index extends React.Component<any, any>
             <Menu.Item key="7" icon={<RobotIcon className={style.iconRender} />}>
               机器人
             </Menu.Item>
-          </Menu>
-            <Menu theme="dark" className={style.footerMenuRender} defaultSelectedKeys={['1']} mode="inline">
+            <Menu.ItemGroup className={style.footerMenuRender}>
               <Menu.Item key="8" icon={<SettingIcon className={style.iconRender} /> }>
                 设置
               </Menu.Item>
               <Menu.Item key="9" icon={<ServiceIcon className={style.iconRender} />} >
                 服务
               </Menu.Item>
-            </Menu>
+            </Menu.ItemGroup>
 
+          </Menu>
         </Sider>
       </>
     );
