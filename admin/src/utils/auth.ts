@@ -8,14 +8,6 @@ export function getToken()
   return Cookies.get(TokenKey)
 }
 
-function hasToken(): boolean
-{
-  const tokenInfoJson = Cookies.get(TokenKey);
-  if (!tokenInfoJson) {
-    return false;
-  }
-}
-
 export function setToken(token: string) {
   return Cookies.set(TokenKey, token)
 }
@@ -34,5 +26,5 @@ export function isTokenExpired(): boolean
   const  TokenInfo = JSON.parse(tokenInfoJson);
   const expiredStimestamp = (new Date(TokenInfo.expired_at).getTime()) / 1000;
   const currentTimestamp = (new Date().getTime()) / 1000;
-  return expiredStimestamp > currentTimestamp ? true : false;
+  return expiredStimestamp > currentTimestamp ? false : true;
 }
