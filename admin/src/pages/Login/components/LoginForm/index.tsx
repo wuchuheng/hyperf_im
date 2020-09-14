@@ -10,7 +10,6 @@ class LoginForm extends React.Component<any, any>
 
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
 
   /**
@@ -36,7 +35,6 @@ class LoginForm extends React.Component<any, any>
     };
 
       const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
       };
 
     return (

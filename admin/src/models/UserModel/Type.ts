@@ -11,6 +11,7 @@ export interface UserModelType {
   state: UserModelState ;
   effects: {
     login: Effect;
+    loginFromCacheToken: Effect;
     logout: Effect;
   };
   reducers: {
