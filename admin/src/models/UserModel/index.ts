@@ -22,6 +22,12 @@ const UserModel: UserModelType = {
       yield call(setToken, tokenInfo);
       yield put({ type: 'save', payload: { ...userState, isLogin: true } });
       return true;
+    },
+    // 登出
+    * logout({payload}, {call, put, select}) {
+      const userState  = yield select((state: ConnectStatusState) => state.user);
+      yield put({ type: 'save', payload: { ...userState, isLogin: false } });
+      return true;
     }
   },
 
