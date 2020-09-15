@@ -18,8 +18,8 @@ export default defineConfig({
       component: '@/layouts/BasicLayout',
       routes: [
         { path: '/', redirect: '/dashboard' },
-        { path: '/dashboard', component: '@/pages/Dashboard' }
-
+        { path: '/dashboard', component: '@/pages/Dashboard' },
+        { path: '/chat', component: '@/pages/Chat' }
       ],
       wrappers: [
         '@/utils/RouteAuth',
