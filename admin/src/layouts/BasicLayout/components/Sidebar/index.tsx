@@ -11,11 +11,16 @@ import {
 import { Link } from 'umi';
 import style from './index.less';
 import Logo from "@/layouts/BasicLayout/components/Logo";
+import { history } from 'umi';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 export default class Index extends React.Component<any, any>
 {
+  constructor(props: any) {
+    super(props);
+  }
+
   onCollapse = (collapsed:boolean)  => {
     console.log(collapsed);
     this.setState({ collapsed });
@@ -31,12 +36,12 @@ export default class Index extends React.Component<any, any>
           collapsedWidth={60}
         >
           <Logo />
-          <Menu theme="dark"  defaultSelectedKeys={['1']} mode="inline" className={style.menuRender} >
-            <Menu.Item key="1" icon={<DashboardIcon className={style.iconRender} /> } >
+          <Menu theme="dark"  defaultSelectedKeys={[history.location.pathname]} mode="inline" className={style.menuRender} >
+            <Menu.Item key="/dashboard" icon={<DashboardIcon className={style.iconRender} /> } >
               <Link to={"/dashboard"}>首页</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<CommentIcon className={style.iconRender} />}>
-              对话
+            <Menu.Item key="/chat" icon={<CommentIcon className={style.iconRender} />}>
+              <Link to={"/chat"}>对话</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<TicketsIcon className={style.iconRender} />}>
               工单
@@ -61,7 +66,6 @@ export default class Index extends React.Component<any, any>
                 服务
               </Menu.Item>
             </Menu.ItemGroup>
-
           </Menu>
         </Sider>
       </>
