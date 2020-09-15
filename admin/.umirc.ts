@@ -13,6 +13,7 @@ export default defineConfig({
   },
   routes: [
     { path: '/login', component: '@/pages/Login', exact: true },
+    { path: '/test', component: '@/pages/Test', exact: true },
     {
       path: '/',
       component: '@/layouts/BasicLayout',
