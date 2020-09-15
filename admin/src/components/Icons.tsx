@@ -479,3 +479,23 @@ export const LogoIcon = (props: IconProps)  => {
   );
   return svg;
 }
+
+export const MessagesForEmptyIcon = (props: IconProps)  => {
+  const svg = (
+    <InitIcon {...props}>
+      <path d="M202.418605 154.790698h738.232558v523.906976H202.418605z" fill="#1880FF" opacity=".076">
+      </path>
+      <path d="M821.581395 273.860465v523.906977H289.970605L166.697674 893.023256v-95.255814H83.348837V273.860465z" fill="#1880FF" opacity=".2">
+      </path>
+      <path d="M512 476.27907m-35.72093 0a35.72093 35.72093 0 1 0 71.44186 0 35.72093 35.72093 0 1 0-71.44186 0Z" fill="#FFFFFF">
+      </path>
+      <path d="M678.697674 476.27907m-35.72093 0a35.72093 35.72093 0 1 0 71.441861 0 35.72093 35.72093 0 1 0-71.441861 0Z" fill="#FFFFFF">
+      </path>
+      <path d="M345.302326 476.27907m-35.720931 0a35.72093 35.72093 0 1 0 71.441861 0 35.72093 35.72093 0 1 0-71.441861 0Z" fill="#FFFFFF">
+      </path>
+    </InitIcon>
+  );
+  return svg;
+}
+
+
