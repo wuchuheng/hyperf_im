@@ -54,6 +54,7 @@ class DeviceSearchRender extends React.Component<any, any>
             placeholder={'请选择'}
             style={{width: '100%'}}
             dropdownMatchSelectWidth={false}
+            treeDefaultExpandAll={true}
           />
         </Col>
       </Row>

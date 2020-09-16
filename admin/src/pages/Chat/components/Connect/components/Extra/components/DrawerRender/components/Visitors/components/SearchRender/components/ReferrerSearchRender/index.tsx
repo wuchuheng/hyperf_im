@@ -93,6 +93,7 @@ class ReferrerSearchRender extends React.Component<any, any>
             style={{width: '100%'}}
             multiple={true}
             listHeight={500}
+            treeDefaultExpandAll={true}
           />
         </Col>
       </Row>
