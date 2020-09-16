@@ -2,7 +2,7 @@ import React from "react";
 import {Card} from 'antd';
 import styles from './index.less';
 import Current from "./components/Current";
-
+import Extra from "@/pages/Chat/components/Connect/components/Extra";
 
 class Connect extends React.Component<any, any>
 {
@@ -20,8 +20,8 @@ class Connect extends React.Component<any, any>
     super(props);
   }
 
-  onTabChange = (key:string, type: string) => {
-    this.setState({ [type]: key });
+  onTabChange = (key:string) => {
+    this.setState({noTitleKey: key });
   };
 
 
@@ -35,9 +35,9 @@ class Connect extends React.Component<any, any>
           className={styles.cardMainWrapper}
           tabList={this.tabListNoTitle}
           activeTabKey={this.state.noTitleKey}
-          tabBarExtraContent={<a href="#">More</a>}
+          tabBarExtraContent={<Extra />}
           onTabChange={key => {
-            this.onTabChange(key, 'noTitleKey');
+            this.onTabChange(key);
           }}
         >
           {contentListNoTitle[this.state.noTitleKey]}
