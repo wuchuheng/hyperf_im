@@ -1,6 +1,6 @@
 import React from "react";
 import {Row, Col, Cascader} from 'antd'
-import styles from './index.less';
+import styles from '../../index.less';
 
 class AreaRender extends React.Component<any, any>
 {
