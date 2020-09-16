@@ -1,10 +1,10 @@
 import React from "react";
 import {Card} from 'antd';
 import {BaseState, KeyType, ContentListNoTitleType } from './Type';
+import Visitors from "./components/Visitors";
 
 class DrawerRender extends React.Component<any, any>
 {
-
   state:BaseState = {
     noTitleKey: 'visitor',
     tabListNoTitle: [
@@ -25,7 +25,7 @@ class DrawerRender extends React.Component<any, any>
 
   render() {
     const contentListNoTitle: ContentListNoTitleType = {
-      visitor: <p>访客1</p>,
+      visitor: <Visitors />,
       queue: <p>排序2</p>
     };
 
