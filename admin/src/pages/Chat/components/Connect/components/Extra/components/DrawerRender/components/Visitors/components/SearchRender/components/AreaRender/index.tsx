@@ -43,6 +43,7 @@ class AreaRender extends React.Component<any, any>
         ],
       }
     ],
+    defaultValue: ['all']
   }
   /**
    * 区域选择
@@ -54,17 +55,19 @@ class AreaRender extends React.Component<any, any>
   render() {
     return (
       <Row>
-        <Col span={5} >
+        <Col span={4} >
           <div className={styles.lableWrapper}>
             <label>区域 :</label>
           </div>
         </Col>
-        <Col span={19}>
+        <Col span={20}>
                <Cascader
                  options={this.state.areaOptions}
                  onChange={(v) => this.onChange(v)}
                  placeholder="请选择区域"
                  expandTrigger={'hover'}
+                 style={{width: '100%'}}
+                 defaultValue={this.state.defaultValue}
                />
         </Col>
       </Row>
