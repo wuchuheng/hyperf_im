@@ -9,7 +9,7 @@ import DrawerRender from "./components/DrawerRender";
 
 class Extra extends React.Component<any, any>
 {
-  state = { visible: true};
+  state = { visible: false};
   showDrawer = () => {
     this.setState({
       visible: true,

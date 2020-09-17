@@ -39,7 +39,7 @@ const QueueRender = () => {
     },
   ];
   return (
-    <div >
+    <div>
       <Row gutter={[16, 16]}>
         <Col span={24}>
             <Col span={24} >

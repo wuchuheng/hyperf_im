@@ -3,6 +3,7 @@ import {Card} from 'antd';
 import {BaseState, KeyType, ContentListNoTitleType } from './Type';
 import Visitors from "./components/Visitors";
 import QueueRender from "./components/QueueRender";
+import Styles from './index.less';
 
 class DrawerRender extends React.Component<any, any>
 {
@@ -39,6 +40,7 @@ class DrawerRender extends React.Component<any, any>
           const tabKey = key as KeyType;
           this.onTabChange(tabKey) ;
         }}
+        className={Styles.mainWrapper}
       >
         {contentListNoTitle[this.state.noTitleKey]}
       </Card>
