@@ -14,9 +14,9 @@ const VisitorInforRender = function (props: PropsState) {
       <Col span={24}>
         <Row>
           <Col span={4}>
-              <div className={styles.iconWrapper} >
-                <DeviceIcon className={styles.iconRender}/>
-              </div>
+            <div className={styles.iconWrapper} >
+              <DeviceIcon className={styles.iconRender}/>
+            </div>
           </Col>
           <Col span={20} className={styles.textWrapper}>
             <Col span={24}>{`${province}${city} ${name}`}</Col>

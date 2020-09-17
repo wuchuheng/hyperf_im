@@ -4,6 +4,7 @@ const { Column, ColumnGroup } = Table;
 import {CommandsIcon, ComputerIcon, WindowsIcon, ChromeIcon} from "@/components/Icons";
 import {PropsState} from './components/VisitorInforRender/Type';
 import VisitorInforRender from './components/VisitorInforRender';
+import TotalRequestRender from './components/TotalRequestRender';
 
 class TableRender extends React.Component<any, any>{
   state = {
@@ -18,6 +19,7 @@ class TableRender extends React.Component<any, any>{
         title: '访问次数',
         dataIndex: 'totalRequest',
         key: 'totalRequest',
+        render: (V: {total: number; sex: 0 |1 |2}) => <TotalRequestRender sex={V.sex } total={V.total} />
       },
       {
         title: '来源',
@@ -56,7 +58,7 @@ class TableRender extends React.Component<any, any>{
           OS: 'WindowsIcon',
           brower: 'ChromeIcon'
         },
-        totalRequest: 32,
+        totalRequest: {total: 32, sex: 1},
         referrer: '直接访问',
         utm: '-'
       },
