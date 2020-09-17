@@ -2,6 +2,7 @@ import React from "react";
 import {Card} from 'antd';
 import {BaseState, KeyType, ContentListNoTitleType } from './Type';
 import Visitors from "./components/Visitors";
+import QueueRender from "./components/QueueRender";
 
 class DrawerRender extends React.Component<any, any>
 {
@@ -26,7 +27,7 @@ class DrawerRender extends React.Component<any, any>
   render() {
     const contentListNoTitle: ContentListNoTitleType = {
       visitor: <Visitors />,
-      queue: <p>排序2</p>
+      queue: <QueueRender />
     };
 
     return (
