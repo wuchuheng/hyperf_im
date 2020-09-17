@@ -590,3 +590,28 @@ export const ManIcon = (props: IconProps)  => {
   );
   return svg;
 }
+
+// 直接访问
+export const ExplicitIcon = (props: IconProps)  => {
+  const svg = (
+    <InitIcon {...props}>
+      <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#73D13D">
+      </path>
+      <path d="M512 292.864c126.528 0 239.488 87.104 289.92 219.136C751.488 644.032 638.528 731.2 512 731.2c-126.528 0-239.488-87.168-289.92-219.2C272.512 379.968 385.472 292.864 512 292.864z m0 91.264a127.872 127.872 0 1 0 0 255.744 127.872 127.872 0 0 0 0-255.744z" fill="#FFFFFF">
+      </path>
+      <path d="M512 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#FFFFFF">
+      </path>
+    </InitIcon>
+  );
+  return svg;
+}
+
+// 轨迹
+export const TrackIcon = (props: IconProps)  => {
+  const svg = (
+    <InitIcon {...props}>
+      <path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path>
+    </InitIcon>
+  );
+  return svg;
+}

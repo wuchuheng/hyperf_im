@@ -1,14 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 
-class Test extends React.Component<any, any>
-{
-  constructor(props:any) {
-    super(props);
-  }
+const Test = () => {
+  const [count, setCount] = useState(0);
 
-  render() {
-    return (<>123123</>);
-  }
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
 }
 
 export default Test;
+
