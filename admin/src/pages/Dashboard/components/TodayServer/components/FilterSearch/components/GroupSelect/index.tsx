@@ -44,7 +44,6 @@ class GroupSelect extends React.Component<any, any>
   };
 
   onChange =(value: string[]) => {
-    console.log('onChange ', value);
     this.setState({ value });
   };
 

@@ -49,8 +49,6 @@ const Rightbar = class Rightbar extends React.Component<any, any>
         allListItemNames = treeshakeList.map((v: ItemState) => v.name);
         // 数目或者顺序对不上，进行调整
         if (JSON.stringify(allPreSelectedItemNames) != JSON.stringify(allListItemNames)) {
-          console.log(allPreSelectedItemNames);
-          console.log(allListItemNames);
           const correctItems = treeshakeList.map((v: ItemState) => {
             const {icon, name, value, title} = v;
             return {icon, name, value, title};
