@@ -274,30 +274,8 @@ const TodayTrend = class TodayTrend extends React.Component<any, any>
   }
 
   componentDidMount() {
-
-    setTimeout(()  => {
       this.setState({
         data:[
-          {
-            hour: "-1:00",
-            type: "访客数",
-            temperature: 6
-          },
-          {
-            hour: "-1:00",
-            type: "对话数",
-            temperature: 2.9
-          },
-          {
-            hour: "0:00",
-            type: "访客数",
-            temperature: 5.9
-          },
-          {
-            hour: "0:00",
-            type: "对话数",
-            temperature: 3.2
-          },
           {
             hour: "1:00",
             type: "访客数",
@@ -528,9 +506,18 @@ const TodayTrend = class TodayTrend extends React.Component<any, any>
             type: "对话数",
             temperature: 3.8
           },
+          {
+            hour: "24:00",
+            type: "访客数",
+            temperature: 8.10
+          },
+          {
+            hour: "24:00",
+            type: "对话数",
+            temperature: 1.23
+          },
         ]
-      })
-    }, 2000)
+      });
   }
 
 
