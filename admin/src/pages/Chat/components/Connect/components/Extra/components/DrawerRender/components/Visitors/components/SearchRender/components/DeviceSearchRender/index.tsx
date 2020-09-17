@@ -8,23 +8,27 @@ class DeviceSearchRender extends React.Component<any, any>
     deviceTreeData: [
       {
         title: '手机',
-        value: 'phone',
+        name: 'phone',
         key: '0-0',
+        value: '0-0'
       },
       {
         title: '其它',
-        value: 'other',
+        name: 'other',
         key: '0-1',
+        value: '0-1'
       },
       {
         title: '桌面',
-        value: 'desktop',
+        name: 'desktop',
         key: '0-2',
+        value: '0-2',
         children : [
           {
             title: 'windows',
-            value: 'windows',
+            name: 'windows',
             key: '0-2-1',
+            value: '0-2-1'
           }
         ]
       }

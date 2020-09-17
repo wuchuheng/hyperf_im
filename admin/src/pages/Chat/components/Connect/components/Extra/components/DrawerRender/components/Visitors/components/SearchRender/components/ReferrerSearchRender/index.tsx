@@ -8,60 +8,71 @@ class ReferrerSearchRender extends React.Component<any, any>
     referrerTreeData: [
       {
         title: '直接访问',
-        value: 'explicit',
+        name: 'explicit',
         key: '0-0',
+        value: '0-0'
       },
       {
         title: '第三方',
-        value: 'thirdParty',
+        name: 'thirdParty',
         key: '0-1',
+        value: '0-1'
       },
       {
         title: '搜索引擎',
-        value: 'searchEngine',
+        name: 'searchEngine',
         key: '0-2',
+        value: '0-2',
         children : [
           {
             title: '百度',
-            value: 'baidu',
-            key: '0-2-1',
+            name: 'baidu',
+            key: '0-2-0',
+            value: '0-2-0'
           },
           {
             title: '360',
-            value: '360',
+            name: '360',
             key: '0-2-1',
+            value: '0-2-1'
           },
           {
             title: '搜狗',
-            value: 'sogo',
+            name: 'sogo',
             key: '0-2-2',
+            value: '0-2-2'
           },
           {
             title: '神马',
-            value: 'sm',
+            name: 'sm',
             key: '0-2-3',
+            value: '0-2-3'
           },
           {
             title: '必应',
-            value: 'biyin',
+            name: 'biyin',
             key: '0-2-4',
+            value: '0-2-4'
           },
           {
             title: '谷歌',
-            value: 'google',
+            name: 'google',
             key: '0-2-5',
+            value: '0-2-5'
           }
         ]
       },
       {
         title: '开放平台',
-        value: 'open',
+        name: 'open',
         key: '0-3',
+        value: '0-3',
         children : [
           {
             title: '百度bcp',
-            value: 'bcp',
+            name: 'bcp',
             key: '0-3-1',
+            value: '0-3-1'
           }
         ]
       }
