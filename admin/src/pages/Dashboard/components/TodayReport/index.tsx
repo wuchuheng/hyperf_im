@@ -4,7 +4,7 @@ import styles from "./index.less";
 import {QuestionCircleIcon} from "@/components/Icons";
 import ListModal from "@/pages/Dashboard/components/TodayReport/components/ListModal";
 import {DashboardModelState, Loading} from "@@/plugin-dva/connect";
-import {IndexModelState, connect} from "umi";
+import {connect} from "umi";
 import { TodayReportItemState} from "@/models/DashboardModel";
 import * as Icons from "@/components/Icons";
 
