@@ -19,6 +19,7 @@ const UserModel: UserModelType = {
     * login({payload}, {call, put, select}) {
       const userState  = yield select((state: ConnectStatusState) => state.user);
       const res  = checkRes(yield call(login, payload));
+      console.log(res);
       const tokenInfo = JSON.stringify(res);
       yield call(setToken, tokenInfo);
       yield put({ type: 'save', payload: { ...userState, isLogin: true } });

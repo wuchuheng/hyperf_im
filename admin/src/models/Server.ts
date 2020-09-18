@@ -4,9 +4,9 @@ export function checkRes(res: any)
   if (res == 'null') {
     throw res;
   }
-  if (res.status >= 200 && res.status < 300) {
-    return res;
-  } else {
+  if (res.status && res.status >= 400) {
     throw res;
+  } else {
+    return res;
   }
 }
