@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->comment(__('database.nickname'));
             $table->string('password')->comment(__('database.password'));
             $table->integer('avatar_id')->comment(__('database.avatar_id'));
-            $table->integer('rooms')->comment(__('database.rooms'));
             $table->timestamps();
         });
         $comment = __('database.usertable');

@@ -2,6 +2,7 @@
 
 return [
     'usertable' => '用户表',
+    'user_id' => '用户id',
     'username' => '用户名',
     'nickname' => '昵称',
     'password' => '密码',
@@ -14,4 +15,7 @@ return [
     'key' => '配置名',
     'note' => '备注',
     'rooms' => '接待上限',
+    'is_welcome' => '1启用欢迎语0否',
+    'welcome' => '欢迎语',
+    'chat_setting' => '聊天设置',
 ];
