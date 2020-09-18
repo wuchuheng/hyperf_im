@@ -3,6 +3,7 @@ import {Tabs, Row, Col} from 'antd';
 const { TabPane } = Tabs;
 import  styles from './index.less';
 import PageSettingRender from './components/PageSettingRender';
+import NotificationRender from './components/NotificationRender';
 
 function callback(key: any) {
   console.log(key);
@@ -10,16 +11,17 @@ function callback(key: any) {
 
 const SettingRender = (props: any) => {
   return (
-    <Tabs defaultActiveKey="1"
-          onChange={callback}
-          centered
+    <Tabs defaultActiveKey="2"
+      onChange={callback}
+      centered
       className={styles.mainWrapper}
+      animated={{inkBar:true , tabPane: true}}
     >
       <TabPane tab="页面设置" key="1">
         <PageSettingRender />
       </TabPane>
       <TabPane tab="消息通知" key="2">
-        Content of Tab Pane 2
+        <NotificationRender />
       </TabPane>
       <TabPane tab="客服欢迎语" key="3">
         Content of Tab Pane 3

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
-import {Row, Col, Form, Input, Button, Checkbox, Radio } from 'antd';
+import {Form, Button, Checkbox, Radio } from 'antd';
 import styles from './index.less';
-import {TabShowState} from './Type';
 
 const PageSettingRender = (props: any) => {
   const layout = {
@@ -210,21 +209,15 @@ const PageSettingRender = (props: any) => {
               </Radio.Group>
             </Form.Item>
 
+            <Form.Item
+              wrapperCol={{offset: 10, span: 12}}
+            >
+              <Button type="primary" htmlType="submit" shape="round" className={styles.buttonRender}>
+                保存
+              </Button>
+            </Form.Item>
           </Form.Item>
 
-          <Form.Item
-            wrapperCol={{offset: 10, span: 12}}
-          >
-            <Button
-              type="primary"
-              htmlType="submit"
-              shape="round"
-              className={styles.buttonRender}
-              size={'large'}
-            >
-              保存
-            </Button>
-          </Form.Item>
         </Form>
   );
 }
