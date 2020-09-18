@@ -33,7 +33,7 @@ export default class Index extends React.Component<any, any>
           collapsible onCollapse={this.onCollapse}
           trigger={null}
           defaultCollapsed={true}
-          collapsedWidth={60}
+          collapsedWidth={55}
         >
           <Logo />
           <Menu theme="dark"  defaultSelectedKeys={[history.location.pathname]} mode="inline" className={style.menuRender} >
