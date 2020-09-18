@@ -43,7 +43,6 @@ const Index: DashboardModelType = {
     * setSelectItems({payload}, {call, put, select}) {
       const dashboardState = yield select((state: ConnectStatusState) => (state.dashboard));
       dashboardState.todayReport.selectedItems = dashboardState.todayReport.preSelectedItems;
-      console.log(1)
       yield put({
         type: 'save',
         payload: dashboardState
@@ -116,8 +115,7 @@ const Index: DashboardModelType = {
         }
       });
     },
-    keyEvent({dispatch}) {
-    },
+    keyEvent({dispatch}) { },
   }
 };
 

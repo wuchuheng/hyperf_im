@@ -20,7 +20,7 @@ export function removeToken() {
 export function isTokenExpired(): boolean
 {
   const tokenInfoJson = Cookies.get(TokenKey);
-  if (!tokenInfoJson) {
+  if (!tokenInfoJson || tokenInfoJson === 'null') {
     return true;
   }
   const  TokenInfo = JSON.parse(tokenInfoJson);

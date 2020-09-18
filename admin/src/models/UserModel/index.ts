@@ -2,6 +2,7 @@ import {UserModelState, UserModelType} from './Type'
 import {login} from "@/api/authorizations";
 import {isTokenExpired, setToken, removeToken} from '@/utils/auth';
 import {ConnectStatusState} from "@/models/Connect";
+import {checkRes} from '../Server';
 
 export {UserModelState};
 
@@ -17,7 +18,7 @@ const UserModel: UserModelType = {
     // 登录
     * login({payload}, {call, put, select}) {
       const userState  = yield select((state: ConnectStatusState) => state.user);
-      const res  = yield login(payload);
+      const res  = checkRes(yield call(login, payload));
       const tokenInfo = JSON.stringify(res);
       yield call(setToken, tokenInfo);
       yield put({ type: 'save', payload: { ...userState, isLogin: true } });
@@ -53,7 +54,9 @@ const UserModel: UserModelType = {
     }
   },
   subscriptions: {
-    setup() { }
+    setup() {
+
+    }
   }
 }
 

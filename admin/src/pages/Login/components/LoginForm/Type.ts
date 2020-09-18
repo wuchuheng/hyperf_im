@@ -1,7 +1,7 @@
-interface ValueState {
-  password: string | undefined;
-  username: string | undefined;
-  remerberMe: boolean;
+export interface BaseState {
+  password: string ;
+  username: string ;
+  rememberMe: boolean;
 }
 
 interface ErrorFieldState {

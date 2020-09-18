@@ -1,12 +1,18 @@
 import React from "react";
 import {Button, Checkbox, Form, Input} from "antd";
-// @ts-ignore
 import styles from './index.less';
 import {UserModelState, Loading ,connect} from 'umi';
 import { history } from 'umi';
+import {BaseState } from './Type';
 
 class LoginForm extends React.Component<any, any>
 {
+
+  state: BaseState = {
+    rememberMe: true,
+    username: 'root@wuchuheng.com',
+    password: '123456'
+  }
 
   constructor(props: any) {
     super(props);
@@ -15,14 +21,14 @@ class LoginForm extends React.Component<any, any>
   /**
    * 登录
    */
-  onFinish(values: any)
+  onFinish(values: BaseState)
   {
     this.props.dispatch({
       type: 'user/login',
       payload: values
-    }).then((res: any) => {
-      history.push('/dashboard');
-    })
+    }).then((res: boolean) => {
+        history.push('/dashboard');
+    });
   };
 
   render() {
@@ -33,15 +39,14 @@ class LoginForm extends React.Component<any, any>
     const tailLayout = {
       wrapperCol: { offset: 0, span: 24 },
     };
-
-      const onFinishFailed = (errorInfo: any) => {
-      };
+    const onFinishFailed = (errorInfo: any) => {
+    };
 
     return (
       <Form
         {...layout}
         name="basic"
-        initialValues={{remember: true}}
+        initialValues={{remember: this.state.rememberMe, username: this.state.username, password: this.state.password }}
         onFinish={(v) => this.onFinish(v)}
         onFinishFailed={onFinishFailed}
         style={{width: '100%'}}
