@@ -12,5 +12,6 @@ return [
     'configurestable' =>  '配置表',
     'value' => '配置值',
     'key' => '配置名',
-    'note' => '备注'
+    'note' => '备注',
+    'rooms' => '接待上限',
 ];
