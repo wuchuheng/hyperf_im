@@ -52,7 +52,7 @@ class AuthorizationsController extends  AbstractController
             return $this->successResponse($this->formaToken($token), 201);
         } else {
             return $this->failResponse([
-                'errorCode' => 50001,
+                'errorCode' => 40001,
                 'message' => __('api.username_invald_or_password_invalid')
             ]);
         }
