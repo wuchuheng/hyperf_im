@@ -18,4 +18,10 @@ return [
     'is_welcome' => '1启用欢迎语0否',
     'welcome' => '欢迎语',
     'chat_setting' => '聊天设置',
+    'name' => '名字',
+    'tel' => '座机',
+    'phone' => '手机',
+    'email' => '邮箱',
+    'QQ' => 'qq',
+    'wechat' => '微信'
 ];

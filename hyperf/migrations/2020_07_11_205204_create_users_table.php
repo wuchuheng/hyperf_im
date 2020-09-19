@@ -19,6 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('nickname')->comment(__('database.nickname'));
             $table->string('password')->comment(__('database.password'));
             $table->integer('avatar_id')->comment(__('database.avatar_id'));
+            $table->string('name')->comment(__('database.name'));
+            $table->string('tel', 20)->nullable()->comment(__('database.tel'));
+            $table->string('phone', 14)->nullable()->comment(__('database.phone'));
+            $table->string('email', 50)->nullable()->comment(__('database.email'));
+            $table->string('qq', 20)->nullable()->comment(__('database.QQ'));
+            $table->string('wechat', 30)->nullable()->comment(__('database.wechat'));
             $table->timestamps();
         });
         $comment = __('database.usertable');
