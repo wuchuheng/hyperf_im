@@ -21,14 +21,14 @@ const PageSettingRender = (props: any) => {
     console.log('Failed:', errorInfo);
   };
 
-  const [chatModel, setChatModel] = useState('simple');
-  const onChatModelChange = (v:any):void => {
-    setChatModel(v.target.value);
+  const [chatModel, setContactModel] = useState('simple');
+  const onContactModelChange = (v:any):void => {
+    setContactModel(v.target.value);
   }
 
-  const [showClientTag, setShowTag] = useState(true);
+  const [showClientTag, setShowClientTag] = useState(true);
   const onShowTagChange = (e:any): void => {
-    setShowTag(e.target.checked);
+    setShowClientTag(e.target.checked);
   }
 
   const [ conversationTimeoutWarn,setConversationTimeoutWarn ] = useState(false)
@@ -64,7 +64,11 @@ const PageSettingRender = (props: any) => {
 
   const [quickShow, setQuickShow] = useState('quickShow')
   const onQuickShowChange = (e: any) => {
-    setQuickShow(e.target.checked);
+    // 固定展示只有客户一个选择
+    if (e.target.value === 'quickShow') {
+      setDefaultPage('client');
+    }
+    setQuickShow(e.target.value);
   }
 
   const [defaultPage, setDefaultPage] = useState('client')
@@ -97,7 +101,7 @@ const PageSettingRender = (props: any) => {
               name="chatModel"
               noStyle
             >
-              <Radio.Group onChange={onChatModelChange}>
+              <Radio.Group onChange={onContactModelChange}>
                 <Radio value={'normal'}>正常模式</Radio>
                 <Radio value={'simple'}>极简模式</Radio>
               </Radio.Group>
@@ -213,7 +217,7 @@ const PageSettingRender = (props: any) => {
             >
               <Radio.Group onChange={onDefaultPageChange} value={defaultPage}>
                 <Radio value={'client'}>客户</Radio>
-                <Radio value={'quick'} disabled={!tabshowQuick}>快捷</Radio>
+                <Radio value={'quick'} disabled={!tabshowQuick || quickShow == 'quickShow'}>快捷</Radio>
               </Radio.Group>
             </Form.Item>
 

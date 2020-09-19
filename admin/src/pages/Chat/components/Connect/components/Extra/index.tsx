@@ -13,7 +13,7 @@ class Extra extends React.Component<any, any>
 {
   state = {
     visible: false,
-    modalVisible: false
+    modalVisible: true
   };
   showDrawer = () => {
     this.setState({
