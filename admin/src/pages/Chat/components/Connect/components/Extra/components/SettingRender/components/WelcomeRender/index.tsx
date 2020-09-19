@@ -53,7 +53,7 @@ const WelcomeRender = (props: any) => {
       <Form.Item
         wrapperCol={{offset: 10}}
       >
-        <Button type="primary" htmlType="submit" shape="round">保存</Button>
+        <Button type="primary" htmlType="submit" shape="round" size={'small'}>保存</Button>
       </Form.Item>
 
     </Form>

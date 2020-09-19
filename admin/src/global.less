@@ -1,3 +1,17 @@
 @import '~antd/dist/antd.less';
 @borderColor: rgba(238, 240, 246, 1);
 @fontColor: #b3b7c6;
+
+// 滚动条样式
+&::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+&::-webkit-scrollbar-thumb {
+  border-radius: 40px;
+  background-color: rgba(0, 0, 0, 0.22);
+}
+&::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+  width: 12px;
+}
