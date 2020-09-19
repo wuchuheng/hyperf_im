@@ -1,6 +1,9 @@
 import React, {useState} from "react";
-import {Form, Button, Checkbox, Radio } from 'antd';
+import {Form, Button, Checkbox, Radio, Popover } from 'antd';
 import styles from './index.less';
+import {EyesIcon} from "@/components/Icons";
+import chatSettingQuickFix from '@/assets/images/chat/chat-setting-quick-fix.png';
+import chatSettingQuickTab from '@/assets/images/chat/chat-setting-quick-tab.png';
 
 const PageSettingRender = (props: any) => {
   const layout = {
@@ -194,8 +197,16 @@ const PageSettingRender = (props: any) => {
               hidden={!tabshowQuick}
             >
               <Radio.Group onChange={onQuickShowChange}>
-                <Radio value={'quickShow'}>快捷显示</Radio>
-                <Radio value={'tabShow'}>tab展示</Radio>
+                <Radio value={'quickShow'}>
+                  <Popover content={<img src={chatSettingQuickFix} className={styles.tabShowImgRender} />} placement="bottom">
+                    固定展示<EyesIcon className={styles.eyesIconRender}/>
+                  </Popover>
+                </Radio>
+                <Radio value={'tabShow'}>
+                  <Popover content={<img src={chatSettingQuickTab} className={styles.tabShowImgRender} />} placement="bottom">
+                    tab展示<EyesIcon className={styles.eyesIconRender}/>
+                  </Popover>
+                </Radio>
               </Radio.Group>
             </Form.Item>
 
