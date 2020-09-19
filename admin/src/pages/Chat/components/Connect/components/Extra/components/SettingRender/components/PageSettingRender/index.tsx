@@ -17,12 +17,11 @@ const PageSettingRender = (props: any) => {
   const onFinish = (values:any) => {
     console.log('Success:', values);
   };
-  const [chatModel, setChatModel] = useState('simple');
-
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
+  const [chatModel, setChatModel] = useState('simple');
   const onChatModelChange = (v:any):void => {
     setChatModel(v.target.value);
   }
@@ -55,6 +54,7 @@ const PageSettingRender = (props: any) => {
   const [tabshowQuick, setTabShowQuick] = useState(false);
   const onTabshowQuickChange = (e: any) => {
     setTabShowQuick(e.target.checked);
+    setDefaultPage('client');
   };
 
   const [tabshowPlugin, setTabShowPlugin] = useState(false);
@@ -66,11 +66,11 @@ const PageSettingRender = (props: any) => {
   const onQuickShowChange = (e: any) => {
     setQuickShow(e.target.checked);
   }
+
   const [defaultPage, setDefaultPage] = useState('client')
   const onDefaultPageChange = (e: any) => {
-    setDefaultPage(e.target.checked);
+    setDefaultPage(e.target.value);
   }
-
 
   return (
         <Form
@@ -81,8 +81,7 @@ const PageSettingRender = (props: any) => {
             showClientTag,
             conversationOrder,
             noMSGGoBottom,
-            quickShow,
-            defaultPage
+            quickShow
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -96,7 +95,6 @@ const PageSettingRender = (props: any) => {
           >
             <Form.Item
               name="chatModel"
-              rules={[{ required: true, message: 'Please input your username!' }]}
               noStyle
             >
               <Radio.Group onChange={onChatModelChange}>
@@ -212,11 +210,10 @@ const PageSettingRender = (props: any) => {
 
             <Form.Item
               label={'默认页面'}
-              name={'defaultPage'}
             >
-              <Radio.Group onChange={onQuickShowChange}>
+              <Radio.Group onChange={onDefaultPageChange} value={defaultPage}>
                 <Radio value={'client'}>客户</Radio>
-                <Radio value={'quick'} disabled>快捷</Radio>
+                <Radio value={'quick'} disabled={!tabshowQuick}>快捷</Radio>
               </Radio.Group>
             </Form.Item>
 
