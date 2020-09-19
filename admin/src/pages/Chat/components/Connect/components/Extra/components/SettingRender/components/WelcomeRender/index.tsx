@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Form, Switch, Alert, Row, Col, Input, Button} from 'antd';
 const { TextArea } = Input;
+import styles from './index.less';
 
 const WelcomeRender = (props: any) => {
   const [feature, setFeature] = useState(true);
@@ -38,12 +39,14 @@ const WelcomeRender = (props: any) => {
       <Form.Item
         label={'欢迎语'}
         name={'welcome'}
+        wrapperCol={{span: 17}}
         required
       >
         <TextArea
           placeholder="请输入欢迎语"
-          autoSize={{ minRows: 1, maxRows: 2 }}
+          autoSize={{ minRows: 2, maxRows: 2 }}
           onChange={onWelcomeChange}
+          className={styles.textareaRender}
         />
       </Form.Item>
 

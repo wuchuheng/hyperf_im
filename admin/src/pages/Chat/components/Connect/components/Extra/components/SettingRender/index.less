@@ -8,3 +8,22 @@
   font-weight: bold;
   font-size: 13px !important;
 }
+
+// 被子组件引用的表单textarea
+.textareaRender {
+  border-radius: 4px !important;
+  resize:none;
+  overflow:auto;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 40px;
+    background-color: rgba(0, 0, 0, 0.22);
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
+    width: 12px;
+  }
+}
