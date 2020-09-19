@@ -6,6 +6,7 @@ import PageSettingRender from './components/PageSettingRender';
 import NotificationRender from './components/NotificationRender';
 import WelcomeRender from './components/WelcomeRender';
 import BusinessCardRender from './components/BusinessCardRender';
+import ShortcutRender from './components/ShortcutRender'
 
 function callback(key: any) {
   console.log(key);
@@ -13,7 +14,7 @@ function callback(key: any) {
 
 const SettingRender = (props: any) => {
   return (
-    <Tabs defaultActiveKey="4"
+    <Tabs
       onChange={callback}
       centered
       className={styles.mainWrapper}
@@ -32,7 +33,7 @@ const SettingRender = (props: any) => {
         <BusinessCardRender />
       </TabPane>
       <TabPane tab="快捷键" key="5">
-        Content of Tab Pane 3
+        <ShortcutRender />
       </TabPane>
     </Tabs>
   );
