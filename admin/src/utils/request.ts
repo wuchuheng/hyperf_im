@@ -1,5 +1,6 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import {requestBaseUrl} from "@/config";
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -50,7 +51,7 @@ const errorHandler = (error: { response: Response }): Response => {
 
 
 const request = extend({
-  prefix: 'http://192.168.33.10:9501/admin',
+  prefix: requestBaseUrl,
   errorHandler: errorHandler
 });
 
