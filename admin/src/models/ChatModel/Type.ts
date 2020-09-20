@@ -37,7 +37,7 @@ export interface ChatType {
   namespace: 'chat';
   state: ChatState;
   effects: {
-    // send: Effect;
+    savePageSetting: Effect;
   },
   reducers: {
     save: Reducer<ChatState>;

@@ -1,13 +1,14 @@
 import {setCookie, getCookie} from "@/utils/cookie";
 import {PageSettingState} from "@/models/ChatModel/Type";
 
+const pageSettingKey = 'chatPageSetting' // 页面保存cookie key
+
 /**
  * 获取页面设置
  */
 export function getPageSetting(): PageSettingState
 {
-  const pageSetting = 'chatPageSetting'
-  const pageSettingJsonString = getCookie(pageSetting);
+  const pageSettingJsonString = getCookie(pageSettingKey );
   if (pageSettingJsonString) {
       return JSON.parse(pageSettingJsonString) as PageSettingState;
   }
@@ -33,6 +34,14 @@ export function getPageSetting(): PageSettingState
       tabDefaultShow: 'client'
     }
   }
-  setCookie(pageSetting , JSON.stringify(setting));
+  setCookie(pageSettingKey, JSON.stringify(setting));
   return setting;
+}
+
+/**
+ * 保存页面设置
+ */
+export function savePageSetting(pageSetting: PageSettingState): boolean {
+  setCookie(pageSettingKey, JSON.stringify(pageSetting));
+  return true;
 }

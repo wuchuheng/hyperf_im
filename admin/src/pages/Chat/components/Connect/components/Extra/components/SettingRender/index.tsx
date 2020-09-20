@@ -9,7 +9,6 @@ import BusinessCardRender from './components/BusinessCardRender';
 import ShortcutRender from './components/ShortcutRender'
 
 function callback(key: any) {
-  console.log(key);
 }
 
 const SettingRender = (props: any) => {
