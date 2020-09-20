@@ -1,4 +1,5 @@
 import {Effect, Reducer, Subscription} from "@@/plugin-dva/connect";
+import ex from "umi/dist";
 
 // 联系人栏设置
 interface ConnectBarSettingState {
@@ -27,9 +28,35 @@ export interface PageSettingState {
   rightBarSetting: RightBarSettingState; // 右边栏目设置
 }
 
+//  消息通知
+export interface NotificationState {
+  hasNews: { // 有新消息
+    isDesktopNotification: boolean;
+    isVoiceNotification: boolean;
+  },
+  hasConversation: { // 有新对话
+    isDesktopNotification: boolean;
+    isVoiceNotification: boolean;
+  },
+  connectIn: { // 转入对话
+    isDesktopNotification: boolean;
+    isVoiceNotification: boolean;
+  },
+  connectOut: { // 转出对话
+    isDesktopNotification: boolean;
+    isVoiceNotification: boolean;
+  },
+  worker: { // 同事新对话
+    isDesktopNotification: boolean;
+    isVoiceNotification: boolean;
+  },
+  volume: number; // 声音
+}
+
 export interface ChatState {
   setting: {
-    pageSetting: PageSettingState
+    pageSetting: PageSettingState; // 页面设置
+    notificationSetting: NotificationState; // 消息通知
   }
 }
 
@@ -37,7 +64,8 @@ export interface ChatType {
   namespace: 'chat';
   state: ChatState;
   effects: {
-    savePageSetting: Effect;
+    savePageSetting: Effect; // 保存页面设置
+    saveNotificationSetting: Effect; // 保存消息通知设置
   },
   reducers: {
     save: Reducer<ChatState>;
