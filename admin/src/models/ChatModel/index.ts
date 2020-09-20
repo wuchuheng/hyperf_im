@@ -1,6 +1,7 @@
 import {ChatState, ChatType, NotificationState} from "@/models/ChatModel/Type";
 import {getPageSetting, savePageSetting, getNotificationSetting, saveNotificationSetting} from './Server';
 import { ConnectStatusState } from '../Connect'
+import {MoveIcon} from "@/components/Icons";
 
 export {ChatState, NotificationState};
 
@@ -16,7 +17,8 @@ const ChatModel: ChatType = {
       notificationSetting: {
         ...notificationSetting
       }
-    }
+    },
+    clients: []
   },
   effects: {
     // 保存页面设置

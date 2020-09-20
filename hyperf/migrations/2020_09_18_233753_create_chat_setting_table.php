@@ -14,7 +14,6 @@ class CreateChatSettingTable extends Migration
      */
     public function up(): void
     {
-
         $table_name = $this->table_name;
         Schema::create($table_name, function (Blueprint $table) {
             $table->bigIncrements('id');

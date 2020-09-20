@@ -1,4 +1,4 @@
-import {RerferrerKeyType } from "@/pages/Chat/components/Connect/components/Extra/components/DrawerRender/Type";
+import {RerferrerKeyType } from "@/pages/Chat/Type";
 // 来源值约束
 export type ReferrerState = RerferrerKeyType;
 
