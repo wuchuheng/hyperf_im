@@ -2,6 +2,7 @@ import React from "react";
 import { Menu } from 'antd';
 import styles from './index.less'
 import {TeamIcon, ConnectIcon, ChatIcon, UserIcon, TicketIcon, CallbackIcon, CalloutIcon} from "@/components/Icons";
+import {history, Link} from 'umi';
 
 const { SubMenu } = Menu;
 
@@ -10,10 +11,11 @@ const NavigationRender = (props: any) => {
     console.log('click ', e);
   };
 
+
   return (
     <Menu
       onClick={handleClick}
-      defaultSelectedKeys={['1']}
+      defaultSelectedKeys={ [history.location.pathname] }
       defaultOpenKeys={[
         '/setting/team',
         '/setting/connect',
@@ -36,7 +38,11 @@ const NavigationRender = (props: any) => {
 
       <SubMenu key="/setting/connect" icon={<ConnectIcon />} title="接入">
         <Menu.Item key="/setting/connect/web-widget">网页插件</Menu.Item>
-        <Menu.Item key="/setting/connect/chat-link">聊天链接</Menu.Item>
+        <Menu.Item key="/setting/connect/chat-link">
+          <Link to={"/setting/connect/chat-link"}>
+            聊天链接
+          </Link>
+        </Menu.Item>
         <Menu.Item key="/setting/connect/sdk">SDK</Menu.Item>
         <Menu.Item key="/setting/connect/wechat">微信</Menu.Item>
         <Menu.Item key="/setting/connect/weibo">微博</Menu.Item>

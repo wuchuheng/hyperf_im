@@ -25,7 +25,7 @@ export default defineConfig({
           path: 'setting',
           component: '@/pages/Setting',
           routes: [
-            { path: 'chat-link', component: '@/pages/Setting/components/ChatLink'},
+            { path: 'connect/chat-link', component: '@/pages/Setting/components/ChatLink'},
             { path: '*', component: '@/pages/Setting/components/NotFoundRender'}
           ],
         },

@@ -27,6 +27,16 @@ export default class Index extends React.Component<any, any>
   };
 
   render(): React.ReactNode {
+
+    let defaultSelect = '';
+      ['/dashboard', '/chat', '/setting'].every((v, i) => {
+        if (history.location.pathname.indexOf(v) === 0) {
+          defaultSelect = v;
+          return false;
+        }
+        return true;
+      });
+
     return (
       <>
         <Sider
@@ -36,7 +46,7 @@ export default class Index extends React.Component<any, any>
           collapsedWidth={55}
         >
           <Logo />
-          <Menu theme="dark"  defaultSelectedKeys={[history.location.pathname]} mode="inline" className={style.menuRender} >
+          <Menu theme="dark"  defaultSelectedKeys={[defaultSelect]} mode="inline" className={style.menuRender} >
             <Menu.Item key="/dashboard" icon={<DashboardIcon className={style.iconRender} /> } >
               <Link to={"/dashboard"}>首页</Link>
             </Menu.Item>

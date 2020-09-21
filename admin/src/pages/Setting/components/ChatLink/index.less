@@ -1,0 +1,29 @@
+@headerHeight:  8vh;
+@centerMargin: 2vh;
+
+.layout {
+  .header {
+    background-color: white;
+    max-height: @headerHeight;
+    padding-left: 24px;
+
+  }
+
+  .mainContenWrapper {
+    height: 100vh - @headerHeight;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    .center {
+      flex-grow: 1;
+      margin: @centerMargin;
+      height: 100vh - @centerMargin * 2 - @headerHeight;
+    }
+  }
+  .item {
+    width: 100%;
+    height: 100vh - @centerMargin * 2 - @headerHeight;
+  }
+}
