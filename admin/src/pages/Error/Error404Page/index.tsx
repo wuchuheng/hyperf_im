@@ -1,5 +1,4 @@
 import React from "react";
-import NotFound404Error from '@/assets/images/NotFound404Error.svg'
 import {Row, Col} from 'antd';
 import styles from './index.less';
 
