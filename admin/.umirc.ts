@@ -20,7 +20,16 @@ export default defineConfig({
       routes: [
         { path: '/', redirect: '/dashboard' },
         { path: '/dashboard', component: '@/pages/Dashboard' },
-        { path: '/chat', component: '@/pages/Chat' }
+        { path: '/chat', component: '@/pages/Chat' },
+        {
+          path: 'setting',
+          component: '@/pages/Setting',
+          routes: [
+            { path: 'chat-link', component: '@/pages/Setting/components/ChatLink'},
+            { path: '*', component: '@/pages/Setting/components/NotFoundRender'}
+          ],
+        },
+        { path: '/*', component: '@/pages/Error/Error404Page'}
       ],
       wrappers: [
         '@/utils/RouteAuth',

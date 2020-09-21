@@ -627,3 +627,4 @@ export const EyesIcon = (props: IconProps) => {
   );
   return svg;
 };
+
