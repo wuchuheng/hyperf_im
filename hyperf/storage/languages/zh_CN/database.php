@@ -68,8 +68,14 @@ return [
         'table_name' => '会话标签表',
         'conversation_id' => '会话id',
         'tag_id' => '标签id',
-    ]
+    ],
 
-
-
+    // 常见问题
+   'setting_connect_chatlink_fqa'  => [
+       'table_name' => '常见问题',
+       'window_id' => '聊天窗口id',
+       'title' => '标题',
+       'content' => '内容',
+       'order_no' => '排序编号'
+   ]
 ];

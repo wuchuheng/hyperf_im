@@ -1,6 +1,5 @@
 import React from "react";
 import {Card, Row, Col} from 'antd';
-import {ConnectIcon} from "@/components/Icons";
 
 const ChatWindowsSettingRender = () => {
   return (

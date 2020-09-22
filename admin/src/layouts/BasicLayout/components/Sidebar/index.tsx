@@ -12,6 +12,7 @@ import { Link } from 'umi';
 import style from './index.less';
 import Logo from "@/layouts/BasicLayout/components/Logo";
 import { history } from 'umi';
+import {findLikeItemInItems} from "@/utils/common";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -27,15 +28,7 @@ export default class Index extends React.Component<any, any>
   };
 
   render(): React.ReactNode {
-
-    let defaultSelect = '';
-      ['/dashboard', '/chat', '/setting'].every((v, i) => {
-        if (history.location.pathname.indexOf(v) === 0) {
-          defaultSelect = v;
-          return false;
-        }
-        return true;
-      });
+    let defaultSelect = findLikeItemInItems(['/dashboard', '/chat', '/setting'], history.location.pathname) || '';
 
     return (
       <>

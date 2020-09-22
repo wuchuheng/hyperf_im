@@ -25,8 +25,10 @@ export default defineConfig({
           path: 'setting',
           component: '@/pages/Setting',
           routes: [
-            { path: 'connect/chat-link', component: '@/pages/Setting/components/ChatLink'},
-            { path: '*', component: '@/pages/Setting/components/NotFoundRender'}
+            { path: 'connect/chat-link/:website', component: '@/pages/Setting/components/ChatLink'},
+            { path: 'connect/chat-link/:website/pc-windows',
+              component: '@/pages/Setting/components/ChatLink/components/RightBarRender/components/ChatWindowsSettingRender/components/PcWindows'
+            }
           ],
         },
         { path: '/*', component: '@/pages/Error/Error404Page'}
