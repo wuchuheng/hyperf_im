@@ -3,6 +3,7 @@ import {Row, Col, Layout} from 'antd';
 const {Header, Content} = Layout;
 import styles from './index.less';
 import LeftBar from "./components/LeftBar";
+import RightBarRender from './components/RightBarRender';
 
 const ChatLink = (props: any) => {
   return (
@@ -18,8 +19,8 @@ const ChatLink = (props: any) => {
                 </div>
               </Col>
               <Col span={19} >
-                <div>
-                  2
+                <div className={styles.item}>
+                  <RightBarRender />
                 </div>
               </Col>
             </Row>
