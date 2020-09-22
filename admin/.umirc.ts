@@ -1,4 +1,5 @@
 import { defineConfig } from 'umi';
+import ChatLink from "@/pages/connect/ChatLink";
 
 export default defineConfig({
   request: {
@@ -14,6 +15,12 @@ export default defineConfig({
   routes: [
     { path: '/login', component: '@/pages/Login', exact: true },
     { path: '/test', component: '@/pages/Test', exact: true },
+    {
+      path: '/connect',
+      routes: [
+        {path: 'chat-links/:site', component: '@/pages/connect/ChatLink'}
+      ]
+    },
     {
       path: '/',
       component: '@/layouts/BasicLayout',

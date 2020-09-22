@@ -72,10 +72,40 @@ return [
 
     // 常见问题
    'setting_connect_chatlink_fqa'  => [
-       'table_name' => '常见问题',
+       'table_name' => '常见问题表',
        'window_id' => '聊天窗口id',
        'title' => '标题',
        'content' => '内容',
        'order_no' => '排序编号'
-   ]
+   ],
+    'setting_connect_chatlink_sites'  => [
+        'table_name' => '聊天接入站点表',
+        'title' => '接入的站点名',
+    ],
+    'setting_connect_chatlink_sites_carousel' => [
+        'table_name' => '聊天链接跑马灯表',
+        'album_id' => '相册表id',
+        'site_id' => '聊天接入站点表id',
+        'order_no' => '排序'
+    ],
+    'setting_connect_chatlink_sites_config' => [
+        'table_name' => '聊天接入站配置表',
+        'site_id' => '站点id',
+        'driver_type' => '设备类， pc 或 phone',
+        'size' => '窗口大小: fullScreen全屏customer自定义standard标准mini迷你',
+        'theme' => '主题颜色',
+        'background_color' => '背景色',
+        'background_album_id' => '背景图id',
+        'client_text_color' => '访客文字颜色',
+        'is_access' => '是否启快捷入口',
+        'is_carousel' => '是否启用走马灯',
+        'is_fqa' => '是否启用常见问题'
+    ],
+    'database.setting_connect_chatlink_sites_access.' => [
+        'table_name' => '聊天链接快捷接入表',
+        'name' => '入口名称',
+        'album_id' => '相册表id',
+        'url' => '跳转链接',
+        'order_no' => '排序'
+    ]
 ];

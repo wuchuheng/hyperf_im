@@ -48,6 +48,9 @@ class Database extends Seeder
         DB::insert('INSERT INTO `tags` (`type`, `name`, `color`) VALUES ( \'client\', \'顾客标签8\', \'rgb(76, 160, 255)\' )');
         DB::insert('INSERT INTO `tags` (`type`, `name`, `color`) VALUES ( \'client\', \'顾客标签9\', \'rgb(255, 92, 94)\' )');
         DB::insert('INSERT INTO `tags` (`type`, `name`, `color`) VALUES ( \'client\', \'顾客标签10\', \'rgb(112, 112, 112)\' )');
+
+        //  聊天接入网站
+        DB::insert('INSERT INTO `setting_connect_chatlink_sites` (`id`, `title`) VALUES (\'1\', \'默认接入网站\')');
     }
 }
 
