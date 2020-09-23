@@ -10,7 +10,8 @@ const WebsocketModel: WebsocketType = {
   namespace: 'websocket',
   state: {
     isOpen: false,
-    ws: null
+    ws: null,
+    requestingUrls: []
   },
   effects: {
     * send({payload}, {call, put, select}) {
@@ -26,7 +27,7 @@ const WebsocketModel: WebsocketType = {
       const allState = yield select((state: ConnectStatusState) => state);
       return  allState
     },
-    * getDataInEffect ({payload}, {select, call}) {
+    * getDataInEffect ({payload}, {select, put, call}) {
       const ws= yield select((state: ConnectStatusState) => state.websocket.ws);
       const res = yield call(testWs, ws);
       return res;
@@ -54,16 +55,16 @@ const WebsocketModel: WebsocketType = {
         }, 1000 * 60)
       });
 
-      // setTimeout(() => {
-      //   const res = dispatch({
-      //     type: 'getDataInEffect'
-      //   }) as Promise<any>;
-      //   res.then((res: any) => {
-      //     console.log(res);
-      //   }).catch((e: any) => {
-      //     console.log(e);
-      //   })
-      // }, 1000);
+      setTimeout(() => {
+        const res = dispatch({
+          type: 'getDataInEffect'
+        }) as Promise<any>;
+        res.then((res: any) => {
+          console.log(res);
+        }).catch((e: any) => {
+          console.log(e);
+        })
+      }, 1000);
 
     // Listen for messages
       socket.addEventListener('message', function (event) {
@@ -73,7 +74,7 @@ const WebsocketModel: WebsocketType = {
         // state.then(res => {
         //   console.log(res);
         // })
-        console.log('Message from server ', event.data);
+        // console.log('Message from server ', event.data);
       });
     }
   }

@@ -4,6 +4,8 @@ import LoginForm from "@/pages/Login/components/LoginForm";
 import styles from './index.less';
 import {connect, Loading} from 'umi'
 import LoadingSpinner from "@/components/LoadingSpinner";
+import {Alert} from 'antd';
+
 
 class Login extends React.Component<any, any>
 {

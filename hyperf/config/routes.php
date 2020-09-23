@@ -1,6 +1,8 @@
 <?php
-
 declare(strict_types=1);
+
+use App\Controller\IndexController;
+
 /**
  * This file is part of Hyperf.
  *
@@ -11,7 +13,7 @@ declare(strict_types=1);
  */
 use Hyperf\HttpServer\Router\Router;
 
-Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
+Router::addRoute(['GET', 'POST', 'HEAD'], '/', [IndexController::class, 'index']);
 
 Router::addServer('ws', function () {
     Router::get('/', 'App\WebsocketController\IndexController');
