@@ -76,7 +76,8 @@ return [
        'window_id' => '聊天窗口id',
        'title' => '标题',
        'content' => '内容',
-       'order_no' => '排序编号'
+       'order_no' => '排序编号',
+       'driver_type' => '设备类型:phone手机 pc电脑'
    ],
     'setting_connect_chatlink_sites'  => [
         'table_name' => '聊天接入站点表',
@@ -99,9 +100,13 @@ return [
         'client_text_color' => '访客文字颜色',
         'is_access' => '是否启快捷入口',
         'is_carousel' => '是否启用走马灯',
-        'is_fqa' => '是否启用常见问题'
+        'is_fqa' => '是否启用常见问题',
+        'rightbar_content' => '右侧信息栏',
+        'rightbar_background_color' => '右侧信息栏目颜色',
+        'avatar_location' => '头像位置: leftTop左上角 rightBar右侧栏大头像'
     ],
     'database.setting_connect_chatlink_sites_access.' => [
+        'site_id' => '聊天链接站id',
         'table_name' => '聊天链接快捷接入表',
         'name' => '入口名称',
         'album_id' => '相册表id',

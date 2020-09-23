@@ -1,0 +1,28 @@
+@import "../../index";
+.switchWrapper {
+  height: 140px;
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  .centerWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    width: @itemWidth;
+    height: 100%;
+    border: @border;
+    border-radius: @borderRadius;
+    box-sizing: border-box;
+    .item {
+      flex-grow: 1;
+      line-height: 1.5rem;
+      img {
+        height: 1.5rem;
+        margin-right: .5rem;
+      }
+    }
+  }
+}

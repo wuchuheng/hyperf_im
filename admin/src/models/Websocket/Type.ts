@@ -11,6 +11,8 @@ export interface WebsocketType {
   effects: {
     send: Effect;
     open: Effect;
+    getState: Effect;
+    getDataInEffect: Effect;
   },
   reducers: {
     save: Reducer<WebsocketState>;

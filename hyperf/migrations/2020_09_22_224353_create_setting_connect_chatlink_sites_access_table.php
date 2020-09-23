@@ -17,6 +17,7 @@ class CreateSettingConnectChatlinkSitesAccessTable extends Migration
         $lan = 'setting_connect_chatlink_sites_access';
         Schema::create($this->table_name, function (Blueprint $table) use($lan){
             $table->bigIncrements('id');
+            $table->integer('site_id')->comment($lan . 'site_id');
             $table->string('name')->comment(__($lan . 'name'));
             $table->integer('album_id')->comment(__($lan . 'album_id'));
             $table->string('url')->comment(__($lan . 'url'));

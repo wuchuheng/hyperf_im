@@ -13,16 +13,19 @@ class CreateSettingConnectChatlinkFqaTable extends Migration
      */
     public function up(): void
     {
-        Schema::create($this->table_name, function (Blueprint $table) {
+        $lan = 'database.setting_connect_chatlink_fqa.';
+
+        Schema::create($this->table_name, function (Blueprint $table) use($lan){
             $table->bigIncrements('id');
-            $table->integer('window_id')
-                ->comment(__('database.setting_connect_chatlink_fqa.window_id'));
+            $table->integer('site_id')
+                ->comment(__('.site_id'));
+            $table->string('driver_type')->comment(__($lan . 'driver_type'));
             $table->string('title')
-                ->comment(__('database.setting_connect_chatlink_fqa.title'));
+                ->comment(__($lan . 'title'));
             $table->text('content')
-                ->comment(__('database.setting_connect_chatlink_fqa.content'));
+                ->comment(__($lan . 'content'));
             $table->integer('order_no')
-                ->comment(__('database.setting_connect_chatlink_fqa.order_no'));
+                ->comment(__($lan . 'order_no'));
             $table->timestamps();
         });
         $comment = __('database.setting_connect_chatlink_fqa.table_name');

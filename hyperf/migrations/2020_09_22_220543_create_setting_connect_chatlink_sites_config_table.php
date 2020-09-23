@@ -22,11 +22,14 @@ class CreateSettingConnectChatlinkSitesConfigTable extends Migration
             $table->string('size')->comment(__($lan.'size'));
             $table->string('theme')->comment(__($lan.'theme'));
             $table->string('client_text_color')->comment(__($lan.'client_text_color'));
-            $table->string('is_access')->nullable()->comment(__($lan.'is_access'));
-            $table->string('is_carousel')->nullable()->comment(__($lan.'is_carousel'));
-            $table->string('is_fqa')->comment(__($lan.'is_fqa'));
+            $table->smallInteger('is_access')->nullable()->comment(__($lan.'is_access'));
+            $table->smallInteger('is_carousel')->nullable()->comment(__($lan.'is_carousel'));
+            $table->smallInteger('is_fqa')->comment(__($lan.'is_fqa'));
             $table->string('background_color')->nullable()->comment(__($lan . 'background_color'));
             $table->integer('background_album_id')->nullable()->comment(__($lan . 'background_album_id'));
+            $table->text('rightbar_content')->nullable()->comment(__($lan . 'rightbar_content'));
+            $table->string('rightbar_background_color')->nullable()->comment(__($lan . 'rightbar_background_color'));
+            $table->string('avatar_location')->nullable()->comment(__($lan . 'avatar_location'));
             $table->timestamps();
         });
         $comment = __($lan . 'table_name');

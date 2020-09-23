@@ -5,7 +5,7 @@ import AddressRender from './components/AddressRender';
 import ChatWindowsSettingRender from "./components/ChatWindowsSettingRender";
 import VoiceSettingRender from "./components/VoiceSettingRender";
 
-const RightBarRender = () => {
+const RightBarRender = (props: any) => {
   return (
     <div className={styles.rightBarRender}>
       <Row gutter={[16, 16]}>

@@ -17,6 +17,7 @@ class CreateAlbumsTable extends Migration
             $table->bigIncrements('id');
             $table->string('path', 255)->comment(__('database.filepath'));
             $table->string('disk', 20)->comment(__('database.disk'));
+            $table->softDeletes();
             $table->timestamps();
         });
         $comment = __('database.albumstable');

@@ -37,7 +37,7 @@ const Setting =(props: any) => {
           render: '网页插件'
         },
         {
-          key: 'chat-link/default',
+          key: 'chat-link/sites/1',
           render: '聊天链接'
         },
         {
@@ -187,15 +187,29 @@ const Setting =(props: any) => {
   });
 
  let children = undefined;
+ // 当前链接是否匹配到路由规则
+ const isLinkToComponent = () => {
+   let res = false;
+   props.route.routes.every((route: any) => {
+     const matchFun = match(route.path, { decode: decodeURIComponent});
+     if (matchFun(history.location.pathname) !== false) {
+       res = true;
+       return false;
+     } else {
+       return true;
+     }
+   });
+   return res;
+ };
   if (history.location.pathname === '/setting') {
+    // 根目录，提示界面
     children = <NotFoundRender />;
+  } else if (isLinkToComponent()) {
+    // 路由匹配到组件，直接过去
+    children = props.children;
   } else if (allPaths.indexOf(history.location.pathname) !== -1) {
-    // 链接有些是建设中的，有些是已经有的，这里进行区分，符合路由配置的直接去，不符合的则提示建设中...
-    const countPatchChildren = props.route.routes.findIndex((routeInfo: any) => {
-      const matchFun = match(routeInfo.path, { decode: decodeURIComponent});
-      return matchFun(history.location.pathname) === false ? false : true;
-    });
-    children = countPatchChildren > -1 ? props.children : <BuildingPage />;
+    // 但链接已存在导航中， 但对应的组件还在开发中...
+    children =  <BuildingPage />;
   } else {
     children = <Error404Page />
   }

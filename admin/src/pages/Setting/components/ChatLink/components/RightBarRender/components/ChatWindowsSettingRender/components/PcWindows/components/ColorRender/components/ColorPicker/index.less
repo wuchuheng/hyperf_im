@@ -1,0 +1,25 @@
+@import "../../../../index";
+
+.colorPickerWrapper{
+  padding: .8rem 1rem;
+  border: @border;
+  border-radius: @borderRadius;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .leftRender {
+
+  }
+  .rightRender{
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 3px;
+    box-sizing: border-box;
+    border: @border;
+  }
+}
+:global(.ant-popover-inner-content) {
+  padding: 0 !important;
+}
