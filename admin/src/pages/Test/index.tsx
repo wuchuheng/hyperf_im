@@ -35,17 +35,23 @@ const Test = () => {
     const tempArr = history.slice();
     tempArr.push(item);
     setHistory(tempArr);
-    console.log('Message from server ', event.data);
   };
+
+  const onHandleClose = () => {
+    setIsConnect(false);
+  }
+
 
   useEffect(() => {
     socket.addEventListener('open', onHandleOpen);
-    socket.addEventListener('message', onHandleMessage)
+    socket.addEventListener('message', onHandleMessage);
+    socket.addEventListener('close', onHandleClose);
     // @ts-ignore
     dataShowRander.current.scrollTop = dataShowRander.current.scrollHeight;
     return () => {
       socket.removeEventListener('open', onHandleOpen)
       socket.removeEventListener('message', onHandleMessage)
+      socket.removeEventListener('close', onHandleClose);
     }
   })
 
@@ -65,10 +71,10 @@ const Test = () => {
   const initData: Array<{name: string; value: string}> = [];
   const [data, setData] = useState(initData);
 
+  const [form] = Form.useForm();
+
   const onHandleEmpty = () => {
-    setUrl('');
-    setMethod('');
-    setData([]);
+    form.resetFields();
   };
 
   return (
@@ -78,7 +84,7 @@ const Test = () => {
         <Col span={8}>
           <Divider>数据录入</Divider>
           <Form
-            initialValues={{url, method, data}}
+            form={form}
             onFinish={onFinish}
           >
             <Form.Item label="请求标识url" style={{ marginBottom: 0 }}>
