@@ -17,7 +17,6 @@ use Hyperf\HttpMessage\Stream\SwooleStream;
 use Psr\Http\Message\ResponseInterface;
 use Qbhy\SimpleJwt\Exceptions\TokenBlacklistException;
 use Throwable;
-use function Symfony\Component\String\u;
 
 class AppExceptionHandler extends ExceptionHandler
 {

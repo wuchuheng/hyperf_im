@@ -5,25 +5,15 @@ import { Divider, Form, Input, Select, Button, Space} from 'antd';
 const {OptGroup, Option} = Select;
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import {websocketHost, websocketPort} from "@/config";
+import ReactJson from 'react-json-view'
+import {connect, WebsocketState} from 'umi';
 
-const socket = new WebSocket(`ws://${websocketHost}:${websocketPort}`);
 
 type HistorySate = Array<{ time: string; date: string }>
-const Test = () => {
+const Test = (props: any) => {
   const dataShowRander = useRef(null);
-  const [isConnect, setIsConnect] = useState(false);
   const initHistory:HistorySate = [];
   const [history, setHistory] = useState(initHistory);
-  const onHandleOpen = () => {
-    // 心跳
-    setInterval(() => {
-      socket.send(
-        JSON.stringify({ "type": "ping"})
-      );
-    }, 1000 * 60)
-    setIsConnect(true);
-  };
-
 
   const onHandleMessage = (event: MessageEvent) => {
     const time = new Date();
@@ -31,27 +21,29 @@ const Test = () => {
     const i = time.getMinutes();
     const s = time.getSeconds();
     const formatTime = [h, i, s ].join(':');
-    const item = {time: formatTime, date: event.data};
+    const item = {time: formatTime, date: JSON.parse(event.data)};
     const tempArr = history.slice();
     tempArr.push(item);
     setHistory(tempArr);
   };
 
   const onHandleClose = () => {
-    setIsConnect(false);
   }
 
 
   useEffect(() => {
-    socket.addEventListener('open', onHandleOpen);
-    socket.addEventListener('message', onHandleMessage);
-    socket.addEventListener('close', onHandleClose);
+    if (props.isOpen) {
+      props.socket.addEventListener('message', onHandleMessage);
+      props.socket.addEventListener('close', onHandleClose);
+    }
     // @ts-ignore
-    dataShowRander.current.scrollTop = dataShowRander.current.scrollHeight;
+    const div = dataShowRander.current as HTMLDivElement;
+    div.scrollTop = div.scrollHeight;
     return () => {
-      socket.removeEventListener('open', onHandleOpen)
-      socket.removeEventListener('message', onHandleMessage)
-      socket.removeEventListener('close', onHandleClose);
+      if (props.isOpen) {
+        props.socket.removeEventListener('message', onHandleMessage)
+        props.socket.removeEventListener('close', onHandleClose);
+      }
     }
   })
 
@@ -61,12 +53,12 @@ const Test = () => {
       url: values.url,
       body: values.data ? values.data : []
     };
-    isConnect && socket.send(JSON.stringify(requestData));
+    props.isOpen && props.socket.send(JSON.stringify(requestData));
   };
 
-  const initUrl: string = '';
+  const initUrl: string = '1111';
   const [url, setUrl] = useState(initUrl);
-  const initMethod: string = '';
+  const initMethod: string = 'post';
   const [method, setMethod] = useState(initMethod);
   const initData: Array<{name: string; value: string}> = [];
   const [data, setData] = useState(initData);
@@ -86,8 +78,13 @@ const Test = () => {
           <Form
             form={form}
             onFinish={onFinish}
+            initialValues={{
+              url, method, data
+            }}
           >
-            <Form.Item label="请求标识url" style={{ marginBottom: 0 }}>
+            <Form.Item
+              label="请求标识url" style={{ marginBottom: 0 }}
+            >
               <Form.Item
                 name={'url'}
                 className={styles.urlItemRender}
@@ -150,13 +147,11 @@ const Test = () => {
         <Col span={8} offset={1}>
           <Divider>数据返回:</Divider>
           <div className={styles.showRender} ref={dataShowRander} key={1}>
-            {history.map((v, i) => {
-              return (<p key={i}>{JSON.stringify(v)}</p>);
-            })}
+            <ReactJson src={history} />
           </div>
           <div className={styles.statusRender} key={2}>
             <div>连接状态:</div>
-            <div className={styles.connectStatusRender} style={{backgroundColor: isConnect ? '#52c41a' : 'red'}}></div>
+            <div className={styles.connectStatusRender} style={{backgroundColor: props.isOpen ? '#52c41a' : 'red'}}></div>
           </div>
         </Col>
       </Row>
@@ -164,5 +159,11 @@ const Test = () => {
   );
 }
 
-export default Test;
+const mapPropsToState = ({websocket}: {websocket: WebsocketState}) => {
+  return {
+    isOpen: websocket.isOpen,
+    socket: websocket.ws
+  }
+};
+export default connect(mapPropsToState)(Test);
 
