@@ -19,9 +19,15 @@ class BaseExceptionHandler
      */
     protected $sender;
 
+    /**
+     *  异常处理
+     * @param AbstractException $throwable
+     * @param Frame $frame
+     */
     public function handle(AbstractException $throwable,  Frame $frame)
     {
         $fd = $frame->fd;
+        // 数据格式错误
         if ($throwable instanceof FormatErrorException) {
             $this->sender->push($fd, $throwable->getReturnData());
         }

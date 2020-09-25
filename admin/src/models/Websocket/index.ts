@@ -1,8 +1,7 @@
 import {WebsocketState, WebsocketType} from "@/models/Websocket/Type";
 import {websocketHost, websocketPort} from "@/config";
 import {ConnectStatusState} from "@/models/Connect";
-import {connect} from 'umi';
-import {testWs} from "@/models/Websocket/Server";
+import {testWs, onCloseWebsocket} from "@/models/Websocket/Server";
 
 export {WebsocketState}
 
@@ -31,6 +30,17 @@ const WebsocketModel: WebsocketType = {
       const ws= yield select((state: ConnectStatusState) => state.websocket.ws);
       const res = yield call(testWs, ws);
       return res;
+    },
+    // 断开连接
+    * disConnect({payload}, {put, select}) {
+      const localStates = yield select((state: ConnectStatusState) => state.websocket);
+      yield put({
+        type: 'save',
+        payload: {
+          ...localStates,
+          isOpen: false
+        }
+      });
     }
   },
   reducers: {
@@ -76,6 +86,8 @@ const WebsocketModel: WebsocketType = {
         })
         console.log('Message from server ', event.data);
       });
+
+      socket.addEventListener('close', () => onCloseWebsocket(dispatch));
     }
   }
 }

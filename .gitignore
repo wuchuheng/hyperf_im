@@ -8,6 +8,7 @@ hyperf/*.patch
 hyperf/.idea/
 hyperf/.git/
 hyperf/runtime/
+hyperf/test.php
 hyperf/vendor/
 hyperf/.phpintel/
 hyperf/.env

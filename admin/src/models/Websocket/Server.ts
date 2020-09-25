@@ -9,3 +9,12 @@ export function testWs(ws: WebSocket) {
     const key = ws.addEventListener('message', handleMessage);
   });
  }
+
+/**
+ * websocket 断开处理
+ */
+export const onCloseWebsocket = (dispatch: any) => {
+  dispatch({
+    type: 'disConnect'
+  });
+}
