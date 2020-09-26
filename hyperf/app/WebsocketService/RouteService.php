@@ -23,6 +23,8 @@ class RouteService
         'get', 'post', 'delete', 'put', 'pathc', 'group', '{closure}', '__call'
     ];
 
+    private $_prevRoute;
+
     /**
      * 路由表
      */
@@ -46,15 +48,35 @@ class RouteService
         return $this;
     }
 
+    /**
+     * 添加蹭件
+     *
+     * @param $middlewares string
+     */
+    public function middleware(string $middleware): self
+    {
+        $methoDmiddlewares = &$this->routeList[$this->_prevRoute['route']]['methods'][$this->_prevRoute['method']];
+        if (! in_array($middleware, $methoDmiddlewares)) {
+            $methoDmiddlewares[] = $middleware;
+        }
+        return $this;
+    }
 
     public function __call(string $method, array $arguments = [])
     {
-        if (in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
+        $allowMethods = ['get', 'post', 'put', 'patch', 'delete'];
+        if (in_array($method, $allowMethods)) {
             list($route, $controllerLocation)  = $arguments;
             $trackes = debug_backtrace();
-            $route = $this->_getRoutePrefix($trackes);
+            list($route, $middlewares) = $this->_getRoutePrefix($trackes);
             list($controller, $function) = $controllerLocation;
-            $this->_pushRouteInfoToRoutList($route, [$method => []], $controller, $function);
+            $route = '/' . $route;
+            if ($middlewares) {
+                $this->_pushRouteInfoToRoutList($route, [$method => [$middlewares]], $controller, $function);
+            } else {
+                $this->_pushRouteInfoToRoutList($route, [$method => []], $controller, $function);
+            }
+            $this->_prevRoute = ['route' =>  $route, 'method' => $method];
             return $this;
         }
     }
@@ -64,9 +86,10 @@ class RouteService
      * @param array $tracks
      * @return string
      */
-    private function _getRoutePrefix(array $trackes) : string
+    private function _getRoutePrefix(array $trackes) : array
     {
         $routePrefix = '';
+        $middlewares = [];
         foreach ($trackes as $i => $trackItem) {
             $isLocationClassFunction = (
                 array_key_exists($i, $trackes) &&
@@ -85,12 +108,25 @@ class RouteService
             );
 
             if ( $isLocationClassFunction ) {
-                $prefix = $trackes[$i]['function'] === '__call' ? $trackes[$i]['args'][1][0] : $trackes[$i]['args'][0];
+                if ($trackes[$i]['function'] === '__call' ) {
+                    $prefix = $trackes[$i]['args'][1][0] ;
+                } else {
+                    $prefix = $trackes[$i]['args'][0];
+                }
+                // 收集件配置
+                if ($trackes[$i]['function']  === 'group') {
+                    if (
+                        array_key_exists(2, $trackes[$i]['args']) &&
+                        array_key_exists('middlewares', $trackes[$i]['args'][2])
+                    ) {
+                        $middlewares = array_merge($middlewares, $trackes[$i]['args'][2]['middlewares']);
+                    }
+                }
                 $routePrefix = $prefix . $routePrefix;
             } else if ($isClosure) {
                 continue;
             } else {
-                return $routePrefix;
+                return [$routePrefix, $middlewares ? array_unique($middlewares) : false];
             }
         }
     }
@@ -103,7 +139,6 @@ class RouteService
      */
     private function _pushRouteInfoToRoutList(string $route, array $methods, string $controller, string $function)
     {
-        $route = '/' . $route;
         if (!array_key_exists($route, $this->routeList)) {
             // 新增加全新路由
             $this->routeList[$route] = [
@@ -116,9 +151,14 @@ class RouteService
             $this->routeList[$route]['function'] === $function
         ) {
             // 增加路由请求方式
-            foreach ($methods as $method => $v) {
+            foreach ($methods as $method => $middlewares) {
+                $methodsMiddlewares = [];
                 if (!array_key_exists($method, $this->routeList[$route]['methods'][$method])) {
-                    $this->routeList[$route]['methods'][$method] = [];
+                    if ( array_key_exists($method, $this->routeList[$route]['methods']) ) {
+                        $inMethodMiddlwares = $this->routeList[$route]['methods'][$method];
+                        $methodsMiddlewares = array_merge($inMethodMiddlwares, array_diff($middlewares, $inMethodMiddlwares));
+                    }
+                    $this->routeList[$route]['methods'][$method] = $methodsMiddlewares;
                 }
             }
         }
