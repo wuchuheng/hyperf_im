@@ -30,6 +30,12 @@ class RouteService
      */
     public $routeList = [];
 
+    /**
+     *  用于匹配的路由表
+     * @var array
+     */
+    public $_toPatchRouteList = [];
+
     public function __construct()
     {
         // 加载路由配置
@@ -162,5 +168,60 @@ class RouteService
                 }
             }
         }
+    }
+
+    /**
+     * 把参数的路由进行转换
+     */
+    private function _transferRoute()
+    {
+        $_toPatchRouteList = [];
+        foreach ($this->routeList as $routeUrl => $routeInfo) {
+            // 如果有rest记则进行正则提取
+            if (preg_match_all('/\{(\w+)\}/', $routeUrl, $res)) {
+                $pregRouteUrl = $routeUrl;
+                foreach($res[0] as $replaceItem) {
+                    $pregRouteUrl = str_replace($replaceItem, '(\w+)', $pregRouteUrl);
+                }
+                // 转义/号
+                $pregRouteUrl = str_replace('/', '\/', $pregRouteUrl);
+                $_toPatchRouteList[$pregRouteUrl] = [
+                    'isPreg' => true,
+                    'routeListKey' => $routeUrl
+                ];
+            } else {
+                $_toPatchRouteList[$routeUrl] = [
+                    'isPreg' => false,
+                    'routeListKey' => $routeUrl
+                ];
+            }
+        }
+        $this->_toPatchRouteList = $_toPatchRouteList;
+    }
+
+    /**
+     *  路由匹配
+     * @param string $url
+     * @param string $method
+     */
+    public function match(string $url, string $method)
+    {
+        !$this->_toPatchRouteList && $this->_transferRoute();
+        foreach ($this->_toPatchRouteList as $preg => $routeInfo) {
+            $isPreg = $routeInfo['isPreg'];
+            $routeListKey = $routeInfo['routeListKey'];
+            $params = [];
+            if ($url === $preg) {
+                return array_merge(['params' => $params], $this->routeList[$routeListKey]);
+            } else if ($isPreg && preg_match_all("/{$preg}/", $url, $res)) {
+                preg_match_all('/\{(\w+)\}/',$routeListKey, $restKeyNameInfo);
+                foreach($restKeyNameInfo[1] as $k => $keyName) {
+                    $resKey = $k + 1;
+                    $params[$keyName] = $res[$resKey][0];
+                }
+                return array_merge(['params' => $params], $this->routeList[$routeListKey]);
+            }
+        }
+        return false;
     }
 }
