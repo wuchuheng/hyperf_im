@@ -4,6 +4,7 @@ import styles from './index.less';
 import BodyLayout from "@/pages/Setting/components/BodyLayout";
 import ColorRender from './components/ColorRender';
 import RadioGroupRender from './components/RadioGroupRencder';
+import BackPicktrueRender from "./components/BackPictureRender";
 
 const PcWindows = (props:any) => {
   return (
@@ -12,10 +13,14 @@ const PcWindows = (props:any) => {
         <Row>
           <Col span={7}>
             <div className={styles.formWrapper}>
+                {/* 窗口样式*/}
                 <RadioGroupRender />
-                <ColorRender className={styles.item}/>
+                {/* 颜色选择*/}
+                {/*<ColorRender className={styles.item}/>*/}
+                {/* 背景图片*/}
+                <BackPicktrueRender className={styles.item}/>
             </div>
-            <div className={styles.formButtomWrapper}>
+            <div className={styles.formButtomWrapper} >
               <Button>234</Button>
               <Button>234</Button>
             </div>

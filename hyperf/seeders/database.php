@@ -52,7 +52,7 @@ class Database extends Seeder
         DB::insert('INSERT INTO `tags` (`type`, `name`, `color`) VALUES ( \'client\', \'顾客标签10\', \'rgb(112, 112, 112)\' )');
 
         //  聊天接入网站
-        DB::insert('INSERT INTO `setting_connect_chatlink_sites` (`id`, `title`) VALUES (\'1\', \'默认接入网站\')');
+        DB::insert('INSERT INTO `setting_connect_chatlink_sites` (`id`, `title`, `pc_windows_id`, `phone_windows_id`) VALUES (\'1\', \'默认接入网站\', \'1\', \'5\')');
 
         //  聊天接入网站配置
         DB::insert('INSERT INTO `setting_connect_chatlink_sites_config` (`id`, `site_id`, `driver_type`, `size`, `theme`, `client_text_color`, `is_access`, `is_carousel`, `is_fqa`, `background_color`, `background_album_id`, `rightbar_content`, `rightbar_background_color`, `avatar_location`) VALUES (\'1\', \'1\', \'pc\', \'mini\', \'#007AFF\', \'#FFFFFF\', \'0\', \'0\', \'1\', \'\', NULL, NULL, NULL, NULL)');

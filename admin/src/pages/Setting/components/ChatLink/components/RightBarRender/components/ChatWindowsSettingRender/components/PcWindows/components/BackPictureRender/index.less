@@ -1,0 +1,78 @@
+@import "../../index";
+
+.backPictureMain {
+  height: 5.5rem;
+  width: @itemWidth;
+  .uploadRender {
+    border: @border;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    :global(.ant-upload) {
+      height: 100% !important;
+      width: 100% !important; ;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 0;
+      align-items: center;
+    }
+    .imgRender {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+      .shadeRender {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        p{
+          display: none;
+        }
+      }
+      &:hover {
+        .shadeRender {
+          background-color: black;
+          opacity: 0.5;
+          p {
+            display: block;
+            color: white;
+          }
+        }
+      }
+      .imgWrapper {
+        height: 5rem;
+        width: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        .removeIconRender {
+          position: absolute;
+          color: red;
+          top: 0;
+          right: 0;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+    .uploadIconRender {
+      font-size: 1.2rem;
+    }
+  }
+}

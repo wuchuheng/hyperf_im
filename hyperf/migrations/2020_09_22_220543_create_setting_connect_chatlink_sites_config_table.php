@@ -25,6 +25,7 @@ class CreateSettingConnectChatlinkSitesConfigTable extends Migration
             $table->smallInteger('is_access')->nullable()->comment(__($lan.'is_access'));
             $table->smallInteger('is_carousel')->nullable()->comment(__($lan.'is_carousel'));
             $table->smallInteger('is_fqa')->comment(__($lan.'is_fqa'));
+            $table->smallInteger('is_background_img')->default(0)->comment(__($lan.'is_background_pickture'));
             $table->string('background_color')->nullable()->comment(__($lan . 'background_color'));
             $table->integer('background_album_id')->nullable()->comment(__($lan . 'background_album_id'));
             $table->text('rightbar_content')->nullable()->comment(__($lan . 'rightbar_content'));

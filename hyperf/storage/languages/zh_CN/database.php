@@ -82,6 +82,8 @@ return [
     'setting_connect_chatlink_sites'  => [
         'table_name' => '聊天接入站点表',
         'title' => '接入的站点名',
+        'pc_windows_id' => 'pc窗口id',
+        'phone_windows_id' => 'phone窗口id'
     ],
     'setting_connect_chatlink_sites_carousel' => [
         'table_name' => '聊天链接跑马灯表',
@@ -103,7 +105,8 @@ return [
         'is_fqa' => '是否启用常见问题',
         'rightbar_content' => '右侧信息栏',
         'rightbar_background_color' => '右侧信息栏目颜色',
-        'avatar_location' => '头像位置: leftTop左上角 rightBar右侧栏大头像'
+        'avatar_location' => '头像位置: leftTop左上角 rightBar右侧栏大头像',
+        'is_background_img' => '是否启用背景图片'
     ],
     'database.setting_connect_chatlink_sites_access.' => [
         'site_id' => '聊天链接站id',
