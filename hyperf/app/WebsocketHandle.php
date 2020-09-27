@@ -38,16 +38,17 @@ class WebsocketHandle implements OnMessageInterface, OnOpenInterface, OnCloseInt
 
     public function onMessage($server, Frame $frame): void
     {
-//        $routes = [
-//            [['GET', 'POST', 'DELETE', 'PUT', 'PATCH'], '/url', [Inject::class, 'index']]
-//        ];
         try{
-            throw new FormatErrorException('1',  40001, 1);
+
+
+            $data = json_decode($frame->data, true);
+            $url = $data['url'];
+            $method = $data['method'];
+            $this->routeService->run($url, $method);
+//            throw new FormatErrorException('1',  40001, 1);
         } catch (\Throwable $t) {
             $this->baseExceptionHandler->handle($t, $frame);
         }
-//        $this->fieldValidate->goCheck($server, $frame);
-//        $server->push($frame->fd, 'Recv: ' . $frame->data);
     }
 
     public function onClose($server, int $fd, int $reactorId): void

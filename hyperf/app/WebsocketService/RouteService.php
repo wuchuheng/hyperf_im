@@ -3,7 +3,14 @@
  *  处理路由
  */
 
+declare(strict_types=1);
+
 namespace App\WebsocketService;
+
+use Hyperf\Di\Annotation\Inject;
+use Psr\Container\ContainerInterface;
+use App\WebsocketException\RouteException\NotMatchRouteException;
+
 
 /**
  * @method self get(string $route, array $controllerLocation)
@@ -12,9 +19,10 @@ namespace App\WebsocketService;
  * @method self delete(string $route, array $controllerLocation)
  * @method self patch(string $route, array $controllerLocation)
  */
-
 class RouteService
 {
+    private $_container;
+
     /**
      *  调用栈遍历路由前缀允许通过的方法名
      * @var string[]
@@ -36,8 +44,9 @@ class RouteService
      */
     public $_toPatchRouteList = [];
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->_container = $container;
         // 加载路由配置
         config('websocketRoute')($this);
     }
@@ -78,7 +87,7 @@ class RouteService
             list($controller, $function) = $controllerLocation;
             $route = '/' . $route;
             if ($middlewares) {
-                $this->_pushRouteInfoToRoutList($route, [$method => [$middlewares]], $controller, $function);
+                $this->_pushRouteInfoToRoutList($route, [$method => $middlewares], $controller, $function);
             } else {
                 $this->_pushRouteInfoToRoutList($route, [$method => []], $controller, $function);
             }
@@ -212,16 +221,59 @@ class RouteService
             $routeListKey = $routeInfo['routeListKey'];
             $params = [];
             if ($url === $preg) {
-                return array_merge(['params' => $params], $this->routeList[$routeListKey]);
+                return  $this->_matchMethod(array_merge(['params' => $params], $this->routeList[$routeListKey]), $method);
             } else if ($isPreg && preg_match_all("/{$preg}/", $url, $res)) {
                 preg_match_all('/\{(\w+)\}/',$routeListKey, $restKeyNameInfo);
                 foreach($restKeyNameInfo[1] as $k => $keyName) {
                     $resKey = $k + 1;
                     $params[$keyName] = $res[$resKey][0];
                 }
-                return array_merge(['params' => $params], $this->routeList[$routeListKey]);
+                return $this->_matchMethod(array_merge(['params' => $params], $this->routeList[$routeListKey]), $method);
             }
         }
         return false;
+    }
+
+    private function _matchMethod(array $routeInfo, string $method)
+    {
+        if (array_key_exists($method, $routeInfo['methods'])) {
+            $middlewares = $routeInfo['methods'][$method];
+            return [
+                'middlewares' => $middlewares,
+                'params' => $routeInfo['params'],
+                'controller' => $routeInfo['controller'],
+                'function' => $routeInfo['function']
+                ];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     *  启用服务
+     * @param array $routeInfo
+     * @return mixed
+     */
+    public function run(string $url, string $method)
+    {
+        $routeInfo = $this->match($url, $method);
+        if (!$routeInfo) {
+            throw new NotMatchRouteException();
+        }
+
+        // 调用中间件
+        if ($routeInfo['middlewares']) {
+            $firstMiddleware = array_shift($routeInfo['middlewares']);
+            $middlewareInstance = $this->_container->get($firstMiddleware);
+            return $middlewareInstance->handle($routeInfo, function() use($middlewareInstance, $routeInfo){
+                return $middlewareInstance->next($routeInfo);
+            });
+        } else {
+            // 调用控制器
+            $controller = $routeInfo['controller'];
+            $function = $routeInfo['function'];
+            $params = $routeInfo['params'];
+            return $this->_container->get($controller)->$function($params);
+        }
     }
 }

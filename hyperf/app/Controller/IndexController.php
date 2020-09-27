@@ -27,11 +27,12 @@ class IndexController extends  AbstractController
      */
     public function index()
     {
-        return $this->routeService->routeList;
-//        return RouteService::group('/route', function() {
-//            return RouteService::group('test', function () {
-//
-//            });
-//        });
+//        $url = '/group/hello/thired/hello/dfdfdf';
+//        if ($routeInfo = $this->routeService->match($url, 'get')) {
+//            return $this->routeService->run($routeInfo);
+//        } else {
+//            return 'exception';
+//            // exception
+//        }
     }
 }

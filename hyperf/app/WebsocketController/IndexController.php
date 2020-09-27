@@ -16,5 +16,8 @@ use App\WebsocketException\FormatErrorException;
 
 class IndexController
 {
-
+    public function index($params)
+    {
+        return 'hello from ' . IndexController::class . 'index';
+    }
 }

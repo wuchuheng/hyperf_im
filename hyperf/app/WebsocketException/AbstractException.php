@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\WebsocketException;
 
@@ -11,26 +12,25 @@ class AbstractException extends Exception implements Throwable
     /**
      * 操作是否成功
      */
-    private $success = false;
+    public $success = false;
 
     /**
      *  错误码
      * @var int
      */
-    private $erroeCode = 40000;
-
+    public $erroeCode = 40000;
 
     /**
      *  错误信息
      * @var  string
      */
-    private $errorMessage;
+    public $errorMessage;
 
     /**
      * 前端展示类型
      * @var number
      */
-    private $showType;
+    public $showType;
 
     /**
      *  获取返回的数据
@@ -41,8 +41,8 @@ class AbstractException extends Exception implements Throwable
 
         $returnData = [
             'success' => false,
-            'errorMessage' => $this->getMessage(),
-            'errorCode' => $this->getCode()
+            'errorMessage' => $this->errorMessage,
+            'errorCode' => $this->erroeCode
         ];
         $this->showType && $returnData += ['showType' => $this->showType];
         return json_encode($returnData);
@@ -51,6 +51,8 @@ class AbstractException extends Exception implements Throwable
     public function __construct($message = "", $code = 40000, $showType = null,  Throwable $previous = null)
     {
         $this->showType = $showType;
+        if ($message !== '') $this->errorMessage = $message;
+        if ($code !== 40000) $this->erroeCode = $code;
         parent::__construct($message, $code, $previous);
     }
 }

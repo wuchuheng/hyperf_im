@@ -17,7 +17,8 @@ return function (RouteService $routeService) {
     $routeService->group('group', function () use($routeService) {
         $routeService->get('/test/route', [IndexController::class, 'index']);
         $routeService->group('/hello/', function() use($routeService){
-            $routeService->get('thired/hello/{test}', [IndexController::class, 'index']);
+            $routeService->get('thired/hello/{test}', [IndexController::class, 'index'])
+                ->middleware(\App\WebsocketMiddleware\Test2Middleware::class);
         }, ['middlewares' => [
             \App\WebsocketMiddleware\TestMiddleware::class
         ]]);
