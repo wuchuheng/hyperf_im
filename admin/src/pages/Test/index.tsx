@@ -10,17 +10,24 @@ import {connect, WebsocketState} from 'umi';
 
 
 type HistorySate = Array<{ time: string; date: string }>
+type PushHistorySate = Array<{ time: string; data: any}>
 const Test = (props: any) => {
   const dataShowRander = useRef(null);
   const initHistory:HistorySate = [];
   const [history, setHistory] = useState(initHistory);
+  const initPushHistory: PushHistorySate = [];
+  const [pushHistory, setPushHistory] = useState(initPushHistory);
 
-  const onHandleMessage = (event: MessageEvent) => {
+  const getCurrentTime = (): string => {
     const time = new Date();
     const h = time.getHours();
     const i = time.getMinutes();
     const s = time.getSeconds();
     const formatTime = [h, i, s ].join(':');
+    return formatTime;
+  };
+  const onHandleMessage = (event: MessageEvent) => {
+    const formatTime = getCurrentTime();
     const item = {time: formatTime, date: JSON.parse(event.data)};
     const tempArr = history.slice();
     tempArr.push(item);
@@ -47,12 +54,25 @@ const Test = (props: any) => {
     }
   })
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: any):void => {
+    if (!props.isOpen) return ;
+    let body = {};
+    if (values.data.length > 0) {
+      values.data.forEach((v: {name: string; value: string}, i: number) => {
+        // @ts-ignore
+        body[v.name] = v.value
+      });
+    }
+
     const requestData = {
       method: values.method,
       url: values.url,
-      body: values.data ? values.data : []
+      body: body
     };
+    let cpPushHistory = pushHistory.slice();
+    const formatTime = getCurrentTime();
+    cpPushHistory.push({time: formatTime, data: requestData})
+    setPushHistory(cpPushHistory);
     props.isOpen && props.socket.send(JSON.stringify(requestData));
   };
 
@@ -73,7 +93,7 @@ const Test = (props: any) => {
     <div className={styles.testWrapper}>
       <Row justify="center">
         <Col span={24}><h1 className={styles.titleRender}>websocket 数据测试</h1></Col>
-        <Col span={8}>
+        <Col span={6}>
           <Divider>数据录入</Divider>
           <Form
             form={form}
@@ -144,16 +164,24 @@ const Test = (props: any) => {
           </Form>
         </Col>
 
-        <Col span={8} offset={1}>
-          <Divider>数据返回:</Divider>
+        <Col span={6} offset={1}>
+          <Divider>数据上传:</Divider>
           <div className={styles.showRender} ref={dataShowRander} key={1}>
-            <ReactJson src={history} />
+            <ReactJson src={pushHistory} />
           </div>
           <div className={styles.statusRender} key={2}>
             <div>连接状态:</div>
             <div className={styles.connectStatusRender} style={{backgroundColor: props.isOpen ? '#52c41a' : 'red'}}></div>
           </div>
         </Col>
+
+        <Col span={6} offset={1}>
+          <Divider>数据返回:</Divider>
+          <div className={styles.showRender} ref={dataShowRander} key={1}>
+            <ReactJson src={history} />
+          </div>
+        </Col>
+
       </Row>
     </div>
   );

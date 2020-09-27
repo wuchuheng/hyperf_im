@@ -60,7 +60,7 @@ const WebsocketModel: WebsocketType = {
         // 心跳
         setInterval(() => {
           socket.send(
-            JSON.stringify({ "type": "ping"})
+            JSON.stringify({ "method": "ping"})
           );
         }, 1000 * 60)
       });

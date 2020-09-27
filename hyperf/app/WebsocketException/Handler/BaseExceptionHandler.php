@@ -10,6 +10,7 @@ use Hyperf\WebSocketServer\Sender;
 use Hyperf\Di\Annotation\Inject;
 use App\WebsocketException\FormatErrorException;
 use App\WebsocketException\AbstractException;
+use App\WebsocketException\ValidateException\PinException;
 
 class BaseExceptionHandler
 {
@@ -27,8 +28,12 @@ class BaseExceptionHandler
     public function handle(Throwable $throwable,  Frame $frame)
     {
         $fd = $frame->fd;
-        // 自定义异常
-        if ($throwable instanceof AbstractException) {
+
+        // pin 操作，用于保持心跳，什么都不做
+        if ($throwable instanceof PinException) {
+
+        } else if ($throwable instanceof AbstractException) {
+            // 自定义异常
             $this->sender->push($fd, $throwable->getReturnData());
         }
     }
