@@ -13,6 +13,7 @@ use App\WebsocketValidate\FieldValidate;
 use App\WebsocketException\Handler\BaseExceptionHandler;
 use App\WebsocketException\FormatErrorException;
 use App\WebsocketController\IndexController;
+use Hyperf\WebSocketServer\Context;
 use App\WebsocketService\RouteService;
 
 class WebsocketHandle implements OnMessageInterface, OnOpenInterface, OnCloseInterface
@@ -39,13 +40,12 @@ class WebsocketHandle implements OnMessageInterface, OnOpenInterface, OnCloseInt
     public function onMessage($server, Frame $frame): void
     {
         try{
-
-
+            $this->fieldValidate->goCheck($frame->data);
             $data = json_decode($frame->data, true);
             $url = $data['url'];
             $method = $data['method'];
-            $this->routeService->run($url, $method);
-//            throw new FormatErrorException('1',  40001, 1);
+            $body = $data['body'];
+            $this->routeService->run($url, $method, $body);
         } catch (\Throwable $t) {
             $this->baseExceptionHandler->handle($t, $frame);
         }
@@ -58,6 +58,7 @@ class WebsocketHandle implements OnMessageInterface, OnOpenInterface, OnCloseInt
 
     public function onOpen($server, Request $request): void
     {
+        Context::set('fd', $request->fd);
 //        $container = ApplicationContext::getContainer();
 //        $redis = $container->get(\Hyperf\Redis\Redis::class);
 //        $redis->sAdd('websocketConnect', $request->fd, 'test', 3, 4, 5);

@@ -13,11 +13,22 @@ use Hyperf\Di\Annotation\Inject;
 use App\WebsocketValidate\FieldValidate;
 use App\WebsocketException\Handler\BaseExceptionHandler;
 use App\WebsocketException\FormatErrorException;
+use Hyperf\WebSocketServer\Context;
+use Hyperf\WebSocketServer\Sender;
+
 
 class IndexController
 {
-    public function index($params)
+    /**
+     * @Inject
+     * @var Sender
+     */
+    private $_sender;
+
+    public function index($body, $params = [])
     {
-        return 'hello from ' . IndexController::class . 'index';
+        $fd = Context::get('fd');
+        $this->_sender->push($fd, json_encode([1, 3, 3]));
+        var_dump($body, $params);
     }
 }

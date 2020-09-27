@@ -250,17 +250,20 @@ class RouteService
     }
 
     /**
-     *  启用服务
-     * @param array $routeInfo
+     * 启用路由服务
+     * @param string $url
+     * @param string $method
+     * @param array $body
      * @return mixed
+     * @throws NotMatchRouteException
      */
-    public function run(string $url, string $method)
+    public function run(string $url, string $method, array $body)
     {
         $routeInfo = $this->match($url, $method);
         if (!$routeInfo) {
             throw new NotMatchRouteException();
         }
-
+        $routeInfo += ['body' => $body];
         // 调用中间件
         if ($routeInfo['middlewares']) {
             $firstMiddleware = array_shift($routeInfo['middlewares']);
@@ -272,8 +275,9 @@ class RouteService
             // 调用控制器
             $controller = $routeInfo['controller'];
             $function = $routeInfo['function'];
-            $params = $routeInfo['params'];
-            return $this->_container->get($controller)->$function($params);
+            $controllerParams = [$routeInfo['body']];
+            if ($routeInfo['params']) $controllerParams[] = $routeInfo['params'];
+            return $this->_container->get($controller)->$function(...$controllerParams);
         }
     }
 }

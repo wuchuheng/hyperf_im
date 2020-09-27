@@ -29,8 +29,9 @@ abstract class AbstractMiddleware
             // 调用控制器
             $controller = $routeInfo['controller'];
             $function = $routeInfo['function'];
-            $params = $routeInfo['params'];
-            return $this->_container->get($controller)->$function($params);
+            $controllerParams = [$routeInfo['body']];
+            if ($routeInfo['params']) $controllerParams[] = $routeInfo['params'];
+            return $this->_container->get($controller)->$function(...$controllerParams);
         }
     }
 }
