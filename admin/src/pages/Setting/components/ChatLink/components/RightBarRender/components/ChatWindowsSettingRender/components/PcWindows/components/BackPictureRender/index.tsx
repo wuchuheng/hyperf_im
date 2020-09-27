@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {PropsState} from './Type';
-import { Upload, message } from 'antd';
+import { Upload, message, Switch, Form } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import {RemoveIcon, UploadIcon} from '@/components/Icons';
-
+import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import {requestBaseUrl} from '@/config';
 import styles from './index.less';
 
@@ -29,7 +29,11 @@ const BackPicktrueRender = (props: PropsState) => {
   const iniLoading: boolean = false;
   const [loading, setLoading] = useState(iniLoading);
   const [imageUrl, setImageUrl] = useState('');
+  const initSwitch: boolean  = true;
+  const [switchState, setSwitchState] = useState(initSwitch)
+  const onSwitchChange = (v: boolean):void => {
 
+  }
   const handleChange = (info: any) => {
     if (info.file.status === 'uploading') {
       setLoading(true);
@@ -51,7 +55,16 @@ const BackPicktrueRender = (props: PropsState) => {
     );
     return (
       <div className={`${props.className} ${styles.backPictureMain}`}>
-        <p> 背景图片 </p>
+        <div className={styles.heaerWarpper}>
+          <div className={styles.titleRender}>背景图片</div>
+          <div>
+            功能启用: <Switch
+            defaultChecked onChange={onSwitchChange} className={styles.switchWrapper}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
+          />
+          </div>
+        </div>
         <Upload
           name="images"
           listType="picture-card"
