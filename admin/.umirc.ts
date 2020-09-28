@@ -15,6 +15,7 @@ export default defineConfig({
   routes: [
     { path: '/login', component: '@/pages/Login', exact: true },
     { path: '/test', component: '@/pages/Test', exact: true },
+    { path: '/test/tmp', component: '@/pages/Test/components/Tmp', exact: true },
     {
       path: '/connect',
       routes: [

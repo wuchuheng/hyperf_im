@@ -1,6 +1,5 @@
 import React, {ReactNode} from "react";
 import Icon from '@ant-design/icons';
-import ex from "umi/dist";
 
 interface IconProps {
   width?: string;

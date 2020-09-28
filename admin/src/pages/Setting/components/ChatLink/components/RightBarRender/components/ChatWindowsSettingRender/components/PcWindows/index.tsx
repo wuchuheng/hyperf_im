@@ -5,6 +5,7 @@ import BodyLayout from "@/pages/Setting/components/BodyLayout";
 import ColorRender from './components/ColorRender';
 import RadioGroupRender from './components/RadioGroupRencder';
 import BackPicktrueRender from "./components/BackPictureRender";
+import FQARender from "./components/FQARender";
 
 const PcWindows = (props:any) => {
   return (
@@ -18,7 +19,9 @@ const PcWindows = (props:any) => {
                 {/* 颜色选择*/}
                 {/*<ColorRender className={styles.item}/>*/}
                 {/* 背景图片*/}
-                <BackPicktrueRender className={styles.item}/>
+                {/*<BackPicktrueRender className={styles.item}/>*/}
+                {/*常见问题*/}
+                <FQARender className={styles.item}/>
             </div>
             <div className={styles.formButtomWrapper} >
               <Button>234</Button>
