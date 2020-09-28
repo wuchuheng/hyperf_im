@@ -1,0 +1,20 @@
+@import "../../../../index";
+@optionHeight: 1.4rem;
+.optionsRenderWrapper {
+  width: 9rem;
+  .optionRender {
+    height: @optionHeight;
+    line-height:@optionHeight;
+    text-align: center;
+    border-radius: @toolsBorderRadius;
+    width: 100%;
+    &:not(.optionSelect){
+      cursor: pointer;
+    }
+  }
+  .optionSelect{
+    background-color: #3498db;
+    color: white;
+  }
+}
+

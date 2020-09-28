@@ -1,12 +1,21 @@
 import React from "react";
+// @ts-ignore
 import {Editor as DraftEditor, EditorState, RichUtils} from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import styles from './index.less';
+import {BaseState} from "@/components/Editor/Type";
+import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
 
 class Editor extends React.Component<any, any>
 {
+  state: BaseState;
+
   constructor(props: any) {
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      fontsize: 12
+    };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -27,14 +36,23 @@ class Editor extends React.Component<any, any>
     return 'not-handled';
   }
 
+  private _onChangeFontsize(fontsize: number): void
+  {
+    this.setState({
+      fontsize: fontsize
+    })
+  }
+
   _onBoldClick() {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
 
   render() {
     return (
-      <div>
-        <button onClick={this._onBoldClick.bind(this)}>Bold</button>
+      <div className={styles.editorWrapper}>
+        <div className={styles.toolsWrapper}>
+          <FontsizeRender fontsize={this.state.fontsize}  onChange={this._onChangeFontsize.bind(this)} />
+        </div>
         <DraftEditor
           editorState={this.state.editorState}
           handleKeyCommand={this.handleKeyCommand}

@@ -1,0 +1,22 @@
+@editorAreaMaxHeight: 15rem;
+@borderColor: rgb(205 207 217);
+@toolsItemHeight: 2.2rem; // 工具栏高度 给子组件用的
+@toolsBorderRadius: 4px; // 工具栏边角弧度 给子组件用的
+.editorWrapper {
+  min-height: @editorAreaMaxHeight;
+  width: 40rem;
+  border: 1px solid @borderColor;
+  border-radius: 4px;
+  box-sizing: border-box;
+  // 工具区域
+  .toolsWrapper {
+    border-bottom: 1px solid @borderColor;
+    width: 100%;
+  }
+  // 编辑区域
+  :global(.public-DraftEditor-content) {
+    max-height: @editorAreaMaxHeight;
+    min-height: @editorAreaMaxHeight;
+    overflow: auto;
+  }
+}
