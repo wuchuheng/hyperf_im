@@ -5,6 +5,7 @@ import 'draft-js/dist/Draft.css';
 import styles from './index.less';
 import {BaseState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
+import {stylesMap} from './Config';
 
 class Editor extends React.Component<any, any>
 {
@@ -22,7 +23,6 @@ class Editor extends React.Component<any, any>
 
   private onChange(editorState: any)
   {
-    console.log(editorState);
     this.setState({editorState})
   };
 
@@ -36,11 +36,14 @@ class Editor extends React.Component<any, any>
     return 'not-handled';
   }
 
-  private _onChangeFontsize(fontsize: number): void
+  // 修改字号
+  private _toggleFontsize(fontsize: number): void
   {
-    this.setState({
-      fontsize: fontsize
-    })
+    const {editorState} = this.state;
+    const selection = editorState.getSelection();
+    console.log(selection);
+    this.setState({ fontsize: fontsize });
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'FONT_SIZE_' + fontsize));
   }
 
   _onBoldClick() {
@@ -51,9 +54,10 @@ class Editor extends React.Component<any, any>
     return (
       <div className={styles.editorWrapper}>
         <div className={styles.toolsWrapper}>
-          <FontsizeRender fontsize={this.state.fontsize}  onChange={this._onChangeFontsize.bind(this)} />
+          <FontsizeRender fontsize={this.state.fontsize}  onChange={this._toggleFontsize.bind(this)} />
         </div>
         <DraftEditor
+          customStyleMap={stylesMap}
           editorState={this.state.editorState}
           handleKeyCommand={this.handleKeyCommand}
           onChange={this.onChange}

@@ -60,6 +60,14 @@ class FontsizeRender extends React.Component<PropsState, any>
     }
   }
 
+  private _onChange(v: number): void
+  {
+    this.props.onChange(v);
+    this.setState({ contentVisitAble: false });
+    const div = this.fontsizeButton.current as HTMLDivElement;
+    div.style.backgroundColor = 'white';
+  }
+
   render() {
     return (
       <Popover
@@ -70,8 +78,9 @@ class FontsizeRender extends React.Component<PropsState, any>
       >
           <Popover
             placement="bottomLeft"
-            content={<OptionsRender hasSelectFontsize={this.props.fontsize} onChange={this.props.onChange}/>}
+            content={<OptionsRender hasSelectFontsize={this.props.fontsize} onChange={v => this._onChange(v)}/>}
             trigger="click"
+            visible={this.state.contentVisitAble}
             onVisibleChange={this._onVisitAbleContent.bind(this)}
           >
           <div
