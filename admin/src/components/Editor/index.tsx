@@ -8,6 +8,7 @@ import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex
 import {stylesMap} from './Config';
 import ColorRender from './components/ColorRender';
 import {toolHeaderConfig, getColors} from './Config';
+import {Button} from 'antd';
 
 class Editor extends React.Component<any, any>
 {
@@ -40,15 +41,9 @@ class Editor extends React.Component<any, any>
     return 'not-handled';
   }
 
-  private _onClick()
-  {
-    console.log(1);
-  }
-
   // 修改字号
   private _toggleFontsize(fontsize: number): void
   {
-    const {editorState} = this.state;
     this.setState({ fontsize: fontsize });
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'FONT_SIZE_' + fontsize));
   }
@@ -77,7 +72,7 @@ class Editor extends React.Component<any, any>
 
     // Unset style override for current color.
     if (selection.isCollapsed()) {
-      nextEditorState = currentStyle.reduce((state, color) => {
+      nextEditorState = currentStyle.reduce((state: any, color: any) => {
         return RichUtils.toggleInlineStyle(state, color);
       }, nextEditorState);
     }
@@ -103,8 +98,9 @@ class Editor extends React.Component<any, any>
     this.setState({ backColor });
   }
 
-  _onBoldClick() {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+  private _onMouseDown(e: any)
+  {
+    e.preventDefault();
   }
 
   render() {

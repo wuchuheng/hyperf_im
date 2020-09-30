@@ -42,15 +42,19 @@ class FontsizeRender extends React.Component<PropsState, any>
     })
   }
 
+  // 点击显示选项
+  private _onMouseDown(e: any): void
+  {
+    e.preventDefault();
+    this.setState({
+      titleVisitAble: false,
+      contentVisitAble: true
+    });
+  }
+
   private _onVisitAbleContent(isShow: boolean): void
   {
-    if (isShow) {
-      this.setState({
-        titleVisitAble: false,
-        contentVisitAble: true
-      });
-
-    } else {
+    if (!isShow) {
       this.setState({
         titleVisitAble: false,
         contentVisitAble: false
@@ -79,11 +83,12 @@ class FontsizeRender extends React.Component<PropsState, any>
           <Popover
             placement="bottomLeft"
             content={<OptionsRender hasSelectFontsize={this.props.fontsize} onChange={v => this._onChange(v)}/>}
-            trigger="click"
+            trigger="hover"
             visible={this.state.contentVisitAble}
             onVisibleChange={this._onVisitAbleContent.bind(this)}
           >
           <div
+            onMouseDown={this._onMouseDown.bind(this)}
             className={styles.fontsizeRenderWrapper}
             ref={this.fontsizeButton}
             onMouseEnter = {(e) => this._onMouseEnter()}

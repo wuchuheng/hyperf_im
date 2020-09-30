@@ -42,6 +42,16 @@ class ColorRender extends React.Component<PropsState, any>
     }
  }
 
+ // 选定颜色
+  private _onChangeColor(color: string): void
+  {
+      this.setState({
+        isVisitTitle: false,
+        isVisitOption: false
+      });
+      this.props.onChangeColor(color);
+  }
+
  private _onVisitTitle(isVisit: boolean): void
  {
     this.setState({ isVisitTitle: isVisit });
@@ -68,7 +78,7 @@ class ColorRender extends React.Component<PropsState, any>
             colors={this.colors}
             backColor={this.props.backColor}
             color={this.props.color}
-            onChangeColor={this.props.onChangeColor.bind(this)}
+            onChangeColor={(color) => this._onChangeColor(color) }
             onChangeBackColor={this.props.onChangeBackColor.bind(this)}
           />
         }
