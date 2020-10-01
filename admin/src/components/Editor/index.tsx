@@ -10,6 +10,7 @@ import ColorRender from './components/ColorRender';
 import {setStyle, hasStyleType} from './Server';
 import BoldRender from './components/BoldRender'
 import ItalicRender from './components/ItalicRender';
+import UnderLineRender from './components/UnderlinedRender'
 
 class Editor extends React.Component<any, any>
 {
@@ -24,34 +25,39 @@ class Editor extends React.Component<any, any>
       color: toolHeaderConfig.color,
       backColor: toolHeaderConfig.backColor,
       fontBold: toolHeaderConfig.fontBold,
-      italic: toolHeaderConfig.italic
+      italic: toolHeaderConfig.italic,
+      underline: toolHeaderConfig.underline
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
     this._toggleItalic = this._toggleItalic.bind(this);
+    this._toggleUnderline = this._toggleUnderline.bind(this);
   }
 
   private onChange(editorState: any)
   {
+    // :xxx 这一块大量遍历造成卡顿，可以只遍历一次的
     const styles = editorState.getCurrentInlineStyle();
-    // 跟踪字号
+    // 跟踪字号状态
     hasStyleType(styles, 'FONT_SIZE').then((fontsize) => {
       this.setState({fontsize: parseInt(fontsize) })
     }).catch((e) => {this.setState({fontsize: toolHeaderConfig.fontSize})});
-    // 跟踪字体颜色
+    // 跟踪字体颜色状态
     hasStyleType(styles, 'FONT_COLOR').then((color) => {
       this.setState({color})
     }).catch((e) => {
       this.setState({ color: toolHeaderConfig.color });
     });
-    // 跟踪字体背景
+    // 跟踪字体背景状态
     hasStyleType(styles, 'FONT_BACK').then((backColor) => {
       this.setState({backColor})
     }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
-    //跟踪加粗
+    //跟踪加粗状态
     styles.has('FONT_BOLD') ? this.setState({fontBold: 'FONT_BOLD'}) : this.setState({fontBold: ''});
-    //斜体
+    //跟踪斜体状态
     styles.has('ITALIC') ? this.setState({ italic: 'ITALIC'}) : this.setState({italic: ''});
+    // 跟踪下划线状态
+    styles.has('UNDERLINE') ? this.setState({underline: 'UNDERLINE'}) : this.setState({underline: ''});
     this.setState({editorState})
   };
 
@@ -114,11 +120,19 @@ class Editor extends React.Component<any, any>
  {
    const fontBold: ToolNameState = 'ITALIC';
    const nextEditorState = setStyle(this.state.editorState, fontBold);
-   console.log(nextEditorState.getCurrentInlineStyle().toString());
    if (nextEditorState) {
      this.onChange(nextEditorState);
    }
  }
+
+ // 下划线
+  private _toggleUnderline(): void
+  {
+    const nextEditorState = setStyle(this.state.editorState, 'UNDERLINE');
+    if (nextEditorState) {
+      this.onChange(nextEditorState);
+    }
+  }
 
   render() {
     return (
@@ -141,6 +155,10 @@ class Editor extends React.Component<any, any>
           <ItalicRender
             onChange={this._toggleItalic}
             italic={this.state.italic}
+          />
+          <UnderLineRender
+            onChange={this._toggleUnderline}
+            underline={this.state.underline}
           />
         </div>
         <DraftEditor
