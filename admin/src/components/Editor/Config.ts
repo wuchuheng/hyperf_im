@@ -60,7 +60,6 @@ export const getColors = (): Object =>
   colors.forEach((v ) => {
     colorObject[v] = stylesMap[v];
   })
-
   return colorObject;
 }
 

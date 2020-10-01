@@ -12,7 +12,6 @@ class OptionsRender extends React.Component<PropsState, any>
   state: any;
   constructor(props: PropsState) {
     super(props);
-    console.log(props.color)
     this.state = {
       active: '1'
     }

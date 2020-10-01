@@ -4,3 +4,7 @@ export interface BaseState  {
   color: string;
   backColor: string;
 }
+
+export type ToolNameState = 'FONT_SIZE'
+| 'FONT_COLOR'
+| 'FONT_BACK';

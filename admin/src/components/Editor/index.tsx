@@ -55,43 +55,12 @@ class Editor extends React.Component<any, any>
   // 字体颜色
   private _toggleFontColor(color: string): void
   {
-    const toggledColor = 'FONT_COLOR_' + color;
-    const editorState = this.state.editorState;
-    const selection = editorState.getSelection();
-
-    // Let's just allow one color at a time. Turn off all active colors.
-    const nextContentState = Object.keys(getColors())
-      .reduce((contentState, color) => {
-        return Modifier.removeInlineStyle(contentState, selection, color)
-      }, editorState.getCurrentContent());
-
-    let nextEditorState = EditorState.push(
-      editorState,
-      nextContentState,
-      'change-inline-style'
-    );
-
-    const currentStyle = editorState.getCurrentInlineStyle();
-
-    // Unset style override for current color.
-    if (selection.isCollapsed()) {
-      nextEditorState = currentStyle.reduce((state: any, color: any) => {
-        return RichUtils.toggleInlineStyle(state, color);
-      }, nextEditorState);
+    const style = 'FONT_COLOR_' + color;
+    const nextEditorState = setStyle(this.state.editorState, style);
+    if (nextEditorState) {
+      this.setState({'color':  color});
+      this.onChange(nextEditorState);
     }
-
-    // If the color is being toggled on, apply it.
-    if (!currentStyle.has(toggledColor)) {
-      nextEditorState = RichUtils.toggleInlineStyle(
-        nextEditorState,
-        toggledColor
-      );
-    }
-
-    this.onChange(nextEditorState);
-    // this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'FONT_COLOR_' + color));
-
-    this.setState({ color });
   }
 
   // 字体背景
