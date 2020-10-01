@@ -4,11 +4,13 @@ export interface BaseState  {
   color: string;
   backColor: string;
   fontBold: string;
+  italic: string;
 }
 
 // 工具名
 export type ToolNameState = 'FONT_SIZE'
 | 'FONT_COLOR'
 | 'FONT_BACK'
-| 'FONT_BOLD';
+| 'FONT_BOLD'
+| 'ITALIC';
 

@@ -2,6 +2,7 @@
 @borderColor: rgb(205 207 217);
 @toolsItemHeight: 2.2rem; // 工具栏高度 给子组件用的
 @toolsBorderRadius: 4px; // 工具栏边角弧度 给子组件用的
+@selectedFontColor: #1880ff; // 工具栏选中颜色
 // 工具按键样式块
 .toolButtonWrapper {
   height:  @toolsItemHeight;
@@ -10,6 +11,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  min-width: 2rem;
   &:hover {
     background-color: #f2f2f2;
   }

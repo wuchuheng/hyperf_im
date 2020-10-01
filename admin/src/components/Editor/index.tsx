@@ -9,6 +9,7 @@ import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
 import ColorRender from './components/ColorRender';
 import {setStyle, hasStyleType} from './Server';
 import BoldRender from './components/BoldRender'
+import ItalicRender from './components/ItalicRender';
 
 class Editor extends React.Component<any, any>
 {
@@ -22,10 +23,12 @@ class Editor extends React.Component<any, any>
       fontsize: toolHeaderConfig.fontSize,
       color: toolHeaderConfig.color,
       backColor: toolHeaderConfig.backColor,
-      fontBold: toolHeaderConfig.fontBold
+      fontBold: toolHeaderConfig.fontBold,
+      italic: toolHeaderConfig.italic
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
+    this._toggleItalic = this._toggleItalic.bind(this);
   }
 
   private onChange(editorState: any)
@@ -47,6 +50,8 @@ class Editor extends React.Component<any, any>
     }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
     //跟踪加粗
     styles.has('FONT_BOLD') ? this.setState({fontBold: 'FONT_BOLD'}) : this.setState({fontBold: ''});
+    //斜体
+    styles.has('ITALIC') ? this.setState({ italic: 'ITALIC'}) : this.setState({italic: ''});
     this.setState({editorState})
   };
 
@@ -104,6 +109,16 @@ class Editor extends React.Component<any, any>
     }
   }
 
+  // 斜体
+ private _toggleItalic(): void
+ {
+   const fontBold: ToolNameState = 'ITALIC';
+   const nextEditorState = setStyle(this.state.editorState, fontBold);
+   console.log(nextEditorState.getCurrentInlineStyle().toString());
+   if (nextEditorState) {
+     this.onChange(nextEditorState);
+   }
+ }
 
   render() {
     return (
@@ -122,6 +137,10 @@ class Editor extends React.Component<any, any>
           <BoldRender
             fontBold={this.state.fontBold}
             onChange={() => this._toggleBold()}
+          />
+          <ItalicRender
+            onChange={this._toggleItalic}
+            italic={this.state.italic}
           />
         </div>
         <DraftEditor

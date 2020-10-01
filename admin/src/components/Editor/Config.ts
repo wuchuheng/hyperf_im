@@ -10,6 +10,7 @@ export const toolHeaderConfig = {
   color: '#000000',
   fontSize: 12,
   fontBold: '', // 加粗
+  italic: '', // 斜体
 }
 
 // 自定义样式
@@ -75,6 +76,8 @@ export const stylesMap = {
 
   // 加粗
   'FONT_BOLD': { fontWeight: '600'},
+
+  'ITALIC': {fontStyle: 'italic'}
 };
 
 // 通过一个样式类型获取同类下的所以样式
@@ -94,6 +97,7 @@ export const toolNames: Record<number, ToolNameState> =
   'FONT_SIZE',
   'FONT_COLOR',
   'FONT_BACK',
-  'FONT_BOLD'
+  'FONT_BOLD',
+  'ITALIC'
 ]
 
