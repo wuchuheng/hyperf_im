@@ -3,10 +3,12 @@ export interface BaseState  {
   editorState: any;
   color: string;
   backColor: string;
+  fontBold: string;
 }
 
 // 工具名
 export type ToolNameState = 'FONT_SIZE'
 | 'FONT_COLOR'
-| 'FONT_BACK';
+| 'FONT_BACK'
+| 'FONT_BOLD';
 

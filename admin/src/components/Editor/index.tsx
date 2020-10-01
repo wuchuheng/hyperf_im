@@ -3,7 +3,7 @@ import React from "react";
 import {Editor as DraftEditor, EditorState, RichUtils, Modifier} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import styles from './index.less';
-import {BaseState} from "@/components/Editor/Type";
+import {BaseState, ToolNameState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
 import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
 import ColorRender from './components/ColorRender';
@@ -21,7 +21,8 @@ class Editor extends React.Component<any, any>
       editorState: EditorState.createEmpty(),
       fontsize: toolHeaderConfig.fontSize,
       color: toolHeaderConfig.color,
-      backColor: toolHeaderConfig.backColor
+      backColor: toolHeaderConfig.backColor,
+      fontBold: toolHeaderConfig.fontBold
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -44,12 +45,14 @@ class Editor extends React.Component<any, any>
     hasStyleType(styles, 'FONT_BACK').then((backColor) => {
       this.setState({backColor})
     }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
-
+    //跟踪加粗
+    styles.has('FONT_BOLD') ? this.setState({fontBold: 'FONT_BOLD'}) : this.setState({fontBold: ''});
     this.setState({editorState})
   };
 
 
-  handleKeyCommand(command: any, editorState: any) {
+  handleKeyCommand(command: any, editorState: any)
+ {
     const newState = RichUtils.handleKeyCommand(editorState, command);
     if (newState) {
       this.onChange(newState);
@@ -91,12 +94,16 @@ class Editor extends React.Component<any, any>
     }
   }
 
-
-
-  private _onMouseDown(e: any)
+  // 加粗
+  private _toggleBold(): void
   {
-    e.preventDefault();
+    const fontBold: ToolNameState = 'FONT_BOLD';
+    const nextEditorState = setStyle(this.state.editorState, fontBold);
+    if (nextEditorState) {
+      this.onChange(nextEditorState);
+    }
   }
+
 
   render() {
     return (
@@ -112,7 +119,10 @@ class Editor extends React.Component<any, any>
             onChangeBackColor={this._toggleFontBack.bind(this)}
             onChangeColor={this._toggleFontColor.bind(this)}
           />
-          <BoldRender />
+          <BoldRender
+            fontBold={this.state.fontBold}
+            onChange={() => this._toggleBold()}
+          />
         </div>
         <DraftEditor
           customStyleMap={stylesMap}

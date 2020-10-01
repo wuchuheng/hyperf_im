@@ -8,7 +8,8 @@ export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
   backColor: 'rgb(255, 255, 255)',
   color: '#000000',
-  fontSize: 12
+  fontSize: 12,
+  fontBold: '', // 加粗
 }
 
 // 自定义样式
@@ -70,7 +71,10 @@ export const stylesMap = {
   'FONT_BACK_#c0392b': { backgroundColor: '#c0392b'},
   'FONT_BACK_#d35400': { backgroundColor: '#d35400'},
   'FONT_BACK_#f39c12': { backgroundColor: '#f39c12'},
-  'FONT_BACK_#fdda00': { backgroundColor: '#fdda00'}
+  'FONT_BACK_#fdda00': { backgroundColor: '#fdda00'},
+
+  // 加粗
+  'FONT_BOLD': { fontWeight: '600'},
 };
 
 // 通过一个样式类型获取同类下的所以样式
@@ -85,9 +89,11 @@ export const getStylesByType = (type: ToolNameState) => {
 };
 
 // 工具类名全集
-export const toolNames: Array<ToolNameState> =  [
+export const toolNames: Record<number, ToolNameState> =
+[
   'FONT_SIZE',
   'FONT_COLOR',
-  'FONT_BACK'
-];
+  'FONT_BACK',
+  'FONT_BOLD'
+]
 

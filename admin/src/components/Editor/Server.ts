@@ -8,7 +8,8 @@ import ex from "umi/dist";
 export const setStyle = (editorState: any, style: string) =>
 {
   let type: ToolNameState;
-  toolNames.every((v) => {
+  const toolName = Object.values(toolNames);
+  toolName.every((v) => {
     if (style.includes(v, 0)) {
       type = v;
       return false;
@@ -59,7 +60,8 @@ export const setStyle = (editorState: any, style: string) =>
 // 根据样式名来获取样式的类型，用于同类型样式剔除
 export const getStyleTypeByName = (type: string): ToolNameState | false => {
   let res: ToolNameState | false = false;
-  toolNames.every((v) => {
+  const toolName = Object.values(toolNames);
+  toolName.every((v) => {
     if (type.includes(v, 0)) {
       res = v;
       return false;
