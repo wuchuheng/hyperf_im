@@ -1,6 +1,8 @@
 // 这里保存一些给子组件用的配置。由于在当前组件用不到，子组件又共同需要，所以放在这里
 
 // 工具栏目配置
+import ex from "umi/dist";
+
 export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
   backColor: 'rgb(255, 255, 255)',
@@ -49,10 +51,24 @@ export const stylesMap = {
   'FONT_COLOR_#fdda00': { color: '#fdda00'}
 };
 
+// 获取颜色
 export const getColors = (): Object =>
 {
   const colors = Object.keys(stylesMap)
     .filter(v =>  v.substr(0, 10) === 'FONT_COLOR') as Array<keyof typeof stylesMap>;
+  const colorObject = Object.assign({});
+  colors.forEach((v ) => {
+    colorObject[v] = stylesMap[v];
+  })
+
+  return colorObject;
+}
+
+// 获取字号
+export const getFontSize = (): Object =>
+{
+  const colors = Object.keys(stylesMap)
+    .filter(v =>  v.substr(0, 9) === 'FONT_SIZE') as Array<keyof typeof stylesMap>;
   const colorObject = Object.assign({});
   colors.forEach((v ) => {
     colorObject[v] = stylesMap[v];

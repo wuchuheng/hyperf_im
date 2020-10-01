@@ -7,8 +7,8 @@ import {BaseState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
 import {stylesMap} from './Config';
 import ColorRender from './components/ColorRender';
-import {toolHeaderConfig, getColors} from './Config';
-import {Button} from 'antd';
+import {toolHeaderConfig, getColors, getFontSize} from './Config';
+import {setStyle} from './Server';
 
 class Editor extends React.Component<any, any>
 {
@@ -44,8 +44,12 @@ class Editor extends React.Component<any, any>
   // 修改字号
   private _toggleFontsize(fontsize: number): void
   {
-    this.setState({ fontsize: fontsize });
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'FONT_SIZE_' + fontsize));
+    const style = 'FONT_SIZE_' + fontsize;
+    const nextEditorState = setStyle(this.state.editorState, style);
+    if (nextEditorState) {
+      this.setState({'fontsize': fontsize});
+      this.onChange(nextEditorState);
+    }
   }
 
   // 字体颜色
@@ -84,7 +88,6 @@ class Editor extends React.Component<any, any>
         toggledColor
       );
     }
-    console.log(nextEditorState.getCurrentInlineStyle().toString())
 
     this.onChange(nextEditorState);
     // this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'FONT_COLOR_' + color));
