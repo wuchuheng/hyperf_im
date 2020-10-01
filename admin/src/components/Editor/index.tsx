@@ -11,6 +11,8 @@ import {setStyle, hasStyleType} from './Server';
 import BoldRender from './components/BoldRender'
 import ItalicRender from './components/ItalicRender';
 import UnderLineRender from './components/UnderlinedRender'
+import ClearRender from './components/ClearRender';
+import {ClearIneIcon} from "@/components/Icons";
 
 class Editor extends React.Component<any, any>
 {
@@ -32,6 +34,7 @@ class Editor extends React.Component<any, any>
     this.onChange = this.onChange.bind(this);
     this._toggleItalic = this._toggleItalic.bind(this);
     this._toggleUnderline = this._toggleUnderline.bind(this);
+    this._toggleClear = this._toggleClear.bind(this);
   }
 
   private onChange(editorState: any)
@@ -134,6 +137,12 @@ class Editor extends React.Component<any, any>
     }
   }
 
+  // 清除
+  private _toggleClear(): void
+  {
+    this.onChange(EditorState.createEmpty(null))
+  }
+
   render() {
     return (
       <div
@@ -160,6 +169,7 @@ class Editor extends React.Component<any, any>
             onChange={this._toggleUnderline}
             underline={this.state.underline}
           />
+          <ClearRender onChange={this._toggleClear} />
         </div>
         <DraftEditor
           customStyleMap={stylesMap}

@@ -800,3 +800,17 @@ export const UnderlIneIcon = (props: IconProps) => {
   );
   return svg;
 };
+
+// 清除
+export const ClearIneIcon = (props: IconProps) => {
+  const svg = (
+    <InitIcon {...props}>
+      <path
+        d="M213.333333 554.666667l597.333333 0 0-85.333333-597.333333 0 0 85.333333zM128 725.333333l597.333333 0 0-85.333333-597.333333 0 0 85.333333zM298.666667 298.666667l0 85.333333 597.333333 0 0-85.333333-597.333333 0z"
+        p-id="4837">
+      </path>
+    </InitIcon>
+  );
+  return svg;
+};
+
