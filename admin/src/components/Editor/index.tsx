@@ -5,9 +5,8 @@ import 'draft-js/dist/Draft.css';
 import styles from './index.less';
 import {BaseState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
-import {stylesMap} from './Config';
+import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
 import ColorRender from './components/ColorRender';
-import {toolHeaderConfig, getColors, getFontSize} from './Config';
 import {setStyle} from './Server';
 
 class Editor extends React.Component<any, any>
@@ -66,7 +65,12 @@ class Editor extends React.Component<any, any>
   // 字体背景
   private _toggleFontBack(backColor: string): void
   {
-    this.setState({ backColor });
+    const style = 'FONT_BACK_' + backColor;
+    const nextEditorState = setStyle(this.state.editorState, style);
+    if (nextEditorState) {
+      this.setState({ backColor });
+      this.onChange(nextEditorState);
+    }
   }
 
   private _onMouseDown(e: any)

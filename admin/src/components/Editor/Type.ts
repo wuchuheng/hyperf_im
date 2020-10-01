@@ -5,6 +5,8 @@ export interface BaseState  {
   backColor: string;
 }
 
+// 工具名
 export type ToolNameState = 'FONT_SIZE'
 | 'FONT_COLOR'
 | 'FONT_BACK';
+

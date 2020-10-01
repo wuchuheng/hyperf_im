@@ -2,6 +2,7 @@
 
 // 工具栏目配置
 import ex from "umi/dist";
+import {ToolNameState} from "@/components/Editor/Type";
 
 export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
@@ -32,6 +33,7 @@ export const stylesMap = {
   'FONT_SIZE_120': { fontSize: '120px' },
   'FONT_SIZE_144': { fontSize: '144px' },
 
+  //  字体颜色
   'FONT_COLOR_#000000': { color: '#000000'},
   'FONT_COLOR_#333333': { color: '#333333'},
   'FONT_COLOR_#666': { color: '#666'},
@@ -48,30 +50,43 @@ export const stylesMap = {
   'FONT_COLOR_#c0392b': { color: '#c0392b'},
   'FONT_COLOR_#d35400': { color: '#d35400'},
   'FONT_COLOR_#f39c12': { color: '#f39c12'},
-  'FONT_COLOR_#fdda00': { color: '#fdda00'}
+  'FONT_COLOR_#fdda00': { color: '#fdda00'},
+
+  //  字体背景
+  'FONT_BACK_#000000': { backgroundColor: '#000000'},
+  'FONT_BACK_#333333': { backgroundColor: '#333333'},
+  'FONT_BACK_#666': { backgroundColor: '#666'},
+  'FONT_BACK_#999': { backgroundColor: '#999'},
+  'FONT_BACK_#ccc': { backgroundColor: '#ccc'},
+  'FONT_BACK_#ffffff': { backgroundColor: '#ffffff'},
+  'FONT_BACK_#a0c5e8': { backgroundColor: '#a0c5e8'},
+  'FONT_BACK_#61a951': { backgroundColor: '#61a951'},
+  'FONT_BACK_#16a085': { backgroundColor: '#16a085'},
+  'FONT_BACK_#07a9fe': { backgroundColor: '#07a9fe'},
+  'FONT_BACK_#003ba5': { backgroundColor: '#003ba5'},
+  'FONT_BACK_#8e44ad': { backgroundColor: '#8e44ad'},
+  'FONT_BACK_#f32784': { backgroundColor: '#f32784'},
+  'FONT_BACK_#c0392b': { backgroundColor: '#c0392b'},
+  'FONT_BACK_#d35400': { backgroundColor: '#d35400'},
+  'FONT_BACK_#f39c12': { backgroundColor: '#f39c12'},
+  'FONT_BACK_#fdda00': { backgroundColor: '#fdda00'}
 };
 
-// 获取颜色
-export const getColors = (): Object =>
-{
+// 通过一个样式类型获取同类下的所以样式
+export const getStylesByType = (type: ToolNameState) => {
   const colors = Object.keys(stylesMap)
-    .filter(v =>  v.substr(0, 10) === 'FONT_COLOR') as Array<keyof typeof stylesMap>;
+    .filter(v =>  v.includes(type, 0)) as Array<keyof typeof stylesMap>;
   const colorObject = Object.assign({});
   colors.forEach((v ) => {
     colorObject[v] = stylesMap[v];
   })
   return colorObject;
-}
+};
 
-// 获取字号
-export const getFontSize = (): Object =>
-{
-  const colors = Object.keys(stylesMap)
-    .filter(v =>  v.substr(0, 9) === 'FONT_SIZE') as Array<keyof typeof stylesMap>;
-  const colorObject = Object.assign({});
-  colors.forEach((v ) => {
-    colorObject[v] = stylesMap[v];
-  })
+// 工具类名全集
+export const toolNames: Array<ToolNameState> =  [
+  'FONT_SIZE',
+  'FONT_COLOR',
+  'FONT_BACK'
+];
 
-  return colorObject;
-}
