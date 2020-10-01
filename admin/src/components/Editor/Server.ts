@@ -2,6 +2,7 @@
 import {Editor as DraftEditor, EditorState, RichUtils, Modifier} from 'draft-js';
 import {getStylesByType, toolNames}  from './Config';
 import {ToolNameState} from './Type';
+import ex from "umi/dist";
 
 // 设置样式
 export const setStyle = (editorState: any, style: string) =>
@@ -57,7 +58,6 @@ export const setStyle = (editorState: any, style: string) =>
 
 // 根据样式名来获取样式的类型，用于同类型样式剔除
 export const getStyleTypeByName = (type: string): ToolNameState | false => {
-  let isExists: boolean = false;
   let res: ToolNameState | false = false;
   toolNames.every((v) => {
     if (type.includes(v, 0)) {
@@ -69,3 +69,17 @@ export const getStyleTypeByName = (type: string): ToolNameState | false => {
   });
   return res;
 };
+
+// 当前样式中是否存在，某类样式
+export const hasStyleType = (styles: Array<any>, type: ToolNameState): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    styles.forEach((v) => {
+        if (getStyleTypeByName(v) === type) {
+          const style = v.substr(type.length + 1)
+          resolve(style);
+        }
+    });
+    reject();
+  });
+}
+

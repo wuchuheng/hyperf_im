@@ -7,7 +7,8 @@ import {ToolNameState} from "@/components/Editor/Type";
 export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
   backColor: 'rgb(255, 255, 255)',
-  color: '#000000'
+  color: '#000000',
+  fontSize: 12
 }
 
 // 自定义样式

@@ -7,7 +7,8 @@ import {BaseState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
 import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
 import ColorRender from './components/ColorRender';
-import {setStyle} from './Server';
+import {setStyle, hasStyleType} from './Server';
+import BoldRender from './components/BoldRender'
 
 class Editor extends React.Component<any, any>
 {
@@ -18,7 +19,7 @@ class Editor extends React.Component<any, any>
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
-      fontsize: 12,
+      fontsize: toolHeaderConfig.fontSize,
       color: toolHeaderConfig.color,
       backColor: toolHeaderConfig.backColor
     };
@@ -28,8 +29,25 @@ class Editor extends React.Component<any, any>
 
   private onChange(editorState: any)
   {
+    const styles = editorState.getCurrentInlineStyle();
+    // 跟踪字号
+    hasStyleType(styles, 'FONT_SIZE').then((fontsize) => {
+      this.setState({fontsize: parseInt(fontsize) })
+    }).catch((e) => {this.setState({fontsize: toolHeaderConfig.fontSize})});
+    // 跟踪字体颜色
+    hasStyleType(styles, 'FONT_COLOR').then((color) => {
+      this.setState({color})
+    }).catch((e) => {
+      this.setState({ color: toolHeaderConfig.color });
+    });
+    // 跟踪字体背景
+    hasStyleType(styles, 'FONT_BACK').then((backColor) => {
+      this.setState({backColor})
+    }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
+
     this.setState({editorState})
   };
+
 
   handleKeyCommand(command: any, editorState: any) {
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -73,6 +91,8 @@ class Editor extends React.Component<any, any>
     }
   }
 
+
+
   private _onMouseDown(e: any)
   {
     e.preventDefault();
@@ -92,6 +112,7 @@ class Editor extends React.Component<any, any>
             onChangeBackColor={this._toggleFontBack.bind(this)}
             onChangeColor={this._toggleFontColor.bind(this)}
           />
+          <BoldRender />
         </div>
         <DraftEditor
           customStyleMap={stylesMap}

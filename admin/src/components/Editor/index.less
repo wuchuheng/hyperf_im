@@ -2,6 +2,19 @@
 @borderColor: rgb(205 207 217);
 @toolsItemHeight: 2.2rem; // 工具栏高度 给子组件用的
 @toolsBorderRadius: 4px; // 工具栏边角弧度 给子组件用的
+// 工具按键样式块
+.toolButtonWrapper {
+  height:  @toolsItemHeight;
+  border-radius: @toolsBorderRadius;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+}
+
 .editorWrapper {
   min-height: @editorAreaMaxHeight;
   width: 40rem;
