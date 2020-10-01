@@ -72,7 +72,6 @@ class Editor extends React.Component<any, any>
     );
 
     const currentStyle = editorState.getCurrentInlineStyle();
-    console.log(currentStyle)
 
     // Unset style override for current color.
     if (selection.isCollapsed()) {

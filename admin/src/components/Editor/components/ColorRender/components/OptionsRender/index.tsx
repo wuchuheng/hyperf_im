@@ -3,45 +3,60 @@ import { Tabs, Col, Row } from 'antd';
 import styles from './index.less';
 const { TabPane } = Tabs;
 import {PropsState} from './Type';
+import ButtonRender from './components/ButtonRender';
+import TagTitleRender from './components/TagTitleRender';
 
 
 class OptionsRender extends React.Component<PropsState, any>
 {
+  state: any;
   constructor(props: PropsState) {
     super(props);
     console.log(props.color)
+    this.state = {
+      active: '1'
+    }
+    this._onActive = this._onActive.bind(this);
+  }
+
+  private _onActive(key: number)
+  {
+    console.log(key);
+    const newKey = `${key}`;
+    this.setState({
+      active: newKey
+    })
   }
 
   render() {
     return (
       <div className={styles.optionsRender}>
-        <Tabs defaultActiveKey="1" centered>
-          <TabPane tab="文字颜色" key="1">
+        <Tabs
+              activeKey={this.state.active}
+              centered
+        >
+          <TabPane tab={<TagTitleRender title={'文字颜色'} onChange={this._onActive} currentKey={1}/>} key="1">
             <Row>
               {this.props.colors.map((v, i) => {
                 return (<Col span={4} key={i}>
-                  <div className={styles.itemWrapper}
-                       onClick={() => this.props.onChangeColor(v)}
-                  >
-                    <div className={`${styles.itemRender} ${
-                      this.props.color == v ? styles.itemRenderSelect : ''
-                    }`} style={{backgroundColor: v}}></div>
-                  </div>
+                  <ButtonRender
+                    onChange={this.props.onChangeColor}
+                    color={v}
+                    selectColor={this.props.color}
+                    />
                 </Col>);
                 })}
             </Row>
           </TabPane>
-          <TabPane tab="背景颜色" key="2">
+          <TabPane tab={<TagTitleRender title={'背景颜色'} onChange={this._onActive} currentKey={2}/>} key="2">
             <Row>
               {this.props.colors.map((v, i) => {
                 return (<Col span={4} key={i}>
-                  <div className={styles.itemWrapper}
-                       onClick={() => this.props.onChangeBackColor(v)}
-                  >
-                    <div className={`${styles.itemRender} ${
-                      this.props.backColor == v ? styles.itemRenderSelect : ''
-                    }`} style={{backgroundColor: v}}></div>
-                  </div>
+                  <ButtonRender
+                    onChange={this.props.onChangeBackColor}
+                    color={v}
+                    selectColor={this.props.backColor}
+                  />
                 </Col>);
               })}
             </Row>

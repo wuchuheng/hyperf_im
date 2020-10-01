@@ -52,21 +52,40 @@ class ColorRender extends React.Component<PropsState, any>
       this.props.onChangeColor(color);
   }
 
- private _onVisitTitle(isVisit: boolean): void
+  // 选定背景色
+  private _onChangeBackColor(color: string): void
+  {
+    this.setState({
+      isVisitTitle: false,
+      isVisitOption: false
+    });
+    this.props.onChangeBackColor(color);
+  }
+
+  private _onVisitTitle(isVisit: boolean): void
  {
     this.setState({ isVisitTitle: isVisit });
  }
 
  private _onVisitOption(isVisit: boolean): void
  {
-   const div = this.mainDiv.current as HTMLDivElement;
-
-   if (!isVisit && div.style.backgroundColor === 'rgb(242, 242, 242)') {
+   if (!isVisit) {
+     const div = this.mainDiv.current as HTMLDivElement;
      div.style.backgroundColor = 'rgb(255, 255, 255)';
+     this.setState({
+       isVisitTitle: false,
+       isVisitOption: false
+     });
    }
+ }
+
+ // 点击
+ private _onMouseDown(e: any)
+ {
+   e.preventDefault();
    this.setState({
      isVisitTitle: false,
-     isVisitOption: isVisit
+     isVisitOption: true
    });
  }
 
@@ -79,36 +98,37 @@ class ColorRender extends React.Component<PropsState, any>
             backColor={this.props.backColor}
             color={this.props.color}
             onChangeColor={(color) => this._onChangeColor(color) }
-            onChangeBackColor={this.props.onChangeBackColor.bind(this)}
+            onChangeBackColor={this._onChangeBackColor.bind(this)}
           />
         }
         placement={'bottomRight'}
-        trigger='click'
+        trigger='hover'
         visible={this.state.isVisitOption}
         onVisibleChange={this._onVisitOption.bind(this)}
       >
-      <Popover
-        content={'颜色'}
-        placement="bottom"
-        visible={this.state.isVisitTitle}
-        onVisibleChange={this._onVisitTitle.bind(this)}
-      >
-        <div
-          className={styles.colorRenderWrapper}
-          ref={this.mainDiv}
-          onMouseEnter={() => this._onMouseEnder()}
-          onMouseLeave={() => this._onMouseLeave()}
-          style={{backgroundColor: this.props.backColor}}
+        <Popover
+          content={'颜色'}
+          placement="bottom"
+          visible={this.state.isVisitTitle}
+          onVisibleChange={this._onVisitTitle.bind(this)}
         >
           <div
-            className={styles.centerWrapper}
-            style={{color: this.props.color}}
+            className={styles.colorRenderWrapper}
+            ref={this.mainDiv}
+            onMouseEnter={() => this._onMouseEnder()}
+            onMouseLeave={() => this._onMouseLeave()}
+            style={{backgroundColor: this.props.backColor}}
+            onMouseDown={this._onMouseDown.bind(this)}
           >
-            <div className={styles.textRender}>A</div>
-            <div className={styles.underlineRender} style={{backgroundColor: this.props.color}} ></div>
+            <div
+              className={styles.centerWrapper}
+              style={{color: this.props.color}}
+            >
+              <div className={styles.textRender}>A</div>
+              <div className={styles.underlineRender} style={{backgroundColor: this.props.color}} ></div>
+            </div>
           </div>
-        </div>
-      </Popover>
+        </Popover>
       </Popover>
     );
   }
