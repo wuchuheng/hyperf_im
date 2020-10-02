@@ -5,7 +5,7 @@ import 'draft-js/dist/Draft.css';
 import styles from './index.less';
 import {BaseState, BlockToolNameState, ToolNameState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
-import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
+import {stylesMap, toolHeaderConfig, mapBlockStyles} from './Config';
 import ColorRender from './components/ColorRender';
 import {setStyle, hasStyleType} from './Server';
 import BoldRender from './components/BoldRender'
@@ -13,7 +13,6 @@ import ItalicRender from './components/ItalicRender';
 import UnderLineRender from './components/UnderlinedRender'
 import ClearRender from './components/ClearRender';
 import {UnderlIneIcon, UnorderListIcon} from "@/components/Icons";
-import UnorderedListRender from "@/components/Editor/components/UnorderedListRender";
 import ButtonWrapper from "@/components/Editor/components/ButtonWrapper";
 
 class Editor extends React.Component<any, any>
@@ -159,7 +158,7 @@ class Editor extends React.Component<any, any>
   {
     this.onChange(EditorState.createEmpty(null))
   }
-
+  // 块级样式
   private _toggleBlockStyle(style: BlockToolNameState): void
   {
     this.onChange(
@@ -197,9 +196,18 @@ class Editor extends React.Component<any, any>
             underline={this.state.underline}
           />
           <ClearRender onChange={this._toggleClear} />
-          <ButtonWrapper label={'无序列表'} isActive={this.state.blockStyles.indexOf('unordered-list-item') !== -1} style={'unordered-list-item'} onToggle={this._toggleBlockStyle}>
-            <UnorderListIcon />
-          </ButtonWrapper>
+          {mapBlockStyles.map((v, i) => {
+            return (
+              <ButtonWrapper
+                key={i}
+                label={v.label}
+                isActive={this.state.blockStyles.indexOf(v.style) !== -1}
+                style={v.style}
+                onToggle={this._toggleBlockStyle}>
+                <v.icon/>
+              </ButtonWrapper>
+            );
+          })}
         </div>
         <DraftEditor
           customStyleMap={stylesMap}

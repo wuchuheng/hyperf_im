@@ -1,8 +1,8 @@
 // 这里保存一些给子组件用的配置。由于在当前组件用不到，子组件又共同需要，所以放在这里
 
 // 工具栏目配置
-import ex from "umi/dist";
-import {ToolNameState} from "@/components/Editor/Type";
+import {ToolNameState, MapBlockStylesState} from "@/components/Editor/Type";
+import {UnorderListIcon, OrderListIcon} from "@/components/Icons";
 
 export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
@@ -15,7 +15,6 @@ export const toolHeaderConfig = {
 }
 
 // 自定义样式
-
 export const stylesMap = {
   // 字体大小
   'FONT_SIZE_12': { fontSize: '12px' },
@@ -104,4 +103,9 @@ export const toolNames: Record<number, ToolNameState> =
   'ITALIC',
   'UNDERLINE'
 ]
+
+export const mapBlockStyles: MapBlockStylesState = [
+  {label: '无序列表', style: 'unordered-list-item', icon: UnorderListIcon},
+  {label: '有序列表', style: 'ordered-list-item', icon: OrderListIcon},
+];
 

@@ -1,3 +1,5 @@
+import {ReactNode} from "react";
+
 export interface BaseState  {
   fontsize: number; // 字体大小
   editorState: any;
@@ -24,4 +26,11 @@ export type InlineToolNameState ='FONT_SIZE'
 export type ToolNameState =
   InlineToolNameState
   | BlockToolNameState;
+
+// 块级样式列表
+export type MapBlockStylesState = Array<{
+  label: string;
+  style: BlockToolNameState;
+  icon: ReactNode
+}>;
 
