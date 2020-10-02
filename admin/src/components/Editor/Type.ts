@@ -6,13 +6,22 @@ export interface BaseState  {
   fontBold: string;
   italic: string;
   underline: string;
+  blockStyles: Array<BlockToolNameState>;
 }
 
+// 块级工具样式名
+export type BlockToolNameState = 'unordered-list-item'| 'ordered-list-item'
+
+// 行级工具样式名
+export type InlineToolNameState ='FONT_SIZE'
+  | 'FONT_COLOR'
+  | 'FONT_BACK'
+  | 'FONT_BOLD'
+  | 'ITALIC'
+  | 'UNDERLINE';
+
 // 工具名
-export type ToolNameState = 'FONT_SIZE'
-| 'FONT_COLOR'
-| 'FONT_BACK'
-| 'FONT_BOLD'
-| 'ITALIC'
-| 'UNDERLINE';
+export type ToolNameState =
+  InlineToolNameState
+  | BlockToolNameState;
 

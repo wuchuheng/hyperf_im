@@ -3,7 +3,7 @@ import React from "react";
 import {Editor as DraftEditor, EditorState, RichUtils, Modifier} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import styles from './index.less';
-import {BaseState, ToolNameState} from "@/components/Editor/Type";
+import {BaseState, BlockToolNameState, ToolNameState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
 import {stylesMap, toolHeaderConfig, getStylesByType} from './Config';
 import ColorRender from './components/ColorRender';
@@ -12,7 +12,9 @@ import BoldRender from './components/BoldRender'
 import ItalicRender from './components/ItalicRender';
 import UnderLineRender from './components/UnderlinedRender'
 import ClearRender from './components/ClearRender';
-import {ClearIneIcon} from "@/components/Icons";
+import {UnderlIneIcon, UnorderListIcon} from "@/components/Icons";
+import UnorderedListRender from "@/components/Editor/components/UnorderedListRender";
+import ButtonWrapper from "@/components/Editor/components/ButtonWrapper";
 
 class Editor extends React.Component<any, any>
 {
@@ -28,13 +30,15 @@ class Editor extends React.Component<any, any>
       backColor: toolHeaderConfig.backColor,
       fontBold: toolHeaderConfig.fontBold,
       italic: toolHeaderConfig.italic,
-      underline: toolHeaderConfig.underline
+      underline: toolHeaderConfig.underline,
+      blockStyles: []
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
     this._toggleItalic = this._toggleItalic.bind(this);
     this._toggleUnderline = this._toggleUnderline.bind(this);
     this._toggleClear = this._toggleClear.bind(this);
+    this._toggleBlockStyle = this._toggleBlockStyle.bind(this);
   }
 
   private onChange(editorState: any)
@@ -61,7 +65,20 @@ class Editor extends React.Component<any, any>
     styles.has('ITALIC') ? this.setState({ italic: 'ITALIC'}) : this.setState({italic: ''});
     // 跟踪下划线状态
     styles.has('UNDERLINE') ? this.setState({underline: 'UNDERLINE'}) : this.setState({underline: ''});
-    this.setState({editorState})
+
+    // 更新块级样式
+
+    const selection = editorState.getSelection();
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+    this.state.blockStyles
+    this.setState({
+      blockStyles: [blockType]
+    })
+
+    this.setState({ editorState})
   };
 
 
@@ -143,6 +160,16 @@ class Editor extends React.Component<any, any>
     this.onChange(EditorState.createEmpty(null))
   }
 
+  private _toggleBlockStyle(style: BlockToolNameState): void
+  {
+    this.onChange(
+      RichUtils.toggleBlockType(
+        this.state.editorState,
+        style
+      )
+    );
+  }
+
   render() {
     return (
       <div
@@ -170,6 +197,9 @@ class Editor extends React.Component<any, any>
             underline={this.state.underline}
           />
           <ClearRender onChange={this._toggleClear} />
+          <ButtonWrapper label={'无序列表'} isActive={this.state.blockStyles.indexOf('unordered-list-item') !== -1} style={'unordered-list-item'} onToggle={this._toggleBlockStyle}>
+            <UnorderListIcon />
+          </ButtonWrapper>
         </div>
         <DraftEditor
           customStyleMap={stylesMap}
