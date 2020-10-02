@@ -2,7 +2,7 @@ import React from "react";
 import {PropsState} from './Type';
 import styles from './index.less';
 import {toolHeaderConfig} from '../../Config';
-import {Tooltip, Popover} from 'antd';
+import {Popover} from 'antd';
 import {CaretDownOutlined} from '@ant-design/icons';
 import OptionsRender from './components/OptionsRender';
 import {BaseState} from "./Type";
@@ -18,7 +18,8 @@ class FontsizeRender extends React.Component<PropsState, any>
     this.fontsizeButton = React.createRef();
     this.state = {
       contentVisitAble: false,
-      titleVisitAble: false
+      titleVisitAble: false,
+      fontSize: undefined
     };
   }
 
@@ -73,6 +74,26 @@ class FontsizeRender extends React.Component<PropsState, any>
   }
 
   render() {
+    const fontSize =
+      (
+        (): number | undefined => {
+          if (this.props.inlineStyles.length) {
+            let fontSize = undefined;
+            this.props.inlineStyles.every((v) => {
+              const prefix = 'FONT_SIZE_';
+              if (v.includes(prefix, 0)) {
+                fontSize = v.substr(prefix.length);
+                return false;
+              } else {
+                return true;
+              }
+            });
+            return fontSize;
+          } else  {
+            return undefined;
+          }
+        }
+      )();
     return (
       <Popover
         content={'字号'}
@@ -82,7 +103,7 @@ class FontsizeRender extends React.Component<PropsState, any>
       >
           <Popover
             placement="bottomLeft"
-            content={<OptionsRender hasSelectFontsize={this.props.fontsize} onChange={v => this._onChange(v)}/>}
+            content={<OptionsRender hasSelectFontsize={fontSize} onChange={v => this._onChange(v)}/>}
             trigger="hover"
             visible={this.state.contentVisitAble}
             onVisibleChange={this._onVisitAbleContent.bind(this)}
@@ -94,7 +115,7 @@ class FontsizeRender extends React.Component<PropsState, any>
             onMouseEnter = {(e) => this._onMouseEnter()}
             onMouseLeave = {(e) => this._onMouseLeave() }
           >
-            {this.props.fontsize !== 12 ? this.props.fontsize : '字号'}
+            { fontSize !== undefined ? fontSize : '字号'}
             <CaretDownOutlined className={styles.iconRender} />
           </div>
         </Popover>

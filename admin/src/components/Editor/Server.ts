@@ -1,14 +1,13 @@
 // @ts-ignore
 import {Editor as DraftEditor, EditorState, RichUtils, Modifier} from 'draft-js';
-import {getStylesByType, toolNames}  from './Config';
-import {ToolNameState} from './Type';
-import ex from "umi/dist";
+import {getStylesByType, inlineStyles}  from './Config';
+import {InlineStyleState} from './Type';
 
 // 设置样式
 export const setStyle = (editorState: any, style: string) =>
 {
-  let type: ToolNameState;
-  const toolName = Object.values(toolNames);
+  let type: any;
+  const toolName = <InlineStyleState[]>Object.keys(inlineStyles);
   toolName.every((v) => {
     if (style.includes(v, 0)) {
       type = v;
@@ -18,7 +17,6 @@ export const setStyle = (editorState: any, style: string) =>
     }
   });
 
-  // @ts-ignore
   if (!type)  return ;
   // 获取样式对象
   const styles = getStylesByType(type);
@@ -58,9 +56,9 @@ export const setStyle = (editorState: any, style: string) =>
 }
 
 // 根据样式名来获取样式的类型，用于同类型样式剔除
-export const getStyleTypeByName = (type: string): ToolNameState | false => {
-  let res: ToolNameState | false = false;
-  const toolName = Object.values(toolNames);
+export const getStyleTypeByName = (type: string): InlineStyleState| false => {
+  let res: InlineStyleState | false = false;
+  const toolName = <InlineStyleState[]>Object.keys(inlineStyles);
   toolName.every((v) => {
     if (type.includes(v, 0)) {
       res = v;
@@ -73,7 +71,7 @@ export const getStyleTypeByName = (type: string): ToolNameState | false => {
 };
 
 // 当前样式中是否存在，某类样式
-export const hasStyleType = (styles: Array<any>, type: ToolNameState): Promise<string> => {
+export const hasStyleType = (styles: Array<any>, type: InlineStyleState): Promise<string> => {
   return new Promise((resolve, reject) => {
     styles.forEach((v) => {
         if (getStyleTypeByName(v) === type) {

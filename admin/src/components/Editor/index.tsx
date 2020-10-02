@@ -3,16 +3,16 @@ import React from "react";
 import {Editor as DraftEditor, EditorState, RichUtils, Modifier} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import styles from './index.less';
-import {BaseState, BlockToolNameState, ToolNameState} from "@/components/Editor/Type";
+import {BaseState, BlockStyleState, InlineStyleState, ToolNameState} from "@/components/Editor/Type";
 import FontsizeRender from "@/components/Editor/components/FontsizeRender/indcex";
-import {stylesMap, toolHeaderConfig, mapBlockStyles} from './Config';
+import {
+  inlineStyles,
+  blockStylesMap,
+  inlineStylesMap
+} from './Config';
 import ColorRender from './components/ColorRender';
 import {setStyle, hasStyleType} from './Server';
-import BoldRender from './components/BoldRender'
-import ItalicRender from './components/ItalicRender';
-import UnderLineRender from './components/UnderlinedRender'
 import ClearRender from './components/ClearRender';
-import {UnderlIneIcon, UnorderListIcon} from "@/components/Icons";
 import ButtonWrapper from "@/components/Editor/components/ButtonWrapper";
 
 class Editor extends React.Component<any, any>
@@ -24,46 +24,39 @@ class Editor extends React.Component<any, any>
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
-      fontsize: toolHeaderConfig.fontSize,
-      color: toolHeaderConfig.color,
-      backColor: toolHeaderConfig.backColor,
-      fontBold: toolHeaderConfig.fontBold,
-      italic: toolHeaderConfig.italic,
-      underline: toolHeaderConfig.underline,
-      blockStyles: []
+      blockStyles: [],
+      inlineStyles: []
     };
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
     this.onChange = this.onChange.bind(this);
-    this._toggleItalic = this._toggleItalic.bind(this);
-    this._toggleUnderline = this._toggleUnderline.bind(this);
     this._toggleClear = this._toggleClear.bind(this);
     this._toggleBlockStyle = this._toggleBlockStyle.bind(this);
+    this._toggleInlineStyle = this._toggleInlineStyle.bind(this);
   }
 
   private onChange(editorState: any)
   {
-    // :xxx 这一块大量遍历造成卡顿，可以只遍历一次的
     const styles = editorState.getCurrentInlineStyle();
-    // 跟踪字号状态
-    hasStyleType(styles, 'FONT_SIZE').then((fontsize) => {
-      this.setState({fontsize: parseInt(fontsize) })
-    }).catch((e) => {this.setState({fontsize: toolHeaderConfig.fontSize})});
-    // 跟踪字体颜色状态
-    hasStyleType(styles, 'FONT_COLOR').then((color) => {
-      this.setState({color})
-    }).catch((e) => {
-      this.setState({ color: toolHeaderConfig.color });
-    });
+    if (styles.count()) {
+      const inlineStyles:Array<InlineStyleState> = [];
+      styles.map((v: InlineStyleState) => {
+        inlineStyles.push(v);
+      });
+      this.setState({inlineStyles});
+    } else {
+      this.setState({inlineStyles: []});
+    }
+    // // 跟踪字体颜色状态
+    // hasStyleType(styles, 'FONT_COLOR').then((color) => {
+    //   this.setState({color})
+    // }).catch((e) => {
+    //   this.setState({ color: toolHeaderConfig.color });
+    // });
+
     // 跟踪字体背景状态
-    hasStyleType(styles, 'FONT_BACK').then((backColor) => {
-      this.setState({backColor})
-    }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
-    //跟踪加粗状态
-    styles.has('FONT_BOLD') ? this.setState({fontBold: 'FONT_BOLD'}) : this.setState({fontBold: ''});
-    //跟踪斜体状态
-    styles.has('ITALIC') ? this.setState({ italic: 'ITALIC'}) : this.setState({italic: ''});
-    // 跟踪下划线状态
-    styles.has('UNDERLINE') ? this.setState({underline: 'UNDERLINE'}) : this.setState({underline: ''});
+    // hasStyleType(styles, 'FONT_BACK').then((backColor) => {
+    //   this.setState({backColor})
+    // }).catch((e) => {this.setState({ backColor: toolHeaderConfig.backColor })});
 
     // 更新块级样式
 
@@ -76,10 +69,8 @@ class Editor extends React.Component<any, any>
     this.setState({
       blockStyles: [blockType]
     })
-
     this.setState({ editorState})
   };
-
 
   handleKeyCommand(command: any, editorState: any)
  {
@@ -97,7 +88,6 @@ class Editor extends React.Component<any, any>
     const style = 'FONT_SIZE_' + fontsize;
     const nextEditorState = setStyle(this.state.editorState, style);
     if (nextEditorState) {
-      this.setState({'fontsize': fontsize});
       this.onChange(nextEditorState);
     }
   }
@@ -124,42 +114,24 @@ class Editor extends React.Component<any, any>
     }
   }
 
-  // 加粗
-  private _toggleBold(): void
-  {
-    const fontBold: ToolNameState = 'FONT_BOLD';
-    const nextEditorState = setStyle(this.state.editorState, fontBold);
-    if (nextEditorState) {
-      this.onChange(nextEditorState);
-    }
-  }
-
-  // 斜体
- private _toggleItalic(): void
- {
-   const fontBold: ToolNameState = 'ITALIC';
-   const nextEditorState = setStyle(this.state.editorState, fontBold);
-   if (nextEditorState) {
-     this.onChange(nextEditorState);
-   }
- }
-
- // 下划线
-  private _toggleUnderline(): void
-  {
-    const nextEditorState = setStyle(this.state.editorState, 'UNDERLINE');
-    if (nextEditorState) {
-      this.onChange(nextEditorState);
-    }
-  }
-
   // 清除
   private _toggleClear(): void
   {
     this.onChange(EditorState.createEmpty(null))
   }
+
+  // 行内样式
+  private _toggleInlineStyle(style: InlineStyleState): void
+  {
+    const nextEditorState = setStyle(this.state.editorState, style);
+    if (nextEditorState) {
+      // this.setState({ backColor });
+      this.onChange(nextEditorState);
+    }
+  }
+
   // 块级样式
-  private _toggleBlockStyle(style: BlockToolNameState): void
+  private _toggleBlockStyle(style: BlockStyleState): void
   {
     this.onChange(
       RichUtils.toggleBlockType(
@@ -175,28 +147,28 @@ class Editor extends React.Component<any, any>
         className={styles.editorWrapper}
       >
         <div className={styles.toolsWrapper}>
-          <FontsizeRender fontsize={this.state.fontsize}  onChange={this._toggleFontsize.bind(this)} />
-          <ColorRender
-            stylesMap={stylesMap}
-            backColor={this.state.backColor}
-            color={this.state.color}
-            onChangeBackColor={this._toggleFontBack.bind(this)}
-            onChangeColor={this._toggleFontColor.bind(this)}
-          />
-          <BoldRender
-            fontBold={this.state.fontBold}
-            onChange={() => this._toggleBold()}
-          />
-          <ItalicRender
-            onChange={this._toggleItalic}
-            italic={this.state.italic}
-          />
-          <UnderLineRender
-            onChange={this._toggleUnderline}
-            underline={this.state.underline}
-          />
+          <FontsizeRender inlineStyles={this.state.inlineStyles}  onChange={this._toggleFontsize.bind(this)} />
+          {/*<ColorRender*/}
+          {/*  stylesMap={inlineStyles}*/}
+          {/*  backColor={this.state.backColor}*/}
+          {/*  color={this.state.color}*/}
+          {/*  onChangeBackColor={this._toggleFontBack.bind(this)}*/}
+          {/*  onChangeColor={this._toggleFontColor.bind(this)}*/}
+          {/*/>*/}
+          {inlineStylesMap.map((v, i) => {
+            return (
+              <ButtonWrapper
+                key={i}
+                label={v.label}
+                isActive={this.state.inlineStyles.indexOf(v.style) !== -1}
+                style={v.style}
+                onToggle={this._toggleInlineStyle}>
+                <v.icon/>
+              </ButtonWrapper>
+            );
+          })}
           <ClearRender onChange={this._toggleClear} />
-          {mapBlockStyles.map((v, i) => {
+          {blockStylesMap.map((v, i) => {
             return (
               <ButtonWrapper
                 key={i}
@@ -210,7 +182,7 @@ class Editor extends React.Component<any, any>
           })}
         </div>
         <DraftEditor
-          customStyleMap={stylesMap}
+          customStyleMap={inlineStyles}
           editorState={this.state.editorState}
           handleKeyCommand={this.handleKeyCommand}
           onChange={this.onChange}

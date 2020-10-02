@@ -1,22 +1,26 @@
 // 这里保存一些给子组件用的配置。由于在当前组件用不到，子组件又共同需要，所以放在这里
 
 // 工具栏目配置
-import {ToolNameState, MapBlockStylesState} from "@/components/Editor/Type";
-import {UnorderListIcon, OrderListIcon} from "@/components/Icons";
+import {
+  BlockStylesMapState,
+  InlineStylesMapState,
+  FontSizeState,
+  FontBackgroundColorState,
+  FontColorState,
+  InlineStyleState,
+} from "@/components/Editor/Type";
+import {
+  UnorderListIcon,
+  OrderListIcon,
+  BoldIcon,
+  ItalicIcon,
+} from "@/components/Icons";
 
 export const toolHeaderConfig = {
   focusBackgoundColor: '#f2f2f2',
-  backColor: 'rgb(255, 255, 255)',
-  color: '#000000',
-  fontSize: 12,
-  fontBold: '', // 加粗
-  italic: '', // 斜体
-  underline: '', // 下划线
 }
-
-// 自定义样式
-export const stylesMap = {
-  // 字体大小
+// 字号样式的实现
+export const FontSizeStylesInstance: Record<FontSizeState, {fontSize: string}> = {
   'FONT_SIZE_12': { fontSize: '12px' },
   'FONT_SIZE_14': { fontSize: '14px' },
   'FONT_SIZE_16': { fontSize: '16px' },
@@ -35,27 +39,9 @@ export const stylesMap = {
   'FONT_SIZE_96': { fontSize: '96px' },
   'FONT_SIZE_120': { fontSize: '120px' },
   'FONT_SIZE_144': { fontSize: '144px' },
-
-  //  字体颜色
-  'FONT_COLOR_#000000': { color: '#000000'},
-  'FONT_COLOR_#333333': { color: '#333333'},
-  'FONT_COLOR_#666': { color: '#666'},
-  'FONT_COLOR_#999': { color: '#999'},
-  'FONT_COLOR_#ccc': { color: '#ccc'},
-  'FONT_COLOR_#ffffff': { color: '#ffffff'},
-  'FONT_COLOR_#a0c5e8': { color: '#a0c5e8'},
-  'FONT_COLOR_#61a951': { color: '#61a951'},
-  'FONT_COLOR_#16a085': { color: '#16a085'},
-  'FONT_COLOR_#07a9fe': { color: '#07a9fe'},
-  'FONT_COLOR_#003ba5': { color: '#003ba5'},
-  'FONT_COLOR_#8e44ad': { color: '#8e44ad'},
-  'FONT_COLOR_#f32784': { color: '#f32784'},
-  'FONT_COLOR_#c0392b': { color: '#c0392b'},
-  'FONT_COLOR_#d35400': { color: '#d35400'},
-  'FONT_COLOR_#f39c12': { color: '#f39c12'},
-  'FONT_COLOR_#fdda00': { color: '#fdda00'},
-
-  //  字体背景
+};
+// 字体背景样式的实现
+export const FontBackgroundColorStylesInstance: Record<FontBackgroundColorState, { backgroundColor: string}> = {
   'FONT_BACK_#000000': { backgroundColor: '#000000'},
   'FONT_BACK_#333333': { backgroundColor: '#333333'},
   'FONT_BACK_#666': { backgroundColor: '#666'},
@@ -73,9 +59,38 @@ export const stylesMap = {
   'FONT_BACK_#d35400': { backgroundColor: '#d35400'},
   'FONT_BACK_#f39c12': { backgroundColor: '#f39c12'},
   'FONT_BACK_#fdda00': { backgroundColor: '#fdda00'},
+};
+// 字体颜色样式的实现
+export const FontColorStylesInstance: Record<FontColorState, { color: string}> = {
+  'FONT_COLOR_#000000': {color: '#000000'},
+  'FONT_COLOR_#333333': {color: '#333333'},
+  'FONT_COLOR_#666': {color: '#666'},
+  'FONT_COLOR_#999': {color: '#999'},
+  'FONT_COLOR_#ccc': {color: '#ccc'},
+  'FONT_COLOR_#ffffff': {color: '#ffffff'},
+  'FONT_COLOR_#a0c5e8': {color: '#a0c5e8'},
+  'FONT_COLOR_#61a951': {color: '#61a951'},
+  'FONT_COLOR_#16a085': {color: '#16a085'},
+  'FONT_COLOR_#07a9fe': {color: '#07a9fe'},
+  'FONT_COLOR_#003ba5': {color: '#003ba5'},
+  'FONT_COLOR_#8e44ad': {color: '#8e44ad'},
+  'FONT_COLOR_#f32784': {color: '#f32784'},
+  'FONT_COLOR_#c0392b': {color: '#c0392b'},
+  'FONT_COLOR_#d35400': {color: '#d35400'},
+  'FONT_COLOR_#f39c12': {color: '#f39c12'},
+  'FONT_COLOR_#fdda00': {color: '#fdda00'},
+};
 
+// 全部行内样式实例
+export const inlineStyles: Record<InlineStyleState, Object> = {
+  // 字体大小
+  ...FontSizeStylesInstance,
+  // //  字体背景
+  ...FontBackgroundColorStylesInstance,
+  // //  字体颜色
+  ...FontColorStylesInstance,
   // 加粗
-  'FONT_BOLD': { fontWeight: '600'},
+  'BOLD': { fontWeight: '600'},
   // 斜体
   'ITALIC': {fontStyle: 'italic'},
   // 下划线
@@ -83,29 +98,28 @@ export const stylesMap = {
 };
 
 // 通过一个样式类型获取同类下的所以样式
-export const getStylesByType = (type: ToolNameState) => {
-  const colors = Object.keys(stylesMap)
-    .filter(v =>  v.includes(type, 0)) as Array<keyof typeof stylesMap>;
+export const getStylesByType = (type: InlineStyleState) => {
+  const colors = Object.keys(inlineStyles)
+    .filter(v =>  v.includes(type, 0)) as Array<keyof typeof inlineStyles>;
   const colorObject = Object.assign({});
   colors.forEach((v ) => {
-    colorObject[v] = stylesMap[v];
+    colorObject[v] = inlineStyles[v];
   })
   return colorObject;
 };
 
-// 工具类名全集
-export const toolNames: Record<number, ToolNameState> =
-[
-  'FONT_SIZE',
-  'FONT_COLOR',
-  'FONT_BACK',
-  'FONT_BOLD',
-  'ITALIC',
-  'UNDERLINE'
-]
-
-export const mapBlockStyles: MapBlockStylesState = [
+// 块级样式列表
+export const blockStylesMap: BlockStylesMapState = [
   {label: '无序列表', style: 'unordered-list-item', icon: UnorderListIcon},
   {label: '有序列表', style: 'ordered-list-item', icon: OrderListIcon},
 ];
+
+// 行内样式列表
+export const inlineStylesMap: InlineStylesMapState = [
+  {label: '加粗', style: 'BOLD', icon: BoldIcon},
+  {label: '斜体', style: 'ITALIC', icon: ItalicIcon},
+  {label: '下划线', style: 'UNDERLINE', icon: ItalicIcon},
+];
+
+
 

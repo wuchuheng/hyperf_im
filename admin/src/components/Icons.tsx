@@ -838,3 +838,15 @@ export const UnorderListIcon = (props: IconProps) => {
   );
   return svg;
 };
+
+// 加粗
+export const BoldIcon = (props: IconProps) => {
+  const svg = (
+    <InitIcon {...props}>
+        <path
+          d="M597.32864 554.666667H255.995307V426.666667h341.333333v-1.536a149.333333 149.333333 0 0 0 0-295.594667V128H255.995307v768h341.333333a170.666667 170.666667 0 1 0 0-341.333333z m42.666667 469.333333H85.32864V0h512v0.853333a277.333333 277.333333 0 0 1 211.626667 478.208A298.666667 298.666667 0 0 1 639.995307 1024z"
+          p-id="3115"></path>
+    </InitIcon>
+  );
+  return svg;
+};
